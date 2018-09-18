@@ -1,15 +1,39 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Formulario de registro</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <link rel="stylesheet" href="Formulario.css">
-    </head>
-    <body>
-        <header class="container">
-            <img class="fixed_top" src="/Users/isamuriel/Documents/Imagenes entregas integragor/Logos/SinFondiniSpaguettini/Alfredini.png"> 
-            <div class="container">
-                    <textarea name="nombre" placeholder="Nombre" rows="1" cols="30"></textarea>
+<head>
+    <title>Formulario de registro</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="Formulario.css">
+</head>
+<body>
+    <h2>Registro</h2>
+    <form class="container" style="width: 200px;">
+        Nombre *<br>
+        <input type="text" name="nombre" placeholder="Nombre">
+        <br>
+        Código:<br>
+        <input type="tel" name="codigo" placeholder="Código universitario">
+        <br>  
+        Documento de identidad *<br>
+        <input type="tel" name="numeroId" placeholder="Documento de identidad">
+        <br>  
+        Ocupación *<br>
+        <input type="text" name="ocupacion" placeholder="Ocupación">
+        <br>
+        <div class="row">
+            <div>
+                Edad * <br>
+                <input class="edad" type="number" name="edad" placeholder="Edad">
             </div>
-        </header>
-    </body>
+            <div class="sexo">
+                Sexo * <br>  
+                <div class="row">  
+                    <input type="radio" name="sexo" value="hombre" checked> Hombre
+                    <input type="radio" name="sexo" value="mujer"> Mujer
+                    <input type="radio" name="sexo" value="otro"> Otro
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
 </html>
