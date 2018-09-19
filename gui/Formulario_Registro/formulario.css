@@ -10,7 +10,83 @@ header{
 
 #perfil{
     background-color: #b4afb4;
-    width: 320px;
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 900px;
+    overflow: hidden;
+    min-height: 0px !important; 
+    
+}
+
+#logo{
+    margin-top: -70px;
+}
+
+#fotoPerfil{
+    margin-top: 60%;
+}
+
+.misEventos-btn a{
+    line-height: 60px;
+    padding: 10px 32%;
+    border-radius: 2px;
+    color: #030507;
+    text-decoration: none;
+    background-color: #8c8aa1;
+}
+
+.misEventos-btn a:hover{
+    background-color: rgb(5, 5, 92);
+    color: white;
+}
+
+.estadisticas-btn a{
+    line-height: 60px;
+    padding: 10px 32%;
+    border-radius: 2px;
+    color: #030507;
+    text-decoration: none;
+    background-color: #8c8aa1;
+}
+
+.estadisticas-btn a:hover{
+    background-color: rgb(5, 5, 92);
+    color: white;
+}
+
+.usuarios-btn a{
+    line-height: 60px;
+    padding: 10px 35%;
+    border-radius: 2px;
+    color: #030507;
+    text-decoration: none;
+    background-color: #8c8aa1;
+}
+
+.usuarios-btn a:hover{
+    background-color: rgb(5, 5, 92);
+    color: white;
+}
+
+#botonesPerfil{
+    display: flex;
+}
+
+.cerrarSesion-btn{
+    margin-top: 65%;
+    margin-left: 40%;
+    display: flex;
+    align-items: right;
+    justify-content: left;
+}
+
+.atras-btn{
+    margin-top: 65%;
+    margin-left: 10%;
+    display: flex;
+    align-items: right;
+    justify-content: left;
 }
 
 /*Configuración formulario*/
@@ -19,7 +95,7 @@ header{
     align-content: center;*/
     background-color: rgb(5, 5, 92);
     color: #ffffff;
-    width: 450px;
+    width: 75%;
 }
 
 h2{
@@ -32,9 +108,8 @@ form.container{
 }
 
 input{
-    width: 250px;
     margin-left: 0;
-    margin-bottom: 15px;
+    margin-bottom: 0px;
     color: black;
 }
 
