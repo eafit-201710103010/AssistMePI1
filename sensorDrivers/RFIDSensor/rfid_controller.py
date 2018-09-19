@@ -28,7 +28,9 @@ try:
 
   # Get the serial ID associated to a magnetic card and the text info that it may contain.
   # in our case, we don't really care about the text, but we have to put it there for api compatibility reasons.
-  id, text = reader.read()
+  id = reader.read_id()
+  print(id)
+  
 
 finally:
 

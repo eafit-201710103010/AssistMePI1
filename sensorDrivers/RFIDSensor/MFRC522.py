@@ -320,9 +320,11 @@ class MFRC522:
 
     # Check if an error occurred
     if not(status == self.MI_OK):
-      print("AUTH ERROR!!")
+     # print("AUTH ERROR!!")
+      val = 0
     if not (self.Read_MFRC522(self.Status2Reg) & 0x08) != 0:
-      print("AUTH ERROR(status2reg & 0x08) != 0")
+     # print("AUTH ERROR(status2reg & 0x08) != 0")
+      val = 0
 
     # Return the status
     return status
