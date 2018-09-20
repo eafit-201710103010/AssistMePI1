@@ -1,3 +1,8 @@
+"""Srcipt used to add someone to the "Database".
+
+It adds the serial ID, name, code, ID, age and gender of every person to the "Database".
+"""
+
 import sys
 
 serial_id = sys.argv[1]

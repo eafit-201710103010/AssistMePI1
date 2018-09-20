@@ -16,8 +16,6 @@ It reads the the serial number associated to a magnetic card using a library spe
 The library and the instruction on how to use it where taken from 'https://pimylifeup.com/raspberry-pi-rfid-rc522/'. Reffer to that page for more info.
 """
 
-#TODO: Arrange it so it can be connected to the electron app.
-
 import RPi.GPIO as GPIO
 import SimpleMFRC522
 
@@ -25,14 +23,11 @@ import SimpleMFRC522
 reader = SimpleMFRC522.SimpleMFRC522()
 
 try:
-
   # Get the serial ID associated to a magnetic card and the text info that it may contain.
-  # in our case, we don't really care about the text, but we have to put it there for api compatibility reasons.
   id = reader.read_id()
   print(id)
   
 
 finally:
-
   # Always make sure to reset all the ports that were used.
   GPIO.cleanup()
