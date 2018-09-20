@@ -80,3 +80,31 @@ function rfid_scan(){
   }
 
 }
+
+/** Function used to look people up in the "Database" using the data enetered manually */
+function rfid_manual(){
+
+  // import python-shell and path modules
+  const python = require("python-shell");
+  const path = require("path");
+
+   // get number entered in the interface
+  var id_ingresado = document.getElementById("id_ingresado").value;
+
+  // create option object with info for the python script
+  // in this case, it specifies where the script is and the arguments that it uses
+  const options2 = {
+    scriptPath : patn.join(_dirname,'/'),
+    args: [id_ingresado]
+  } 
+  
+  // call the python script used look for a person in the "Database"
+  var auxiliar = new python("searchFileManual.py",options2);
+
+  // if the person is indeed in the "Database", return true, else return not
+  if(auxiliar==="true"){
+    return true;
+  }else{
+    return false;
+  }
+}
