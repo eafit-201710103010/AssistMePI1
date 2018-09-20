@@ -25,7 +25,7 @@ function rfid_register() {
   var sexom = document.getElementById("sexoM").value;
 
   const options2 = {
-    scriptPath : patn.join(_dirname,'/'),
+    scriptPath : path.join(_dirname,'/'),
     args: [serialID,nombre,codigo,docIdentidad,edad,sexoh,sexom]
   } 
   
