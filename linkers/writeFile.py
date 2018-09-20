@@ -10,5 +10,6 @@ sexom = sys.argv[7]
 
  
 file = open("personasEventos.txt","a")  
-file.write(str(serial_id) + "," + str(nombre) + "," + str(codigo) + "," + str(doc_identidad) + "," + str(edad) + "," + str(sexoh) +","+ str(sexom) + "\n") 
+file.write(str(serial_id) + "," + str(nombre) + "," + str(codigo) + "," + str(doc_identidad) + "," + str(edad) + "," + str(sexoh) +","+ str(sexom)) 
+file.write("\n")
 file.close() 

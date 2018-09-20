@@ -6,7 +6,7 @@
 
 
 
-function rfid_scan() {
+function rfid_register() {
 
   const python = require("python-shell");
   const path = require("path");
@@ -34,5 +34,29 @@ function rfid_scan() {
   sexom.end((err, code, message) => {
     swal("Persona Añadida Exitosamente");
   })
+
+}
+
+function rfid_scan(){
+  const python = require("python-shell");
+  const path = require("path");
+
+  const options = {
+    scriptPath : path.join(__dirname, '/../sensorDrivers/RFIDSensor/')
+  }
+  var serialID = new python("rfid_controller.py",options);
+
+  const options2 = {
+    scriptPath : patn.join(_dirname,'/'),
+    args: [serialID]
+  } 
+  
+  var auxiliar = new python("searchFile.py",options2);
+  
+  if(auxiliar==="true"){
+    return true;
+  }else{
+    return false;
+  }
 
 }
