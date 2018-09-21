@@ -1,0 +1,185 @@
+body{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 300;
+    background-color: rgb(186, 190, 190)
+}
+
+header{
+    padding: 20px 0;
+}
+
+#perfil{
+    background-color: #b4afb4;
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 900px;
+    overflow: hidden;
+    min-height: 0px !important; 
+    
+}
+
+#logo{
+    margin-top: -70px;
+}
+
+#fotoPerfil{
+    margin-top: 60%;
+}
+
+.misEventos-btn a{
+    line-height: 60px;
+    padding: 10px 32%;
+    border-radius: 2px;
+    color: #030507;
+    text-decoration: none;
+    background-color: #8c8aa1;
+}
+
+.misEventos-btn a:hover{
+    background-color: rgb(5, 5, 92);
+    color: white;
+}
+
+.estadisticas-btn a{
+    line-height: 60px;
+    padding: 10px 32%;
+    border-radius: 2px;
+    color: #030507;
+    text-decoration: none;
+    background-color: #8c8aa1;
+}
+
+.estadisticas-btn a:hover{
+    background-color: rgb(5, 5, 92);
+    color: white;
+}
+
+.usuarios-btn a{
+    line-height: 60px;
+    padding: 10px 35%;
+    border-radius: 2px;
+    color: #030507;
+    text-decoration: none;
+    background-color: #8c8aa1;
+}
+
+.usuarios-btn a:hover{
+    background-color: rgb(5, 5, 92);
+    color: white;
+}
+
+#botonesPerfil{
+    display: flex;
+}
+
+.cerrarSesion-btn{
+    margin-top: 65%;
+    margin-left: 40%;
+    display: flex;
+    align-items: right;
+    justify-content: left;
+}
+
+.atras-btn{
+    margin-top: 65%;
+    margin-left: 10%;
+    display: flex;
+    align-items: right;
+    justify-content: left;
+}
+
+/*Configuración formulario*/
+#formulario{ 
+    /*display: block;
+    align-content: center;*/
+    background-color: rgb(5, 5, 92);
+    color: #ffffff;
+    width: 75%;
+}
+
+h2{
+    color: #ffffff;
+}
+
+form.container{
+    align-content: center;
+    color: #ffffff;
+}
+
+input{
+    margin-left: 0;
+    margin-bottom: 0px;
+    color: black;
+}
+
+input.edad{
+    width: 50px;
+    margin-left: 0;
+}
+
+form .row{
+    display: flex;
+    margin-left: 0;
+    width: 100%;
+}
+
+.sexo{
+    margin-left: 30px;
+}
+
+input[type="radio"] {
+    display: inline-block;
+    height: 20px;
+    margin-right: 5px;
+    margin-left: 20px;
+    position: relative;
+    width: 20px;
+}
+
+/*Configuración botones*/
+.btn-row{
+    display: flex;
+}
+
+.leer-btn a{
+    line-height: 60px;
+    border: 0.75px solid #ffffff;
+    padding: 7px;
+    border-radius: 10px;
+    color: #030507;
+    text-decoration: none;
+    background-color: #ffffff
+}
+
+.leer-btn{
+    cursor: pointer;
+    margin: -23px 10px 0;
+    float: right;
+}
+
+.leer-btn a:active{
+    position: relative;
+    top: 3px;
+}
+
+.finalizar-btn a{
+    line-height: 60px;
+    border: 0.75px solid #ffffff;
+    padding: 7px;
+    border-radius: 10px;
+    color: #030507;
+    text-decoration: none;
+    background-color: #ffffff
+}
+
+.finalizar-btn{
+    cursor: pointer;
+    margin: -23px 10px 0;
+    float: right;
+}
+
+.finalizar-btn a:active{
+    position: relative;
+    top: 3px;
+}

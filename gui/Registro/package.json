@@ -1,0 +1,9 @@
+{
+  "name": "registro",
+  "version": "1.0.0",
+  "description": "Pantalla de registro al evento",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  }
+}

@@ -1,0 +1,71 @@
+body{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 300;
+}
+
+header{
+    padding: 20px 0;
+}
+
+.azul{
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(117, 161, 255);
+    background-size: 100%;
+    background-position: center;
+}
+
+.rojo{
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(250, 82, 82);
+    background-size: 100%;
+    background-position: center;
+}
+
+.verde{
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(94, 253, 121);
+    background-size: 100%;
+    background-position: center;
+}
+
+#documento{
+    width: 360px;
+}
+
+.botonAzul a{
+    line-height: 60px;
+    padding: 10px 1%;
+    border-radius: 2px;
+    color: #030507;
+    text-decoration: none;
+    background-color:  rgb(81, 136, 255);
+}
+
+.botonRojo a{
+    line-height: 60px;
+    padding: 10px 1%;
+    border-radius: 2px;
+    color: #030507;
+    text-decoration: none;
+    background-color:  rgb(255, 64, 64);
+}
+
+.botonVerde a{
+    line-height: 60px;
+    padding: 10px 1%;
+    border-radius: 2px;
+    color: #030507;
+    text-decoration: none;
+    background-color:  rgb(25, 209, 55);
+}
+
+.finalizar-btn a:active{
+    position: relative;
+    top: 3px;
+}
