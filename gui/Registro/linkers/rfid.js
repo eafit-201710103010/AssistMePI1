@@ -85,7 +85,7 @@ function rfid_scan(){
 function rfid_manual(){
   console.log("Entra a la funcion");
   // import python-shell and path modules
-  const python = require("python-shell");
+  let { PythonShell } = require("python-shell");
   const path = require("path");
 
    // get number entered in the interface
@@ -94,15 +94,24 @@ function rfid_manual(){
   // create option object with info for the python script
   // in this case, it specifies where the script is and the arguments that it uses
   const options2 = {
-    scriptPath : path.join(__dirname,'/'),
+    mode: 'text',
+    scriptPath : path.join(__dirname,'/linkers/'),
     args: [id_ingresado]
-  } 
-  
+  };
+
+  let auxiliar = "";
+
+  PythonShell.run("searchFileManual.py", options2, function (err, results) {
+    if(err) throw err;
+    console.log("results: %j", results);
+    console.log(results[0]);
+    auxiliar = String(results[0]);
+  });
+
   // call the python script used look for a person in the "Database"
-  var auxiliar = new python("searchFileManual.py",options2);
 
   // if the person is indeed in the "Database", return true, else return not
-  if(auxiliar==="true"){
+  if(auxiliar === "true") {
     return true;
   }else{
     return false;
