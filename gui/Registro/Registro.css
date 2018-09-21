@@ -34,6 +34,11 @@ header{
     background-position: center;
 }
 
+.input-group{
+    display: flex;
+    margin-left: 35%;
+}
+
 #documento{
     width: 360px;
 }

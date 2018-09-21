@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Registro</title>
+        <script type="text/javascript" src="linkers/rfid.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="Registro.css">
@@ -15,7 +16,12 @@
                     <h3 id="mensaje2">Acerque su documento al lector</h3>
                     <br>
                     <h4 id="mensaje3">o ingrese el número manualmente</h4>
-                    <input id="documento" class="form-control text-center center-block" type="tel" name="documento">  
+                    <div>    
+                        <div class="input-group">
+                            <input id="documento" class="form-control text-center" type="tel" name="documento">  
+                            <span id="ingresar" class="input-group-addon btn" onclick="startRegister();"><i class="glyphicon glyphicon-chevron-right" style="margin-left:-6px;"></i></span>
+                        </div>
+                    </div>
                     <div id="finalizar" class="botonAzul finalizar-btn" onclick="check();">
                         <a href="#">Finalizar</a>
                     </div>
@@ -24,9 +30,14 @@
         </section>
 
         <script>
-            let bool = true;
+            let puedeEntrar = false;
             let terminar = false;
             
+            function startRegister(){
+                puedeEntrar = rfid_manual();
+                verificarPantalla();
+            }
+
             function check(){
                  terminar = true;
                  document.getElementById("imagen").src="Feliz.png";
@@ -37,11 +48,12 @@
                 //document.getElementById("finalizar").className = "botonAzul finalizar-btn";
                 document.getElementById("finalizar").style.display = "none";
                 document.getElementById("documento").style.display = "none";
+                document.getElementById("ingresar").style.display = "none";
             }
             primeraPantalla();
 
             function verificarPantalla(){
-                if(bool===false && terminar===false){
+                if(puedeEntrar===false && terminar===false){
                     document.getElementById("imagen").src="Triste.png";
                     document.getElementById("mensaje1").innerHTML = "";
                     document.getElementById("mensaje2").innerHTML = "No hemos podido encontrar su documento, diríjase a atención personalizada";
@@ -50,15 +62,17 @@
                     //document.getElementById("finalizar").className = "botonRojo finalizar-btn";
                     document.getElementById("finalizar").style.display = "none";
                     document.getElementById("documento").style.display = "none";
+                    document.getElementById("ingresar").style.display = "none";
                     setTimeout(primeraPantalla, 4000);
                 }
-                if(bool===true && terminar===false){
+                if(puedeEntrar===true && terminar===false){
                     document.getElementById("mensaje2").innerHTML = "Su registro ha sido exitoso, puede continuar";
                     document.getElementById("mensaje3").innerHTML = "";
                     document.getElementById("pantalla").className = "verde jumbotron";
                     //document.getElementById("finalizar").className = "botonVerde finalizar-btn";
                     document.getElementById("finalizar").style.display = "none";
                     document.getElementById("documento").style.display = "none";
+                    document.getElementById("ingresar").style.display = "none";
                     setTimeout(primeraPantalla, 4000);
                 }
             }
@@ -71,7 +85,7 @@
                 //document.getElementById("finalizar").className = "botonAzul finalizar-btn";
                 document.getElementById("finalizar").style.display = "";
                 document.getElementById("documento").style.display = "";
-                setTimeout(verificarPantalla, 4000);
+                document.getElementById("ingresar").style.display = "";
             }
             
         </script>

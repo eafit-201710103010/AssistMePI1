@@ -15,7 +15,7 @@ function rfid_register() {
   // create option object with info for the python script
   // in this case, it specifies where the script is 
   const options = {
-    scriptPath : path.join(__dirname, '/../sensorDrivers/RFIDSensor/')
+    scriptPath : path.join(__dirname, '/../../../sensorDrivers/RFIDSensor/')
   }
 
   // call the python script used to get the id inside a card and store the number it returns in the serialID variable
@@ -56,7 +56,7 @@ function rfid_scan(){
   // create option object with info for the python script
   // in this case, it specifies where the script is
   const options = {
-    scriptPath : path.join(__dirname, '/../sensorDrivers/RFIDSensor/')
+    scriptPath : path.join(__dirname, '/../../../sensorDrivers/RFIDSensor/')
   }
 
   // call the python script used to get the id inside a card and store the number it returns in the serialID variable
@@ -83,18 +83,18 @@ function rfid_scan(){
 
 /** Function used to look people up in the "Database" using the data enetered manually */
 function rfid_manual(){
-
+  console.log("Entra a la funcion");
   // import python-shell and path modules
   const python = require("python-shell");
   const path = require("path");
 
    // get number entered in the interface
-  var id_ingresado = document.getElementById("id_ingresado").value;
+  var id_ingresado = document.getElementById("documento").value;
 
   // create option object with info for the python script
   // in this case, it specifies where the script is and the arguments that it uses
   const options2 = {
-    scriptPath : patn.join(_dirname,'/'),
+    scriptPath : path.join(__dirname,'/'),
     args: [id_ingresado]
   } 
   
