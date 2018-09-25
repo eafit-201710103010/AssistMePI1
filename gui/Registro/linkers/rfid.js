@@ -83,7 +83,6 @@ function rfid_scan(){
 
 /** Function used to look people up in the "Database" using the data enetered manually */
 function rfid_manual(){
-  console.log("Entra a la funcion");
   // import python-shell and path modules
   let { PythonShell } = require("python-shell");
   const path = require("path");
@@ -100,20 +99,21 @@ function rfid_manual(){
   };
 
   let auxiliar = "";
-
   PythonShell.run("searchFileManual.py", options2, function (err, results) {
     if(err) throw err;
-    console.log("results: %j", results);
-    console.log(results[0]);
     auxiliar = String(results[0]);
+    response();
   });
 
   // call the python script used look for a person in the "Database"
 
   // if the person is indeed in the "Database", return true, else return not
-  if(auxiliar === "true") {
-    return true;
-  }else{
-    return false;
-  }
+  function response(){
+      if(auxiliar === "true") {
+        return ingreso(true);
+      }else{
+        return ingreso(false);
+      }
+    }
+  
 }
