@@ -1,4 +1,4 @@
-""" Python based RFID controller for raspberry pi
+""" Python 2.7 based RFID controller for raspberry pi
 
 Python module used to control an RFID scanner connected to a raspberry pi.
 It reads the the serial number associated to a magnetic card using a library specially designed to interact with the RC522 RFID scanner. The ports on the scanner should be connected to the RPi as follows:
@@ -20,6 +20,8 @@ import RPi.GPIO as GPIO
 import SimpleMFRC522
 
 def scan_RFID():
+  """ Read serial id linked to a magnetic card using the RC522 scanner """
+
   # Create a new reader to interact with the scanner.
   reader = SimpleMFRC522.SimpleMFRC522()
 

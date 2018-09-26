@@ -4,7 +4,6 @@ The raspberry pi has to be connected via ethernet to the host in order for it to
 """
 
 import socket
-import time
 
 # define the ip to which you want to connect to and the port you wishto use.
 HOST = "169.254.41.119" 
@@ -21,7 +20,6 @@ while True:
 
   command = "scan_RFID".strip()
   s.send(command)
-  time.sleep(1)
   reply = s.recv(1024)
   print reply
 
