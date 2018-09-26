@@ -52,25 +52,26 @@ header{
     background-color:  rgb(81, 136, 255);
 }
 
-.botonRojo a{
-    line-height: 60px;
-    padding: 10px 1%;
-    border-radius: 2px;
-    color: #030507;
-    text-decoration: none;
-    background-color:  rgb(255, 64, 64);
-}
-
-.botonVerde a{
-    line-height: 60px;
-    padding: 10px 1%;
-    border-radius: 2px;
-    color: #030507;
-    text-decoration: none;
-    background-color:  rgb(25, 209, 55);
-}
-
 .finalizar-btn a:active{
     position: relative;
     top: 3px;
+}
+
+.finalizar-btn a:hover{
+    background-color: rgb(0, 51, 161);
+    color: white;
+}
+
+.carne-btn a:active{
+    position: relative;
+    top: 3px;
+}
+
+.cedula-btn a:active{
+    position: relative;
+    top: 3px;
+}
+
+#leerCedula, #leerCarne{
+    display: inline;
 }

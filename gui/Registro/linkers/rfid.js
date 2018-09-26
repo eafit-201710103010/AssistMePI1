@@ -50,33 +50,46 @@ function rfid_register() {
 function rfid_scan(){
 
   // import python-shell and path modules
-  const python = require("python-shell");
+  let { PythonShell } = require("python-shell");
   const path = require("path");
 
   // create option object with info for the python script
   // in this case, it specifies where the script is
   const options = {
-    scriptPath : path.join(__dirname, '/../../../sensorDrivers/RFIDSensor/')
+    mode: 'text',
+    pythonPath: '/usr/bin/python', // TODO: check for windows
+    scriptPath: path.join(__dirname, '/linkers/')
   }
 
   // call the python script used to get the id inside a card and store the number it returns in the serialID variable
-  var serialID = new python("rfid_controller.py",options);
+  let serialID = "";
+  PythonShell.run("connectToPi.py", options, function (err, results) {
+    if(err) throw err;
+    serialID = String(results[0]);
+  });
 
   // create option object with info for the python script
   // in this case, it specifies where the script is and the arguments that it uses
   const options2 = {
-    scriptPath : patn.join(__dirname,'/'),
+    mode: 'text',
+    scriptPath : path.join(__dirname,'/linkers/'),
     args: [serialID]
   } 
   
   // call the python script used look for a person in the "Database"
-  var auxiliar = new python("searchFile.py",options2);
-  
-  // if the person is indeed in the "Database", return true, else return not
-  if(auxiliar==="true"){
-    return true;
-  }else{
-    return false;
+  let auxiliar = ""
+  PythonShell.run("searchFile.py", options2, function (err, results) {
+    if(err) throw err;
+    auxiliar = String(results[0]);
+    response();
+  });
+
+  function response(){
+    if(auxiliar === "true") {
+      return ingreso(true);
+    }else{
+      return ingreso(false);
+    }
   }
 
 }
