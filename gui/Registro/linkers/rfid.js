@@ -66,23 +66,28 @@ function rfid_scan(){
   PythonShell.run("connectToPi.py", options, function (err, results) {
     if(err) throw err;
     serialID = String(results[0]);
+    checkForId(serialID);
   });
 
-  // create option object with info for the python script
-  // in this case, it specifies where the script is and the arguments that it uses
-  const options2 = {
-    mode: 'text',
-    scriptPath : path.join(__dirname,'/linkers/'),
-    args: [serialID]
-  } 
-  
-  // call the python script used look for a person in the "Database"
-  let auxiliar = ""
-  PythonShell.run("searchFile.py", options2, function (err, results) {
-    if(err) throw err;
-    auxiliar = String(results[0]);
-    response();
-  });
+  let auxiliar = "";
+  function checkForId(serial) {
+    console.log("BLA BLA BLA");
+    // create option object with info for the python script
+    // in this case, it specifies where the script is and the arguments that it uses
+    const options2 = {
+      mode: 'text',
+      scriptPath : path.join(__dirname,'/linkers/'),
+      args: [serial]
+    } 
+    
+    // call the python script used look for a person in the "Database"
+    
+    PythonShell.run("searchFile.py", options2, function (err, results) {
+      if(err) throw err;
+      auxiliar = String(results[0]);
+      response();
+    });
+  }
 
   function response(){
     if(auxiliar === "true") {
