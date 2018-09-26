@@ -19,15 +19,16 @@ The library and the instruction on how to use it where taken from 'https://pimyl
 import RPi.GPIO as GPIO
 import SimpleMFRC522
 
-# Create a new reader to interact with the scanner.
-reader = SimpleMFRC522.SimpleMFRC522()
+def scan_RFID():
+  # Create a new reader to interact with the scanner.
+  reader = SimpleMFRC522.SimpleMFRC522()
 
-try:
-  # Get the serial ID associated to a magnetic card and the text info that it may contain.
-  id = reader.read_id()
-  print(id)
+  try:
+    # Get the serial ID associated to a magnetic card and the text info that it may contain.
+    id = reader.read_id()
+
+  finally:
+    # Always make sure to reset all the ports that were used.
+    GPIO.cleanup()
   
-
-finally:
-  # Always make sure to reset all the ports that were used.
-  GPIO.cleanup()
+  return id
