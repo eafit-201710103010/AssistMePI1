@@ -30,7 +30,7 @@ while True:
 
   # when the host has connected, accept the connection
   conn, addr = s.accept()
-  print "Connected"
+  print "Connected on port " + PORT
 
   #while True:
 
@@ -49,7 +49,7 @@ while True:
     reply = "unknown"
   
   # send a response
-  print "Message Sent"
+  print "Message Sent\n"
   conn.send(reply)
 
   # end the connection

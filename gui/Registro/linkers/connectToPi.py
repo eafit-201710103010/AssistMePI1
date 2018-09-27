@@ -8,7 +8,7 @@ import socket
 
 # define the ip to which you want to connect to and the port you wishto use.
 HOST = "169.254.41.119" 
-PORT = sys.argv[1]; # starts at 12345
+PORT = int(sys.argv[1]) # starts at 12345
 
 # create a socket object and connect it to the server.
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
