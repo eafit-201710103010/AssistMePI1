@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="Registro.css">
     </head>
     <body>
-        <section id="pantalla" class="azul jumbotron">
+        <section id="pantalla" class="azul">
             <div class="container">
                 <div class="row text-center">
                     <img id="imagen" src="Feliz.png" style="height:200px; width:200px;">
@@ -70,7 +70,7 @@
                 document.getElementById("mensaje1").innerHTML = "¡Terminado!";
                 document.getElementById("mensaje2").innerHTML = "";
                 document.getElementById("mensaje3").innerHTML = "";
-                document.getElementById("pantalla").className = "verde jumbotron";
+                document.getElementById("pantalla").className = "verde";
                 document.getElementById("finalizar").style.display = "none";
                 document.getElementById("documento").style.display = "none";
                 document.getElementById("ingresar").style.display = "none";
@@ -95,7 +95,7 @@
                     document.getElementById("mensaje1").innerHTML = "";
                     document.getElementById("mensaje2").innerHTML = "No hemos podido encontrar su documento, diríjase a atención personalizada";
                     document.getElementById("mensaje3").innerHTML = "";
-                    document.getElementById("pantalla").className = "rojo jumbotron";
+                    document.getElementById("pantalla").className = "rojo";
                     document.getElementById("finalizar").style.display = "none";
                     document.getElementById("documento").style.display = "none";
                     document.getElementById("ingresar").style.display = "none";
@@ -106,7 +106,7 @@
                 if(puedeEntrar===true && terminar===false){
                     document.getElementById("mensaje2").innerHTML = "Su registro ha sido exitoso, puede continuar";
                     document.getElementById("mensaje3").innerHTML = "";
-                    document.getElementById("pantalla").className = "verde jumbotron";
+                    document.getElementById("pantalla").className = "verde";
                     document.getElementById("finalizar").style.display = "none";
                     document.getElementById("documento").style.display = "none";
                     document.getElementById("ingresar").style.display = "none";
@@ -120,7 +120,7 @@
                 document.getElementById("mensaje1").innerHTML = "¡Bienvenido!";
                 document.getElementById("mensaje2").innerHTML = "Acerque su documento al lector";
                 document.getElementById("mensaje3").innerHTML = "o ingrese el número manualmente";
-                document.getElementById("pantalla").className = "azul jumbotron";
+                document.getElementById("pantalla").className = "azul";
                 document.getElementById("finalizar").style.display = "";
                 document.getElementById("documento").style.display = "";
                 document.getElementById("documento").value = "";
