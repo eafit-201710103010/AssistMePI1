@@ -4,6 +4,7 @@
  * It uses the python-shell node module to do this.
  */
 
+// start the port connection at port 12345
 let portNum = 12345;
 
 /** Function used to register people using the rfid scanner */
@@ -55,7 +56,8 @@ function rfid_scan(){
   const path = require("path");
 
   // create option object with info for the python script
-  // in this case, it specifies where the script is
+  // in this case, it specifies where the script is, the specific python version that we wantto use and 
+  // the port that we want to use to connect to the RPi
   const options = {
     mode: 'text',
     pythonPath: '/usr/bin/python', // TODO: check for windows
@@ -64,6 +66,7 @@ function rfid_scan(){
   }
 
   // call the python script used to get the id inside a card and store the number it returns in the serialID variable
+  // change the port with every call to avoid used socket error
   let serialID = "";
   PythonShell.run("connectToPi.py", options, function (err, results) {
     if(err) throw err;
@@ -79,7 +82,6 @@ function rfid_scan(){
 
   let auxiliar = "";
   function checkForId(serial) {
-    console.log("BLA BLA BLA");
     // create option object with info for the python script
     // in this case, it specifies where the script is and the arguments that it uses
     const options2 = {

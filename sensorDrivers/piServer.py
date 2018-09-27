@@ -55,4 +55,5 @@ while True:
   # end the connection
   conn.close()
 
+  # always change the port you are using
   PORT += 1;

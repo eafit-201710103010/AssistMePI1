@@ -14,8 +14,7 @@ PORT = int(sys.argv[1]) # starts at 12345
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST,PORT))
 
-# specify which command you want to use, for now the only one available is scan_RFID
-# TODO: erase the while true loop and the quit command and catch the error on the server. 
+# specify which command you want to use, for now the only one available is scan_RFID 
 # TODO: add the scan_image command later and change it to work with program arguments.
 
 command = "scan_RFID".strip()
