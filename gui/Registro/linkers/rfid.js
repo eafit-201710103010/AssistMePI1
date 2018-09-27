@@ -4,6 +4,7 @@
  * It uses the python-shell node module to do this.
  */
 
+let portNum = 12345;
 
 /** Function used to register people using the rfid scanner */
 function rfid_register() {
@@ -58,7 +59,8 @@ function rfid_scan(){
   const options = {
     mode: 'text',
     pythonPath: '/usr/bin/python', // TODO: check for windows
-    scriptPath: path.join(__dirname, '/linkers/')
+    scriptPath: path.join(__dirname, '/linkers/'),
+    args: [portNum]
   }
 
   // call the python script used to get the id inside a card and store the number it returns in the serialID variable
@@ -66,6 +68,12 @@ function rfid_scan(){
   PythonShell.run("connectToPi.py", options, function (err, results) {
     if(err) throw err;
     serialID = String(results[0]);
+    if(portNum >= 12395) {
+      portNum = 12345;
+    }
+    else {
+      portNum += 1;
+    }
     checkForId(serialID);
   });
 
