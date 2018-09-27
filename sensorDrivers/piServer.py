@@ -30,7 +30,7 @@ while True:
 
   # when the host has connected, accept the connection
   conn, addr = s.accept()
-  print "Connected on port " + PORT
+  print "Connected on port " + str(PORT)
 
   #while True:
 
