@@ -145,3 +145,25 @@ function rfid_manual(){
     }
   
 }
+
+function rfid_terminate() {
+  // import python-shell and path modules
+  let { PythonShell } = require("python-shell");
+  const path = require("path");
+
+  // create option object with info for the python script
+  // in this case, it specifies where the script is, the specific python version that we wantto use and 
+  // the port that we want to use to connect to the RPi
+  const options = {
+    mode: 'text',
+    pythonPath: '/usr/bin/python', // TODO: check for windows
+    scriptPath: path.join(__dirname, '/linkers/'),
+    args: [portNum]
+  }
+
+  // call the python script used to get the id inside a card and store the number it returns in the serialID variable
+  // change the port with every call to avoid used socket error
+  PythonShell.run("terminatePi.py", options, function (err, results) {
+    if(err) throw err;
+  });
+}

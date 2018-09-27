@@ -42,8 +42,8 @@ while True:
     # call the rfid_controller
     reply = str( scan_RFID() )
   elif data == "quit":
-    # TODO: figure out how to remove this later
-    conn.send("Terminating")
+    conn.close()
+    # conn.send("Terminating")
     break
   else:
     reply = "unknown"
