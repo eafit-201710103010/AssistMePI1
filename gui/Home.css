@@ -31,21 +31,27 @@ header .row{
     padding: 1px;
 }
 
+#info{
+    margin: 25px 20px 20px;
+    min-width: 90px;
+    padding: 1px;
+    margin-left: 90px;
+}
+
 .backgroundImage{
     display: flex;
     align-items: center;
     height: 100vh;
-    background-image: url("https://www.w3schools.com/css/img_lights.jpg");
+    background-image: url("8M5A0016.jpg");
     background-size: cover;
     background-position: center;
-    opacity: 0.6;
-    filter: alpha(opacity=50);
+
 }
 
 .backgroundImage h2 {
     background-color: #FFFFFF;
     display: inline-block;
-    color: #F06529;
+    color: rgb(5, 5, 92);
     font-weight: 700;
     padding: 10px 35px;
     border-radius: 5px;
