@@ -42,10 +42,9 @@ header .row{
     display: flex;
     align-items: center;
     height: 100vh;
-    background-image: url("8M5A0016.jpg");
+    background-image: url("Img1.JPG");
     background-size: cover;
     background-position: center;
-
 }
 
 .backgroundImage h2 {
