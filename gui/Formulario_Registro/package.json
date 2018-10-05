@@ -1,9 +1,0 @@
-{
-  "name": "formulario_registro",
-  "version": "1.0.0",
-  "description": "Pantalla para el registro previo al evento, con este se obtendran los datos de los asistentes al evento y se realizara el registro a travez del carné para poder agilizar el registro el día del evento",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  }
-}

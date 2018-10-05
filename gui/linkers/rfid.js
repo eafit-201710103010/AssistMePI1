@@ -11,40 +11,60 @@ let portNum = 12345;
 function rfid_register() {
 
   // import python-shell and path modules
-  const python = require("python-shell");
+  let { PythonShell } = require("python-shell");
   const path = require("path");
 
   // create option object with info for the python script
-  // in this case, it specifies where the script is 
+  // in this case, it specifies where the script is, the specific python version that we wantto use and 
+  // the port that we want to use to connect to the RPi
   const options = {
-    scriptPath : path.join(__dirname, '/../../../sensorDrivers/RFIDSensor/')
+    mode: 'text',
+    pythonPath: '/usr/bin/python', // TODO: check for windows
+    scriptPath: path.join(__dirname, '../linkers/'),
+    args: [portNum]
   }
 
   // call the python script used to get the id inside a card and store the number it returns in the serialID variable
-  var serialID = new python("rfid_controller.py",options);
+  // change the port with every call to avoid used socket error
+  let serialID = "";
+  PythonShell.run("connectToPi.py", options, function (err, results) {
+    if(err) throw err;
+    serialID = String(results[0]);
+    const nombre = document.getElementById("nombre").value;
+    const codigo = document.getElementById("codigo").value;
+    const docIdentidad = document.getElementById("docIdentidad").value;
+    const ocupacion = document.getElementById("ocupación").value;
+    const edad = document.getElementById("edad").value;
+    const sexo = document.getElementById("sexo").value;
+    addNewPersonEntry(serialID, nombre, codigo, docIdentidad, ocupacion, edad, sexo);
+  });
 
-  // get all the info about the person you are registering
-  var nombre = document.getElementById("nombre").value;
-  var codigo = document.getElementById("codigo").value;
-  var docIdentidad = document.getElementById("docIdentidad").value;
-  var edad = document.getElementById("edad").value;
-  var sexoh = document.getElementById("sexoH").value;
-  var sexom = document.getElementById("sexoM").value;
+  let auxiliar = "";
+  function addNewPersonEntry(serial, nombre, codigo, docIdentidad, ocupacion, edad, sexo) {
+    // create option object with info for the python script
+    // in this case, it specifies where the script is and the arguments that it uses
+    const options2 = {
+      mode: 'text',
+      scriptPath : path.join(__dirname,'../linkers/'),
+      args: [serial, nombre, codigo, docIdentidad, ocupacion, edad, sexo]
+    } 
+    
+    // call the python script used look for a person in the "Database"
+    
+    PythonShell.run("writeFile.py", options2, function (err, results) {
+      if(err) throw err;
+      auxiliar = String(results[0]);
+      response();
+    });
+  }
 
-  // create option object with info for the python script
-  // in this case, it specifies where the script is and the arguments that it uses
-  const options2 = {
-    scriptPath : path.join(__dirname,'/'),
-    args: [serialID,nombre,codigo,docIdentidad,edad,sexoh,sexom]
-  } 
-  
-  // call the python script used to add a person to the "Database" 
-  var auxiliar = new python("writeFile.py",options2);
-
-  // alert the user when a person is added succesfully to the database
-  auxuliar.end((err, code, message) => {
-    swal("Persona Añadida Exitosamente");
-  })
+  function response(){
+    if(auxiliar === "registro_exitoso") {
+      alert("Persona Registrada Exitosamente");
+    }else{
+      alert("ERROR en el registro");
+    }
+  }
 
 }
 
@@ -61,7 +81,7 @@ function rfid_scan(){
   const options = {
     mode: 'text',
     pythonPath: '/usr/bin/python', // TODO: check for windows
-    scriptPath: path.join(__dirname, '/linkers/'),
+    scriptPath: path.join(__dirname, '../linkers/'),
     args: [portNum]
   }
 
@@ -86,7 +106,7 @@ function rfid_scan(){
     // in this case, it specifies where the script is and the arguments that it uses
     const options2 = {
       mode: 'text',
-      scriptPath : path.join(__dirname,'/linkers/'),
+      scriptPath : path.join(__dirname,'../linkers/'),
       args: [serial]
     } 
     
@@ -122,7 +142,7 @@ function rfid_manual(){
   // in this case, it specifies where the script is and the arguments that it uses
   const options2 = {
     mode: 'text',
-    scriptPath : path.join(__dirname,'/linkers/'),
+    scriptPath : path.join(__dirname,'../linkers/'),
     args: [id_ingresado]
   };
 
