@@ -59,9 +59,9 @@
                 rfid_manual();
             }
             
-            function ingreso(encontrado){
+            function ingreso(encontrado,nombre){
                 puedeEntrar = encontrado;
-                verificarPantalla();
+                verificarPantalla(nombre);
             }
 
             function check(){
@@ -89,7 +89,7 @@
 
             primeraPantalla();
 
-            function verificarPantalla(){
+            function verificarPantalla(nombre){
                 if(puedeEntrar===false && terminar===false){
                     document.getElementById("imagen").src="Triste.png";
                     document.getElementById("mensaje1").innerHTML = "";
@@ -104,6 +104,7 @@
                     setTimeout(primeraPantalla, 3000);
                 }
                 if(puedeEntrar===true && terminar===false){
+                    document.getElementById("mensaje1").innerHTML = "Bienvenido " + String(nombre);
                     document.getElementById("mensaje2").innerHTML = "Su registro ha sido exitoso, puede continuar";
                     document.getElementById("mensaje3").innerHTML = "";
                     document.getElementById("pantalla").className = "verde";

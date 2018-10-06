@@ -88,6 +88,7 @@ function rfid_scan(){
   // call the python script used to get the id inside a card and store the number it returns in the serialID variable
   // change the port with every call to avoid used socket error
   let serialID = "";
+  let nombre = "";
   PythonShell.run("connectToPi.py", options, function (err, results) {
     if(err) throw err;
     serialID = String(results[0]);
@@ -115,15 +116,16 @@ function rfid_scan(){
     PythonShell.run("searchFile.py", options2, function (err, results) {
       if(err) throw err;
       auxiliar = String(results[0]);
+      nombre = String(results[1]);
       response();
     });
   }
 
   function response(){
     if(auxiliar === "true") {
-      return ingreso(true);
+      return ingreso(true,nombre);
     }else{
-      return ingreso(false);
+      return ingreso(false,nombre);
     }
   }
 
@@ -150,6 +152,8 @@ function rfid_manual(){
   PythonShell.run("searchFileManual.py", options2, function (err, results) {
     if(err) throw err;
     auxiliar = String(results[0]);
+    nombre = String(results[1]);
+    console.log("nombre: "+nombre);
     response();
   });
 
@@ -158,9 +162,9 @@ function rfid_manual(){
   // if the person is indeed in the "Database", return true, else return not
   function response(){
       if(auxiliar === "true") {
-        return ingreso(true);
+        return ingreso(true,nombre);
       }else{
-        return ingreso(false);
+        return ingreso(false,nombre);
       }
     }
   

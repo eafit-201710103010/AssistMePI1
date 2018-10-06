@@ -17,16 +17,19 @@ for persona in lineas:
     documento_almacenado = datos_persona[3]
     if codigo_almacenado == str(numero):
         found =True
+        nombre = datos_persona[1]
         break 
     if documento_almacenado == str(numero):
         found = True
+        nombre = datos_persona[1]
         break
     
     
     
 if found : 
     print("true")
+    print(nombre)
 else:
-    print("false")
+    print("false",nombre)
 
 file.close()

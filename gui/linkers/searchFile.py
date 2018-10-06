@@ -19,10 +19,12 @@ for persona in lineas:
     
   if serial_almacenado == str(serial_id):
     found =True
+    nombre = datos_persona[1]
     break 
-    
+
 if found : 
-  print("true")
+  print(True)
+  print(nombre)
 else:
   print("false")
 
