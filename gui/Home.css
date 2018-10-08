@@ -42,7 +42,7 @@ header .row{
     display: flex;
     align-items: center;
     height: 100vh;
-    background-image: url("Img1.JPG");
+    background-image: url("img1.JPG");
     background-size: cover;
     background-position: center;
 }
