@@ -5,7 +5,7 @@ from flask_restful import Resource, Api
 # Import all the resources to be used in the server
 from resources.register import *
 
-# Create the app and define it as a rest api
+# Create the app and define it as a rest api.
 app = Flask(__name__)
 api = Api(app)
 
