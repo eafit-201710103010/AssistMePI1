@@ -104,7 +104,7 @@ function rfid_scan(){
   let auxiliar = "";
   function checkForId(serial) {
     // create option object with info for the python script
-    // in this case, it specifies where the script is and the arguments that it uses
+    // in this case, it specifies where the script is and the arguments that it uses.
     const options2 = {
       mode: 'text',
       scriptPath : path.join(__dirname,'../linkers/'),
