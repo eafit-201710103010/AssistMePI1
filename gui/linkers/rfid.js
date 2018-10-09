@@ -149,6 +149,7 @@ function rfid_manual(){
   };
 
   let auxiliar = "";
+  let nombre = "";
   PythonShell.run("searchFileManual.py", options2, function (err, results) {
     if(err) throw err;
     auxiliar = String(results[0]);

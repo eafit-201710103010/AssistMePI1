@@ -13,7 +13,7 @@
                 <div class="row text-center">
                     <img id="imagen" src="Feliz.png" style="height:200px; width:200px;">
                     <h1 id="mensaje1">¡Bienvenido!</h1>
-                    <h3 id="mensaje2">Acerque su documento al lector</h3>
+                    <h3 id="mensaje2">Seleccione un método de registro</h3>
                     <br>
                     <h4 id="mensaje3">o ingrese el número manualmente</h4>
                     <div>    
@@ -80,11 +80,12 @@
             }
 
             function carne(){
+                document.getElementById("mensaje2").innerHTML = "Acerque su documento al lector";
                 rfid_scan();
             }
 
             function cedula(){
-
+                document.getElementById("mensaje2").innerHTML = "Acerque su documento al lector";
             }
 
             primeraPantalla();
@@ -104,7 +105,7 @@
                     setTimeout(primeraPantalla, 3000);
                 }
                 if(puedeEntrar===true && terminar===false){
-                    document.getElementById("mensaje1").innerHTML = "Bienvenido " + String(nombre);
+                    document.getElementById("mensaje1").innerHTML = "Bienvenido/a " + String(nombre);
                     document.getElementById("mensaje2").innerHTML = "Su registro ha sido exitoso, puede continuar";
                     document.getElementById("mensaje3").innerHTML = "";
                     document.getElementById("pantalla").className = "verde";
@@ -119,7 +120,7 @@
             function primeraPantalla(){
                 document.getElementById("imagen").src="Feliz.png";
                 document.getElementById("mensaje1").innerHTML = "¡Bienvenido!";
-                document.getElementById("mensaje2").innerHTML = "Acerque su documento al lector";
+                document.getElementById("mensaje2").innerHTML = "Seleccione un método de registro";
                 document.getElementById("mensaje3").innerHTML = "o ingrese el número manualmente";
                 document.getElementById("pantalla").className = "azul";
                 document.getElementById("finalizar").style.display = "";

@@ -13,15 +13,14 @@ lineas = file.readlines()
 for persona in lineas:
    
     datos_persona = persona.split(",")
+    nombre = datos_persona[1]
     codigo_almacenado = datos_persona[2]
     documento_almacenado = datos_persona[3]
     if codigo_almacenado == str(numero):
         found =True
-        nombre = datos_persona[1]
         break 
     if documento_almacenado == str(numero):
         found = True
-        nombre = datos_persona[1]
         break
     
     
