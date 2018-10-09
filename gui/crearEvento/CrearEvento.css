@@ -80,22 +80,15 @@ body{
     justify-content: left;
 }
 
-/*Configuración formulario*/
-#formulario{ 
-    /*display: block;
-    align-content: center;*/
+#FormularioEvento{
     background-color: rgb(5, 5, 92);
     color: #ffffff;
     width: 75%;
-}
-
-h2{
-    color: #ffffff;
+    height: 100%;
 }
 
 form.container{
-    align-content: center;
-    color: #ffffff;
+    margin-top: 10%;
 }
 
 input{
@@ -104,81 +97,33 @@ input{
     color: black;
 }
 
-input.edad{
-    width: 50px;
-    margin-left: 0;
+#fechaEvento{
+    width: 140px;
 }
 
-form .row{
-    display: flex;
-    margin-left: 0;
-    width: 100%;
-}
-
-.sexo{
-    margin-left: 30px;
-}
-
-#ocupacion{
-    color: black;
-}
-
-input[type="number"]::-webkit-inner-spin-button { 
+input[type="date"]::-webkit-clear-button {
     display: none;
 }
 
-input[type="radio"] {
-    display: inline-block;
-    height: 20px;
-    margin-right: 5px;
-    margin-left: 20px;
-    position: relative;
-    width: 20px;
+input[type="date"]::-webkit-inner-spin-button { 
+    display: none;
 }
 
-/*Configuración botones*/
-.btn-row{
-    display: flex;
-}
-
-.leer-btn a{
-    line-height: 60px;
-    border: 0.75px solid #ffffff;
-    padding: 7px;
-    border-radius: 10px;
-    color: #030507;
-    text-decoration: none;
-    background-color: #ffffff
-}
-
-.leer-btn{
+.crearEvento-btn{
     cursor: pointer;
     margin: -23px 10px 0;
     float: right;
 }
 
-.leer-btn a:active{
-    position: relative;
-    top: 3px;
-}
-
-.finalizar-btn a{
-    line-height: 60px;
+.crearEvento-btn a{
     border: 0.75px solid #ffffff;
     padding: 7px;
-    border-radius: 10px;
     color: #030507;
     text-decoration: none;
     background-color: #ffffff
 }
 
-.finalizar-btn{
-    cursor: pointer;
-    margin: -23px 10px 0;
-    float: right;
-}
-
-.finalizar-btn a:active{
+.crearEvento-btn a:active{
     position: relative;
     top: 3px;
 }

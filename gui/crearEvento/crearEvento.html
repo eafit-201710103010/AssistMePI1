@@ -5,7 +5,7 @@
     <script type="text/javascript" src="#"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="Eventos.css">
+    <link rel="stylesheet" href="CrearEvento.css">
 </head>
 <body>
     <div class="container-fluid" >
@@ -33,16 +33,28 @@
                 </div>
                 <div id="botonesPerfil" class="row">
                     <div class="atras-btn">
-                            <a href="../Perfil/perfil.html">Atras</a>
+                            <a href="../Eventos/eventos.html">Atras</a>
                         </div>
                     <div class="cerrarSesion-btn">
                         <a href="../home.html">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
-            <section id="eventos" class="col-xs-12 col-md-8 col-sm-9">
-                <p id="inscribir" class="pill-white btn"><a style="color: white" href="../Formulario_Registro/formularioRegistro.html">Inscribir</a></p>
-                <p id="agregar" class="pill-white btn"><a style="color: white" href="../crearEvento/crearEvento.html">Crear Evento</a></p>
+            <section id="FormularioEvento" class="col-xs-12 col-md-8 col-sm-9">
+                <form class="container" style="height:705px; width: 300px;">
+                    Nombre Evento<br>
+                    <input id="nombreEvento" class="form-control" type="text" name="nombreEvento" placeholder="Nombre Evento">
+                    <br>
+                    Lugar<br>
+                    <input id="lugarEvento" class="form-control" type="text" name="lugarEvento" placeholder="Lugar Evento">
+                    <br>
+                    Fecha<br>
+                    <input id="fechaEvento" class="form-control" type="date" name="fechaEvento" >
+                    <br><br><br><br>
+                    <div class="crearEvento-btn pull-right">
+                            <a href="#">Crear Evento</a>
+                    </div>
+                </form>
             </section>
         </div>
     </div>
