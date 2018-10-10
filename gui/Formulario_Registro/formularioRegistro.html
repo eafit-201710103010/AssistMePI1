@@ -97,9 +97,9 @@
                     <br>
                     <div>
                         <div class="leer-btn pull-left" onclick="carne();">
-                            <a href="#">Leer Carné</a>
+                            <a href="../Eventos/eventos.html">Leer Carné</a>
                         </div>
-                        <div class="finalizar-btn pull-right">
+                        <div class="finalizar-btn pull-right" onclick="finalizar();">
                                 <a href="../Eventos/eventos.html">Finalizar Inscripción</a>
                         </div>
                     </div>
@@ -108,6 +108,11 @@
         </div>
     </div>
     <script>
+
+        function finalizar(){
+            register();
+        }
+
         function carne(){
             rfid_register();
         }

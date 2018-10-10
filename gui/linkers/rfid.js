@@ -68,6 +68,41 @@ function rfid_register() {
 
 }
 
+function register(){
+  
+  let { PythonShell } = require("python-shell");
+  const path = require("path");
+
+  const serial = ""
+  const nombre = document.getElementById("nombre").value;
+  const codigo = document.getElementById("codigo").value;
+  const docIdentidad = document.getElementById("docIdentidad").value;
+  const ocupacion = document.getElementById("ocupación").value;
+  const edad = document.getElementById("edad").value;
+  const sexo = document.getElementById("sexo").value;
+
+  const options = {
+    mode: 'text',
+    scriptPath : path.join(__dirname,'../linkers'),
+    args: [serial,nombre,codigo,docIdentidad,ocupacion,edad,sexo]
+  };
+
+  let auxiliar = "";
+  PythonShell.run("writeFile.py", options, function (err, results){
+    if(err) throw err;
+    auxiliar = String(results[0]);
+    response();
+  });
+
+  function response(){
+    if(auxiliar === "registro_exitoso") {
+      alert("Persona Registrada Exitosamente");
+    }else{
+      alert("ERROR en el registro");
+    }
+  }
+}
+
 /** Function used to look people up in the "Database" using the rfid scanner */
 function rfid_scan(){
 
