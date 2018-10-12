@@ -50,11 +50,29 @@
                 <br>
                     <div class="row">
                         <div class="col-md-4">
-                            <canvas id="myChart" width="50px" height="50px"></canvas>
+                            <div id="chartContainer">
+                                <div id="chart1">
+                                    <canvas id="myChart1" width="50px" height="50px"></canvas>
+                                </div>
+                                <div id="chart2">
+                                    <canvas id="myChart2" width="50px" height="50px"></canvas>
+                                </div>
+                                <div id="chart3">
+                                    <canvas id="myChart3" width="50px" height="50px"></canvas>
+                                </div>
+                                <div id="chart4">
+                                    <canvas id="myChart4" width="50px" height="50px"></canvas>
+                                </div>
+                            </div>
                             <script>
                                 asistencia();
                                 function asistencia(){
-                                    var ctx = document.getElementById("myChart");
+                                    document.getElementById("myChart1").style.display = 'block'
+                                    document.getElementById("myChart2").style.display = 'none';
+                                    document.getElementById("myChart3").style.display = 'none';
+                                    document.getElementById("myChart4").style.display = 'none';  
+  
+                                    var ctx = document.getElementById("myChart1");
                                     var myChart = new Chart(ctx, {
                                     type: 'pie',
                                     data: {
@@ -105,7 +123,12 @@
     </div>
     <script>
         function edad(){
-            var ctx = document.getElementById("myChart");
+            document.getElementById("myChart1").style.display = 'none';
+            document.getElementById("myChart2").style.display = 'block';
+            document.getElementById("myChart3").style.display = 'none';
+            document.getElementById("myChart4").style.display = 'none';
+            
+            var ctx = document.getElementById("myChart2");
             var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -145,7 +168,12 @@
         }
 
         function ocupacion(){
-            var ctx = document.getElementById("myChart");
+            document.getElementById("myChart1").style.display = 'none';
+            document.getElementById("myChart2").style.display = 'none';
+            document.getElementById("myChart3").style.display = 'block';
+            document.getElementById("myChart4").style.display = 'none';
+             
+            var ctx = document.getElementById("myChart3");
             var myChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -185,7 +213,12 @@
         }
 
         function sexo(){
-            var ctx = document.getElementById("myChart");
+            document.getElementById("myChart1").style.display = 'none';
+            document.getElementById("myChart2").style.display = 'none';
+            document.getElementById("myChart3").style.display = 'none';
+            document.getElementById("myChart4").style.display = 'block';
+
+            var ctx = document.getElementById("myChart4");
             var myChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
