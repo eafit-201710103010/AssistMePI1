@@ -23,7 +23,7 @@ for persona in lineas:
     break 
 
 if found : 
-  print(True)
+  print("true")
   print(nombre)
 else:
   print("false")

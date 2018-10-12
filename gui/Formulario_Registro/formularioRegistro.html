@@ -89,17 +89,17 @@
                         <div class="sexo">
                             Sexo * <br>  
                             <div class="row">  
-                                <input id="sexo" type="radio" name="sexo" value="hombre"> Hombre
                                 <input id="sexo" type="radio" name="sexo" value="mujer"> Mujer
+                                <input id="sexo" type="radio" name="sexo" value="hombre"> Hombre
                             </div>
                         </div>
                     </div>
                     <br>
                     <div>
-                        <div class="leer-btn pull-left" onclick="carne();">
-                            <a href="../Eventos/eventos.html">Leer Carné</a>
+                        <div id="carne" class="leer-btn pull-left" onclick="carne();">
+                            <a id="boton" href="#">Leer Carné</a>
                         </div>
-                        <div class="finalizar-btn pull-right" onclick="finalizar();">
+                        <div id="finalizar" class="finalizar-btn pull-right" onclick="finalizar();">
                                 <a href="../Eventos/eventos.html">Finalizar Inscripción</a>
                         </div>
                     </div>
@@ -114,7 +114,9 @@
         }
 
         function carne(){
+            document.getElementById("finalizar").style.display = "none";
             rfid_register();
+            document.getElementById("boton").style.display = "none"
         }
     </script>
 </body>
