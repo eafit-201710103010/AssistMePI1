@@ -9,10 +9,10 @@ function edad(){
     var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: ["-18", "18-25","25-35","35-45","45-55","55+"],
         datasets: [{
             label: 'Edad',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [106, 324, 60, 12, 2, 0],
             backgroundColor: [
                 'rgba(255, 0, 0, 1)',
                 'rgba(0, 0, 245, 1)',
@@ -55,10 +55,10 @@ function asistencia(){
     var myChart = new Chart(ctx, {
     type: 'pie',
     data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: ["Ausentes", "Asistentes"],
         datasets: [{
             label: 'Número de asistentes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [8, 628],
             backgroundColor: [
                 'rgba(255, 0, 0, 1)',
                 'rgba(0, 0, 245, 1)',
@@ -68,8 +68,8 @@ function asistencia(){
                 'rgba(230, 111, 0, 1)'
         ],
             borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
+                'rgba(255,0,0,1)',
+                'rgba(0, 0, 245, 1)',
                 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
@@ -99,12 +99,12 @@ function ocupacion(){
      
     var ctx = document.getElementById("myChart3");
     var myChart = new Chart(ctx, {
-    type: 'line',
+    type: 'doughnut',
     data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: ["Estudiante EAFIT", "Estudiante Externo", "Profesional", "Emprendedor", "Egresado"],
         datasets: [{
             label: 'Ocupación',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [376, 121, 63, 25, 2],
             backgroundColor: [
                 'rgba(255, 0, 0, 1)',
                 'rgba(0, 0, 245, 1)',
@@ -147,22 +147,22 @@ function sexo(){
     var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels: ["Hombre", "Mujer"],
         datasets: [{
             label: 'Sexo',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [221, 412],
             backgroundColor: [
-                'rgba(255, 0, 0, 1)',
-                'rgba(0, 0, 245, 1)',
-                'rgba(255, 229, 36, 1)',
+                'rgba(0, 0, 255, 1)',
+                'rgba(251, 148, 173, 1)',
+                'rgba(0, 229, 0, 1)',
                 'rgba(69, 219, 0, 1)',
                 'rgba(134, 0, 230, 1)',
                 'rgba(230, 111, 0, 1)'
         ],
             borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
+                'rgba(0, 0, 255, 1)',
+                'rgba(251, 148, 173, 1)',
+                'rgba(0, 229, 0, 1)',
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)'
