@@ -35,8 +35,13 @@ function rfid_register() {
     const docIdentidad = document.getElementById("docIdentidad").value;
     const ocupacion = document.getElementById("ocupación").value;
     const edad = document.getElementById("edad").value;
-    const sexo = document.getElementById("sexo").value;
-    console.log(sexo);
+    let sexo = "";
+    if(document.getElementById("hombre").checked){
+      sexo  = document.getElementById("hombre").value;
+    }
+    else if(document.getElementById("mujer").checked){
+      sexo = document.getElementById("mujer").value;
+    }
     addNewPersonEntry(serialID, nombre, codigo, docIdentidad, ocupacion, edad, sexo);
   });
 
@@ -80,7 +85,13 @@ function register(){
   const docIdentidad = document.getElementById("docIdentidad").value;
   const ocupacion = document.getElementById("ocupación").value;
   const edad = document.getElementById("edad").value;
-  const sexo = document.getElementById("sexo").value;
+  let sexo = "";
+  if(document.getElementById("hombre").checked){
+    sexo  = document.getElementById("hombre").value;
+  }
+  else if(document.getElementById("mujer").checked){
+    sexo = document.getElementById("mujer").value;
+  }
 
   const options = {
     mode: 'text',
@@ -189,12 +200,12 @@ function rfid_manual(){
   let nombre = "";
   PythonShell.run("searchFileManual.py", options2, function (err, results) {
     if(err) throw err;
+    console.log(results);
     auxiliar = String(results[0]);
     nombre = String(results[1]);
     console.log("nombre: "+nombre);
     response();
   });
-
   // call the python script used look for a person in the "Database"
 
   // if the person is indeed in the "Database", return true, else return not
