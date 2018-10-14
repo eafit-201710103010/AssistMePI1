@@ -1,0 +1,118 @@
+body{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 300;
+    background-color: rgb(186, 190, 190)
+}
+
+#perfil{
+    background-color: #b4afb4;
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 900px;
+    overflow: hidden;
+    min-height: 0px !important; 
+    
+}
+
+#logo{
+    margin-left: 150%;
+}
+
+#fotoPerfil{
+    margin-top: 60%;
+}
+
+.misEventos-btn a{
+    line-height: 60px;
+    padding: 10px 32%;
+    border-radius: 2px;
+    color: #030507;
+    text-decoration: none;
+    background-color:#8c8aa1;
+}
+
+.misEventos-btn a:hover{
+    background-color: rgb(5, 5, 92);
+    color: white;
+}
+
+.estadisticas-btn a{
+    line-height: 60px;
+    padding: 10px 32%;
+    border-radius: 2px;
+    color: #030507;
+    text-decoration: none;
+    background-color: #8c8aa1;
+}
+
+.estadisticas-btn a:hover{
+    background-color: rgb(5, 5, 92);
+    color: white;
+}
+
+.usuarios-btn a{
+    line-height: 60px;
+    padding: 10px 35%;
+    border-radius: 2px;
+    color: white;
+    text-decoration: none;
+    background-color: rgb(5, 5, 92);
+}
+
+#botonesPerfil{
+    display: flex;
+}
+
+.cerrarSesion-btn{
+    margin-top: 65%;
+    margin-left: 40%;
+    display: flex;
+    align-items: right;
+    justify-content: left;
+}
+
+.atras-btn{
+    margin-top: 65%;
+    margin-left: 10%;
+    display: flex;
+    align-items: right;
+    justify-content: left;
+}
+
+#eventos{
+    background-color: rgb(5, 5, 92);
+    color: #ffffff;
+    width: 75%;
+    height: 100%;
+}
+
+.pill-white{
+    border: 0.5px solid;
+    border-radius: 5px;
+    text-align: center;
+}
+
+
+#table-container{
+    margin-top: 4%;
+    height: 80%;
+    overflow: scroll;
+}
+
+table {
+    border-spacing: 5;
+    width: 90%;
+    border: 1px black;
+    background: #fff5f5;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th, td {
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
