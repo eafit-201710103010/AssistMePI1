@@ -12,12 +12,6 @@ div > h1{
     font-size: 1.8rem;
 }
 
-.pill-white{
-    border: 0.5px solid;
-    border-radius: 12px;
-    text-align: center;
-}
-
 header .row{
     display: flex;
     align-items: center;
@@ -38,19 +32,11 @@ header .row{
     margin-bottom: 450px;
 }
 
-#info2{
-    margin: 25px 20px 20px;
-    min-width: 90px;
-    padding: 1px;
-    margin-left: 25px;
-    margin-bottom: 0,1px;
-}
-
 
 .backgroundImage{
     display: flex;
     align-items: center;
-    height: 100vh;
+    height: 89vh;
     background-image: url("img1.JPG");
     background-size: cover;
     background-position: center;
@@ -60,9 +46,10 @@ header .row{
     background-color: #FFFFFF;
     display: inline-block;
     color: rgb(5, 5, 92);
-    font-weight: 700;
+    font-weight: bold;
     padding: 10px 35px;
     border-radius: 20px;
+    margin-left: 100%;
   }
   
   .backgroundImage h3 {
@@ -70,4 +57,36 @@ header .row{
     font-weight: bold;
   }
   
+#login{
+    margin-right: 60px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    width: 80%;
+}
+
+input{
+    margin-left: 0;
+    margin-bottom: 0px;
+    color: black;
+}
+
+#ingresar{
+    margin-left: 30%;  
+}
+
+#ingresar-btn a{
+    background-color: #FFFFFF;
+    color: rgb(5, 5, 92);
+    font-weight: bold;
+    padding: 10px 35px;
+    border-radius: 20px;
+}
+
+#ingresar-btn a:active{
+    position: relative;
+    top: 3px;
+}
+
+
   

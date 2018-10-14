@@ -21,28 +21,22 @@
                 <div class="col-sm-8">
                     <img src="Logo1.png" style="height:86px; width:150px;">
                 </div>
-                <nav class="col-sm-5">
-                    
-                </nav>
             </div>
         </header>
         <section class="backgroundImage">
-            <div id="info" class="container col-sm-4">
+            <div id="info" class="col-sm-4">
                 <h2>Iniciar Sesión</h2>                
             </div>
-            <div id="info2" class="col-sm-8">
-                <h2>Entrar</h2>                
-            </div>
-
-        </section>
-        <form>
-            <label for="fname">First Name</label>
-            <input type="text" id="fname" name="fname">
-            <label for="lname">Last Name</label>
-            <input type="text" id="lname" name="lname">
-          </form>
-        
-
-        
+            <form id="login">
+                Usuario<br>
+                <input id="usuario" class="form-control" type="text" name="usuario">
+                Contraseña<br>
+                <input id="contraseña" class="form-control" type="password" name="contraseña">
+                <br>
+                <div id="ingresar-btn">
+                    <a href="../Perfil/perfil.html">Entrar</a>
+                </div>
+            </form>
+        </section>      
     </body>
 </html>
