@@ -1,4 +1,1 @@
-Gerenciar,Auditorio Fundadores,2018-04-21
-Conamerc,Auditorio Fundadores,2019-09-20
-Asamblea de carrera - Geología,19-305,2018-09-06
-Asamblea de carrera - Ing.Sistemas,Argos,2018-09-06
+Gerenciar,Auditorio Fundadores,2018-10-26
