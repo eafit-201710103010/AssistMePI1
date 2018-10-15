@@ -30,15 +30,17 @@ class Asistente(Base):
   id_evento = Column(Integer, ForeignKey('Eventos.id_evento'), primary_key=True)
 
   def __repr__(self):
-    return """Asistente(doc_identidad={0},
-           serial={1},
-           nombre={2},
-           codigo={3},
-           ocupacion={4},
-           edad={5},
-           sexo={6},
-           id_evento={7}
-           )""".format(self.doc_identidad, self.serial, self.nombre, self.codigo, self.ocupacion, self.edad, self.sexo, self.id_evento)
+    return """
+           Asistente(doc_identidad={0},
+                     serial={1},
+                     nombre={2},
+                     codigo={3},
+                     ocupacion={4},
+                     edad={5},
+                     sexo={6},
+                     id_evento={7}
+                     )
+            """.format(self.doc_identidad, self.serial, self.nombre, self.codigo, self.ocupacion, self.edad, self.sexo, self.id_evento)
 
 
 class Evento(Base):
@@ -50,5 +52,16 @@ class Evento(Base):
 
   id_evento = Column(Integer, primary_key=True)
   nombre = Column(String(100))
+  lugar = Column(String(100))
+  fecha = Column(String(10)) # TODO: cambiar a tipo de dato date luego
 
   personas = relationship('Asistente', backref='Evento')
+
+  def __repr__(self):
+      return """
+             Evento(id_evento={0},
+                    nombre={1},
+                    lugar={2},
+                    fecha={3}
+                    )
+             """.format(self.id_evento, self.nombre, self.lugar, self.fecha)

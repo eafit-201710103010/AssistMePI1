@@ -7,7 +7,7 @@ from resources.database.models import Asistente
 # Import possible errors
 from sqlalchemy.exc import IntegrityError
 
-# Create the parser for the requests and add all the expected requests
+# Create the parser for the requests and add all the expected arguments
 register_parser = reqparse.RequestParser()
 register_parser.add_argument("serial")
 register_parser.add_argument("nombre")
@@ -48,10 +48,11 @@ class Register(Resource):
     except IntegrityError:
       # a duplicate entry was found in the db
       error_found = True
-      print("\nDATABASE INTEGRITY ERROR!. Aborting Registration for\n{}\n".format(persona))
+      print("\nDATABASE INTEGRITY ERROR! Aborting Registration for:\n{}".format(persona))
       session.rollback() # restart session to get rid of errors
     
-    persona_data = {"doc_identidad": persona.doc_identidad,
+    persona_data = {
+                    "doc_identidad": persona.doc_identidad,
                     "serial": persona.serial,
                     "nombre": persona.nombre,
                     "codigo": persona.codigo,
