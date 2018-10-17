@@ -3,7 +3,7 @@
 Each table is represented by a class, with every attribute beign a column of it's assosiated table.
 """
 
-from sqlalchemy import Column, Integer, String, Numeric
+from sqlalchemy import Column, Integer, String, BigInteger
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
@@ -50,7 +50,7 @@ class Evento(Base):
   """
   __tablename__ = 'Eventos'
 
-  id_evento = Column(Integer, primary_key=True)
+  id_evento = Column(BigInteger, primary_key=True)
   nombre = Column(String(100))
   lugar = Column(String(100))
   fecha = Column(String(10)) # TODO: cambiar a tipo de dato date luego

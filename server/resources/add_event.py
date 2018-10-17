@@ -9,10 +9,22 @@ from sqlalchemy.exc import IntegrityError
 
 # Create the parser for the requests and add all the expected arguments
 add_event_parser = reqparse.RequestParser()
-add_event_parser.add_argument("id_evento")
 add_event_parser.add_argument("nombre")
 add_event_parser.add_argument("lugar")
 add_event_parser.add_argument("fecha")
+
+def hash_event(name):
+  """ Hashes the name of an event to generate a usable event id of type in (BigInteger on the database) """
+  name_length = len(name)
+  name_hash = 0
+
+  # Based on the java hashCode() function
+  for i in range(name_length):
+    name_hash += ord(name[i])*3**(name_length-1-i)
+    
+  name_hash = int(name_hash/(name_length*1000))
+
+  return name_hash
 
 # This class will manage everything related to the registration process
 class AddEvent(Resource):
@@ -24,8 +36,11 @@ class AddEvent(Resource):
     # Parser arguments
     args = add_event_parser.parse_args()
 
+    #create the event id
+    event_identifier = hash_event(args["nombre"])
+    
     # Create model object
-    evento = Evento(id_evento=int(args["id_evento"]),
+    evento = Evento(id_evento=event_identifier,
                     nombre=args["nombre"],
                     lugar=args["lugar"],
                     fecha=args["fecha"]
