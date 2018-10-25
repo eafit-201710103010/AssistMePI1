@@ -10,7 +10,7 @@ file.write("\n")
 print("evento creado")
 file.close()
 
-nameFile = "Asistentes_"+nombreEvento+".txt"
-file = open(nameFile, "w+")
+fileName = "Asistentes_"+nombreEvento+".txt"
+file = open(fileName, "w+")
 
 file.close()
