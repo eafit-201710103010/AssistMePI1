@@ -129,7 +129,7 @@ function updateTable(){
         cell1.innerHTML = results[i];
         cell2.innerHTML = results[i+1];
         cell3.innerHTML = results[i+2];
-        cell4.innerHTML = '<p class="pill-white btn"><a id="'+ nombreEvento +'" style="color: black" href="../Formulario_Registro/formularioRegistro.html">Inscribir</a></p>'
+        cell4.innerHTML = '<p class="pill-white btn"><a id="'+ nombreEvento +'" style="color: black" href="../Formulario_Registro/formularioRegistro.html" onclick="storeId(this.id);">Inscribir</a></p>'
         cell5.innerHTML = '<p class="pill-white btn"><a id="'+ nombreEvento +'" style="color: black" href="#" onclick="descargar(this.id);">Descargar</a></p>'
         cell6.innerHTML = '<p class="btn"><i class="glyphicon glyphicon-trash" id="'+ nombreEvento +'" style="font-size:15px;color:black" onclick="confirmacion(this.id);"></i></p>'
      }
@@ -168,6 +168,10 @@ function updateTableEvents(){
        cell4.innerHTML = '<p id="verEstadisticas" class="pill-white btn"><a style="color: black" href="../visualizarEstadisticas/estadisticas.html">Ver Estadísticas</a></p>'
     }
   });
+}
+
+function storeId(id){
+  localStorage["evento"] = id;
 }
 
 function confirmacion(evento){

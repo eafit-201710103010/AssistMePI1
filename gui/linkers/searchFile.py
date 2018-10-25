@@ -6,8 +6,11 @@ It looks at every person in the "Database" and says if it is in it or not.
 import sys
 
 serial_id = sys.argv[1]
+evento = sys.argv[2]
 
-file = open("personasEventos.txt","r")
+fileName = "Asistentes_"+evento+".txt"
+
+file = open(fileName,"r")
 
 found = False
 lineas = file.readlines()

@@ -74,6 +74,7 @@ function register(){
   let { PythonShell } = require("python-shell");
   const path = require("path");
 
+  const evento  = localStorage["evento"];
   const serial = ""
   const nombre = document.getElementById("nombre").value;
   const codigo = document.getElementById("codigo").value;
@@ -85,13 +86,14 @@ function register(){
   const options = {
     mode: 'text',
     scriptPath : path.join(__dirname,'../linkers'),
-    args: [serial,nombre,codigo,docIdentidad,ocupacion,edad,sexo]
+    args: [evento,serial,nombre,codigo,docIdentidad,ocupacion,edad,sexo]
   };
 
   let auxiliar = "";
   PythonShell.run("writeFile.py", options, function (err, results){
     if(err) throw err;
     auxiliar = String(results[0]);
+    console.log(results[1]);
     response();
   });
 
@@ -111,6 +113,7 @@ function rfid_scan(){
   let { PythonShell } = require("python-shell");
   const path = require("path");
 
+  
   // create option object with info for the python script
   // in this case, it specifies where the script is, the specific python version that we wantto use and 
   // the port that we want to use to connect to the RPi
@@ -141,10 +144,12 @@ function rfid_scan(){
   function checkForId(serial) {
     // create option object with info for the python script
     // in this case, it specifies where the script is and the arguments that it uses.
+    const evento = localStorage["evento"];
+
     const options2 = {
       mode: 'text',
       scriptPath : path.join(__dirname,'../linkers/'),
-      args: [serial]
+      args: [serial,evento]
     } 
     
     // call the python script used look for a person in the "Database"
@@ -175,6 +180,7 @@ function rfid_manual(){
   const path = require("path");
 
    // get number entered in the interface
+  var evento = localStorage["evento"];
   var id_ingresado = document.getElementById("documento").value;
 
   // create option object with info for the python script
@@ -182,7 +188,7 @@ function rfid_manual(){
   const options2 = {
     mode: 'text',
     scriptPath : path.join(__dirname,'../linkers/'),
-    args: [id_ingresado]
+    args: [id_ingresado,evento]
   };
 
   let auxiliar = "";
@@ -191,7 +197,6 @@ function rfid_manual(){
     if(err) throw err;
     auxiliar = String(results[0]);
     nombre = String(results[1]);
-    console.log("nombre: "+nombre);
     response();
   });
 

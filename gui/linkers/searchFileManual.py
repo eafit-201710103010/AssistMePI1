@@ -5,8 +5,11 @@ Searches if the number entered belongs to the code or identity document of any p
 import sys
 
 numero = sys.argv[1]
+evento = sys.argv[2]
 
-file = open("personasEventos.txt","r")
+fileName = "Asistentes_"+evento+".txt"
+
+file = open(fileName,"r")
 
 found=False
 lineas = file.readlines()
