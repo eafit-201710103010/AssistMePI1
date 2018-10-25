@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Usuarios</title>
-    <script type="text/javascript" src="#"></script>
+    <script type="text/javascript" src="../linkers/user.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="Usuarios.css">
@@ -40,32 +40,23 @@
                     </div>
                 </div>
             </div>
-            <section id="eventos" class="col-xs-12 col-md-8 col-sm-9">
+            <section id="usuarios" class="col-xs-12 col-md-8 col-sm-9">
                     <div id="table-container">
-                            <table id="tablaEventos">
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Ocupación</th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <td>Ana María Arias</td>
-                                    <td>Presidenta de la OE</td>
-                                    <td><p id="permisos" class="pill-white btn"><a style="color: black" href="#">Ver permisos</a></p></td>
-                                <tr>
-                                    <td>Pepito Patiño</td>
-                                    <td>Director de logística</td>
-                                    <td><p id="permisos" class="pill-white btn"><a style="color: black" href="#">Ver permisos</a></p></td>
-                                <tr>
-                                    <td>Pepito Pérez</td>
-                                    <td>Coordinador Conamerc</td>
-                                    <td><p id="permisos" class="pill-white btn"><a style="color: black" href="#">Ver permisos</a></p></td>
-                            </table>
+                        <table id="tablaUsuarios">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Ocupación</th>
+                                <th></th>
+                            </tr>
+                        </table>
                     </div>
                     <br>
-                    <p id="agregar" class="pill-white btn" style="margin-left: 85%;"><a style="color: white" href="#">Añadir Usuario</a></p>
+                    <p id="agregar" class="pill-white btn" style="margin-left: 85%;"><a style="color: white" href="../agregarUsuario/agregarUsuario.html">Añadir Usuario</a></p>
             </section>
         </div>
     </div>
+    <script>
+        updateUserTable();
+    </script>
 </body>
 </html>

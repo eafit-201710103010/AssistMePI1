@@ -29,7 +29,7 @@ body{
     border-radius: 2px;
     color: #030507;
     text-decoration: none;
-    background-color:#8c8aa1;
+    background-color: #8c8aa1;
 }
 
 .misEventos-btn a:hover{
@@ -80,39 +80,38 @@ body{
     justify-content: left;
 }
 
-#usuarios{
+#FormularioUsuario{
     background-color: rgb(5, 5, 92);
     color: #ffffff;
     width: 75%;
     height: 100%;
 }
 
-.pill-white{
-    border: 0.5px solid;
-    border-radius: 5px;
-    text-align: center;
+form.container{
+    margin-top: 10%;
 }
 
-
-#table-container{
-    margin-top: 4%;
-    height: 80%;
-    overflow: scroll;
+input{
+    margin-left: 0;
+    margin-bottom: 0px;
+    color: black;
 }
 
-table {
-    border-spacing: 5;
-    width: 90%;
-    border: 1px black;
-    background: #fff5f5;
-    margin-left: auto;
-    margin-right: auto;
+.agregarUsuario-btn{
+    cursor: pointer;
+    margin: -23px 10px 0;
+    float: right;
 }
 
-th, td {
-    text-align: center;
-    padding: 8px;
+.agregarUsuario-btn a{
+    border: 0.75px solid #ffffff;
+    padding: 7px;
+    color: #030507;
+    text-decoration: none;
+    background-color: #ffffff
 }
 
-tr:nth-child(even){background-color: #f2f2f2}
-
+.agregarUsuario-btn a:active{
+    position: relative;
+    top: 3px;
+}

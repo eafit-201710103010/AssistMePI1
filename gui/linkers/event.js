@@ -134,3 +134,34 @@ function updateTable(){
    });
   
 }
+
+function updateTableEvents(){
+  // import python-shell and path modules
+  let { PythonShell } = require("python-shell");
+  const path = require("path");
+
+  // create option object with info for the python script
+  // in this case, it specifies where the script is and the arguments that it uses
+  const options = {
+    mode: 'text',
+    scriptPath : path.join(__dirname,'../linkers/'),
+    args: []
+  };
+
+  PythonShell.run("eventTable.py", options, function (err, results) {
+    if(err) throw err;
+    let eventos = document.getElementById('tablaEventos');
+    for(i=0; i<results.length; i+=4){
+       let rowLength = eventos.rows.length;
+       let row = eventos.insertRow(rowLength);
+       let cell1 = row.insertCell(0);
+       let cell2 = row.insertCell(1);
+       let cell3 = row.insertCell(2);
+       let cell4 = row.insertCell(3);
+       cell1.innerHTML = results[i];
+       cell2.innerHTML = results[i+1];
+       cell3.innerHTML = results[i+2];
+       cell4.innerHTML = '<p id="verEstadisticas" class="pill-white btn"><a style="color: black" href="../visualizarEstadisticas/estadisticas.html">Ver Estadísticas</a></p>'
+    }
+  });
+}
