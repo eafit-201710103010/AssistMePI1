@@ -45,8 +45,17 @@
                     Nombre<br>
                     <input id="nombreUsuario" class="form-control" type="text" name="nombreUsuario" placeholder="Nombre Usuario">
                     <br>
-                    Ocupación<br>
-                    <input id="ocupacion" class="form-control" type="text" name="ocupacion" placeholder="Ocupación">
+                    Contraseña<br>
+                    <input id="password" class="form-control" type="password" name="password" placeholder="Contraseña">
+                    <br>
+                    Permisos<br>
+                    <select id="permisos" class="form-control">
+                        <option value="" selected disabled hidden>Seleccione un tipo de permiso</option>
+                        <option value="Admin">Admin</option>
+                        <option value="View">View</option>
+                        <option value="Register">Register</option>
+                        <option value="View and Register">View and Register</option>
+                    </select>
                     <br><br><br><br>
                     <div class="agregarUsuario-btn pull-right" onclick="agregar();">
                             <a href="../Usuarios/usuarios.html">Agregar Usuario</a>

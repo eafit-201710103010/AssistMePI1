@@ -151,7 +151,7 @@ function updateTableEvents(){
     args: []
   };
 
-  PythonShell.run("eventTable.py", options, function (err, results) {
+  PythonShell.run("tableCharts.py", options, function (err, results) {
     if(err) throw err;
     let eventos = document.getElementById('tablaEventos');
 
