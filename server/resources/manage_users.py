@@ -6,6 +6,8 @@ from resources.database.db_session import session
 from resources.database.models import Usuario
 # Import possible errors
 from sqlalchemy.exc import IntegrityError
+# Import AES Encyption library from pyCrypto
+from Crypto.Cipher import AES
 
 # Create the parser for the requests and add all the expected arguments
 post_user_parser = reqparse.RequestParser()
@@ -23,9 +25,14 @@ class ManageUsers(Resource):
     # Parse Arguments
     args = post_user_parser.parse_args()
 
+    # Create encyption suite for the user's password
+    # key, mode, iv
+    encyption_suite = AES.new('05E93C8D121E7E2CFAD25BE5AB94AF06', AES.MODE_CBC, 'A830BAE2AD9A5F3AE29CB094BD04F0F1')
+    encrypted_password = encyption_suite.encrypt(args["password"])
+
     # Create model object
     usuario = Usuario(nombre=args["nombre"],
-                      password=args["password"],
+                      password=encrypted_password,
                       permiso=args["permiso"]
                      )
 
