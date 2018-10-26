@@ -74,7 +74,7 @@ class Usuario(Base):
   __tablename__ = 'Usuarios'
 
   nombre = Column(String(20), primary_key=True)
-  password = Column(String(20))
+  password = Column(String(100))
   permiso = Column(String(20)) #Permission for Users
   
   def __repr__(self):
