@@ -65,3 +65,22 @@ class Evento(Base):
                     fecha={3}
                     )
              """.format(self.id_evento, self.nombre, self.lugar, self.fecha)
+
+
+class Usuario(Base):
+  """ Referencia a tabla 'Usuarios'.
+      PK: nombre 
+  """
+  __tablename__ = 'Usuarios'
+
+  nombre = Column(String(20), primary_key=True)
+  password = Column(String(20))
+  permiso = Column(String(20)) #Permission for Users
+  
+  def __repr__(self):
+    return """
+            Usuario(nombre={0},
+                    password={1},
+                    permiso={2}
+                    )
+            """.format(self.nombre, self.constraseña, self.permiso)
