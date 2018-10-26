@@ -4,10 +4,11 @@
 from flask_restful import Resource, reqparse
 from resources.database.db_session import session
 from resources.database.models import Usuario
+# Also import the AESCipher from tools in order to encrypt and decrypt user passwords, as well as it's key
+from resources.tools.aes_encryption import AESCipher, secret_key
 # Import possible errors
 from sqlalchemy.exc import IntegrityError
-# Import AES Encyption library from pyCrypto
-from Crypto.Cipher import AES
+
 
 # Create the parser for the requests and add all the expected arguments
 post_user_parser = reqparse.RequestParser()
@@ -25,10 +26,10 @@ class ManageUsers(Resource):
     # Parse Arguments
     args = post_user_parser.parse_args()
 
-    # Create encyption suite for the user's password
-    # key, mode, iv
-    encyption_suite = AES.new('05E93C8D121E7E2CFAD25BE5AB94AF06', AES.MODE_CBC, 'A830BAE2AD9A5F3AE29CB094BD04F0F1')
-    encrypted_password = encyption_suite.encrypt(args["password"])
+    # Create the chiper object and encypt the password
+    cipher = AESCipher(secret_key)
+    user_password = args["password"]
+    encrypted_password = cipher.encrypt(user_password)
 
     # Create model object
     usuario = Usuario(nombre=args["nombre"],
