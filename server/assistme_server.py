@@ -12,6 +12,7 @@ from resources.register import Register
 from resources.add_event import AddEvent
 from resources.download_event import DownloadEvent
 from resources.manage_users import ManageUsers
+from resources.remove_event import RemoveEvent
 
 
 # Create the app and define it as a rest api.
@@ -23,6 +24,7 @@ api.add_resource(Register, "/register")
 api.add_resource(AddEvent, "/add_event")
 api.add_resource(DownloadEvent, "/download_event/<string:nombre_evento>")
 api.add_resource(ManageUsers, "/manage_users")
+api.add_resource(RemoveEvent, "/remove_event")
 
 
 # Main --> run the server
