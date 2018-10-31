@@ -30,14 +30,18 @@ class LogIn(Resource):
     usuario = session.query(Usuario).filter( and_(
                                                   Usuario.nombre == args["nombre"],
                                                   Usuario.password == encrypted_password
-                                                  ))
-    
-    info_usuario = {
-                    "nombre": usuario.nombre,
-                    "password": usuario.password,
-                    "permiso": usuario.permiso
-                   }
+                                                  )).first()
 
-    return info_usuario, 200
+    if usuario is None:
+      return {"message": "Incorrect password or username"}, 500
+
+    else:     
+      info_usuario = {
+                      "nombre": usuario.nombre,
+                      "password": usuario.password,
+                      "permiso": usuario.permiso
+                    }
+
+      return info_usuario, 200
 
     
