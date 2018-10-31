@@ -16,6 +16,9 @@ post_user_parser.add_argument("nombre")
 post_user_parser.add_argument("password")
 post_user_parser.add_argument("permiso")
 
+rem_user_parser = reqparse.RequestParser()
+rem_user_parser.add_argument("nombre")
+
 # This class will manage everything related to managing users process
 class ManageUsers(Resource):
   """ Class used to manage all the logic for managing users process """
@@ -77,3 +80,18 @@ class ManageUsers(Resource):
       info_usuarios.append(usuario_auxiliar)
 
     return info_usuarios, 200
+
+  def delete(self):
+    # Process that deletes user from database
+
+    # Create Parser
+    args = rem_user_parser.parse_args()
+
+    # Delete user specified
+    
+    session.query(Usuario).filter(Usuario.nombre == args["nombre"]).delete()
+
+    session.commit()
+
+    return '', 204 # return DELETE Success
+     
