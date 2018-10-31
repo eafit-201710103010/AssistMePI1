@@ -26,10 +26,10 @@
                     <a href="#">Mis Eventos</a>
                 </div>
                 <div class="estadisticas-btn">
-                    <a href="#">Estadísticas</a>
+                    <a href="../Estadisticas_Home/estadisticas.html">Estadísticas</a>
                 </div>
                 <div class="usuarios-btn">
-                    <a href="#">Usuarios</a>
+                    <a href="../Usuarios/usuarios.html">Usuarios</a>
                 </div>
                 <div id="botonesPerfil" class="row">
                     <div class="atras-btn">
@@ -89,18 +89,20 @@
                         <div class="sexo">
                             Sexo * <br>  
                             <div class="row">  
-                                <input id="sexo" type="radio" name="sexo" value="mujer"> Mujer
-                                <input id="sexo" type="radio" name="sexo" value="hombre"> Hombre
+                                <input id="mujer" type="radio" name="sexo" value="mujer"> Mujer
+                                <input id="hombre" type="radio" name="sexo" value="hombre"> Hombre
                             </div>
                         </div>
                     </div>
                     <br>
+                    <input id="acceptance" type="checkbox" value="true"> ¿Acepta usted que sus datos personales sean almacenados en la base de datos de AssistMe?
+                    <br><br>
                     <div>
                         <div id="carne" class="leer-btn pull-left" onclick="carne();">
                             <a id="boton" href="#">Leer Carné</a>
                         </div>
                         <div id="finalizar" class="finalizar-btn pull-right" onclick="finalizar();">
-                                <a href="../Eventos/eventos.html">Finalizar Inscripción</a>
+                                <a href="#">Finalizar Inscripción</a>
                         </div>
                     </div>
                 </form>
@@ -110,13 +112,23 @@
     <script>
 
         function finalizar(){
-            register();
+            if(document.getElementById("acceptance").checked){
+                register();
+            }
+            else{
+                alert("Es necesario aceptar los terminos y condiciones para poder registrarse por este medio")
+            }
         }
 
-        function carne(){
-            document.getElementById("finalizar").style.display = "none";
-            rfid_register();
-            document.getElementById("boton").style.display = "none"
+        function carne(){   
+            if(document.getElementById("acceptance").checked){         
+                document.getElementById("finalizar").style.display = "none";
+                rfid_register();
+                document.getElementById("boton").style.display = "none"
+            }
+            else{
+                alert("Es necesario aceptar los terminos y condiciones para poder registrarse por este medio")
+            }
         }
     </script>
 </body>

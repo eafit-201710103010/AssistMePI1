@@ -61,6 +61,7 @@ function addUser(){
 function response(){
   if(auxiliar === "usuario agregado"){
     alert("Usuario añadido exitosamente")
+    window.location.href = "../Usuarios/usuarios.html"
   }
   else{
       alert("ERROR en la adición del usuario")

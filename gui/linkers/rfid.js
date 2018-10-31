@@ -61,6 +61,7 @@ function rfid_register() {
   function response(){
     if(auxiliar === "registro_exitoso") {
       alert("Persona Registrada Exitosamente");
+      window.location.href = "../Eventos/eventos.html";
     }else{
       alert("ERROR en el registro");
     }
@@ -80,8 +81,14 @@ function register(){
   const docIdentidad = document.getElementById("docIdentidad").value;
   const ocupacion = document.getElementById("ocupación").value;
   const edad = document.getElementById("edad").value;
-  const sexo = document.getElementById("sexo").value;
-
+  let sexo;
+  if(document.getElementById("mujer").checked){
+    sexo = document.getElementById("mujer").value;
+  }
+  else{
+    sexo = document.getElementById("hombre").value;
+  }
+  
   const options = {
     mode: 'text',
     scriptPath : path.join(__dirname,'../linkers'),
@@ -92,13 +99,13 @@ function register(){
   PythonShell.run("writeFile.py", options, function (err, results){
     if(err) throw err;
     auxiliar = String(results[0]);
-    console.log(results[1]);
     response();
   });
 
   function response(){
     if(auxiliar === "registro_exitoso") {
       alert("Persona Registrada Exitosamente");
+      window.location.href = "../Eventos/eventos.html";
     }else{
       alert("ERROR en el registro");
     }
@@ -232,4 +239,6 @@ function rfid_terminate() {
   PythonShell.run("terminatePi.py", options, function (err, results) {
     if(err) throw err;
   });
+
+  window.location.href = "../Eventos/eventos.html"
 }
