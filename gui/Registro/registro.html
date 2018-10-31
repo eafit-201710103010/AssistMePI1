@@ -40,6 +40,7 @@
         <script>
             let puedeEntrar = false;
             let terminar = false;
+            let registrado = false;
             
             // Get the input field
             var input = document.getElementById("documento");
@@ -55,13 +56,13 @@
             });
 
             function startRegister(){
-                //puedeEntrar = rfid_manual();
                 rfid_manual();
             }
             
-            function ingreso(encontrado,nombre){
+            function ingreso(encontrado,asistio,nombre,doc_identidad){
                 puedeEntrar = encontrado;
-                verificarPantalla(nombre);
+                registrado = asistio;
+                verificarPantalla(nombre,doc_identidad);
             }
 
             function check(){
@@ -90,7 +91,7 @@
 
             primeraPantalla();
 
-            function verificarPantalla(nombre){
+            function verificarPantalla(nombre,doc_identidad){
                 if(puedeEntrar===false && terminar===false){
                     document.getElementById("imagen").src="Triste.png";
                     document.getElementById("mensaje1").innerHTML = "";
@@ -104,11 +105,26 @@
                     document.getElementById("leerCedula").style.display ="none";
                     setTimeout(primeraPantalla, 3000);
                 }
-                if(puedeEntrar===true && terminar===false){
+                if(puedeEntrar===true && registrado===false && terminar===false){
                     document.getElementById("mensaje1").innerHTML = "Bienvenido/a " + String(nombre);
                     document.getElementById("mensaje2").innerHTML = "Su registro ha sido exitoso, puede continuar";
                     document.getElementById("mensaje3").innerHTML = "";
                     document.getElementById("pantalla").className = "verde";
+                    document.getElementById("finalizar").style.display = "none";
+                    document.getElementById("documento").style.display = "none";
+                    document.getElementById("ingresar").style.display = "none";
+                    document.getElementById("leerCarne").style.display = "none";
+                    document.getElementById("leerCedula").style.display ="none";
+                    assistance(nombre,doc_identidad);
+                    setTimeout(primeraPantalla, 3000);
+                }
+
+                if(puedeEntrar===true && registrado===true && terminar===false){
+                    document.getElementById("imagen").src="Triste.png";
+                    document.getElementById("mensaje1").innerHTML = "";
+                    document.getElementById("mensaje2").innerHTML = "Esta persona ya fue registrada al evento";
+                    document.getElementById("mensaje3").innerHTML = "";
+                    document.getElementById("pantalla").className = "rojo";
                     document.getElementById("finalizar").style.display = "none";
                     document.getElementById("documento").style.display = "none";
                     document.getElementById("ingresar").style.display = "none";

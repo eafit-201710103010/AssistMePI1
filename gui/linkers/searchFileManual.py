@@ -8,6 +8,7 @@ numero = sys.argv[1]
 evento = sys.argv[2]
 
 fileName = "Asistentes_"+evento+".txt"
+asistentes = evento+"_asistentes.txt"
 
 file = open(fileName,"r")
 
@@ -26,12 +27,30 @@ for persona in lineas:
         found = True
         break
     
+file.close()
+
+file = open(asistentes,"r")
+
+asistio = False
+lineas = file.readlines()
+for persona in lineas:
+    datos_persona = persona.split(",")
+    doc_identidad = datos_persona[0]
+    if doc_identidad == str(documento_almacenado):
+        asistio = True
+        break
+
     
-    
-if found : 
+if found and not asistio: 
     print("true")
+    print("false")
     print(nombre)
+    print(documento_almacenado)
+elif found and asistio:
+    print("true")
+    print("true")
 else:
-    print("false",nombre)
+    print("false")
+    print("false")
 
 file.close()

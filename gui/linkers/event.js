@@ -48,8 +48,10 @@ function checkButtons(){
 function showButtonRegister(rowNumber){
   let tabla = document.getElementById('tablaEventos');
   let btn1 = tabla.rows.item(rowNumber).cells[3].childNodes[0].childNodes[0];
+  let btn2 = tabla.rows.item(rowNumber).cells[4].childNodes[0];
   btn1.innerHTML = "Registrar";
   btn1.href = "../Registro/registro.html"
+  btn2.style.display = "none";
 }
 
 function hideButton(rowNumber){
