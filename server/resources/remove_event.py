@@ -10,8 +10,6 @@ from sqlalchemy.exc import IntegrityError
 # Create the parser for the requests and remove all the expected arguments
 rem_event_parser = reqparse.RequestParser()
 rem_event_parser.add_argument("nombre")
-rem_event_parser.add_argument("lugar")
-rem_event_parser.add_argument("fecha")
 
 def hash_event(name):
   """ Hashes the name of an event to generate a usable event id of type int (BigInteger on the database) """
@@ -37,41 +35,13 @@ class RemoveEvent(Resource):
     #Parser arguments
     args = rem_event_parser.parse_args()
 
-    # search for the assistants first then delete the event itself
-    id_evento = session.query(Evento.id_evento).filter(Evento.nombre.like(args["nombre"])).scalar()
-    asistentes_evento = session.query(Asistente).filter(Asistente.id_evento == id_evento).delete()
 
     #create the event id
     event_identifier = hash_event(args["nombre"])
-    
-    # Create model object
-    evento = Evento(id_evento=event_identifier,
-                    nombre=args["nombre"],
-                    lugar=args["lugar"],
-                    fecha=args["fecha"]
-                    )
-    
-    # Variable to control error detection for return values
-    error_found = False
 
-    try:
-      session.delete(evento)
-      session.commit()
+    # search for the assistants first then delete the event itself
+    id_evento = session.query(Evento.id_evento).filter(Evento.nombre.like(args["nombre"])).scalar()
+    session.query(Asistente).filter(Asistente.id_evento == id_evento).delete()
+    session.query(Evento).filter(Evento.id_evento == event_identifier).delete()
 
-    except IntegrityError:
-      # a entry was found in the db
-      error_found = True
-      print("\nDATABASE INTEGRITY ERROR! Aborting insersion of:\n{}".format(evento))
-      session.rollback()
-
-    evento_data = {
-                   "id_evento": evento.id_evento,
-                   "nombre": evento.nombre,
-                   "lugar": evento.lugar,
-                   "fecha": evento.fecha
-                  }
-
-    if error_found:
-      return evento_data, 500 # Internal server error
-    else:
-      return evento_data, 204 # DELETE Success
+    return '', 204 # return DELETE Success
