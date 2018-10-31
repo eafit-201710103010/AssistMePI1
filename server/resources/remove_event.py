@@ -27,21 +27,22 @@ def hash_event(name):
 # This class will manage everything related to delete an event process
 class RemoveEvent(Resource):
   """ Class used to manage all the logic for when an event is removed """
-  # when a delete request arrives, parse the arguments, remove the event requested in the database
-  # also returns a 201 HTTP status code indicating that the DELETE request was succesfull
-  # or a 500 HTTP status code indicating an internal server error if the DELETE request was not successful
+  # when a delete request arrives, parse the arguments, remove the event requested in the database and itś assistants
+  # also returns a 204 HTTP status code indicating that the DELETE request was succesfull
   def delete(self):
 
     #Parser arguments
     args = rem_event_parser.parse_args()
-
 
     #create the event id
     event_identifier = hash_event(args["nombre"])
 
     # search for the assistants first then delete the event itself
     id_evento = session.query(Evento.id_evento).filter(Evento.nombre.like(args["nombre"])).scalar()
+    
     session.query(Asistente).filter(Asistente.id_evento == id_evento).delete()
     session.query(Evento).filter(Evento.id_evento == event_identifier).delete()
+
+    session.commit()
 
     return '', 204 # return DELETE Success
