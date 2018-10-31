@@ -39,6 +39,7 @@ class Register(Resource):
                         ocupacion=args["ocupacion"],
                         edad=args["edad"],
                         sexo=args["sexo"],
+                        asistio=None,
                         id_evento=id_evento_persona
                         )
     # Variable to control error detection for return values

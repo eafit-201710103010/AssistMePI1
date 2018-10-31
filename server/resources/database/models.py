@@ -3,7 +3,7 @@
 Each table is represented by a class, with every attribute beign a column of it's assosiated table.
 """
 
-from sqlalchemy import Column, Integer, String, BigInteger
+from sqlalchemy import Column, Integer, String, BigInteger, Boolean
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
@@ -26,6 +26,7 @@ class Asistente(Base):
   ocupacion = Column(String(20))
   edad = Column(Integer)
   sexo = Column(String(6)) # hombre o mujer
+  asistio = Column(Boolean)
   
   id_evento = Column(Integer, ForeignKey('Eventos.id_evento'), primary_key=True)
 
