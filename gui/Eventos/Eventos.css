@@ -97,7 +97,7 @@ body{
 #table-container{
     margin-top: 4%;
     height: 80%;
-    overflow: scroll;
+    overflow: auto;
 }
 
 table {
