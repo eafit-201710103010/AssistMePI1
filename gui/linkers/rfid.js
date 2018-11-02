@@ -30,6 +30,7 @@ function rfid_register() {
   PythonShell.run("connectToPi.py", options, function (err, results) {
     if(err) throw err;
     serialID = String(results[0]);
+    const evento  = localStorage["evento"];
     const nombre = document.getElementById("nombre").value;
     const codigo = document.getElementById("codigo").value;
     const docIdentidad = document.getElementById("docIdentidad").value;
@@ -46,7 +47,7 @@ function rfid_register() {
     const options2 = {
       mode: 'text',
       scriptPath : path.join(__dirname,'../linkers/'),
-      args: [serial, nombre, codigo, docIdentidad, ocupacion, edad, sexo]
+      args: [evento, serial, nombre, codigo, docIdentidad, ocupacion, edad, sexo]
     } 
     
     // call the python script used look for a person in the "Database"
