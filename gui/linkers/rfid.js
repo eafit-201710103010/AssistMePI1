@@ -30,7 +30,6 @@ function rfid_register() {
   PythonShell.run("connectToPi.py", options, function (err, results) {
     if(err) throw err;
     serialID = String(results[0]);
-    const evento  = localStorage["evento"];
     const nombre = document.getElementById("nombre").value;
     const codigo = document.getElementById("codigo").value;
     const docIdentidad = document.getElementById("docIdentidad").value;
@@ -50,6 +49,7 @@ function rfid_register() {
   function addNewPersonEntry(serial, nombre, codigo, docIdentidad, ocupacion, edad, sexo) {
     // create option object with info for the python script
     // in this case, it specifies where the script is and the arguments that it uses
+    const evento  = localStorage["evento"];
     const options2 = {
       mode: 'text',
       scriptPath : path.join(__dirname,'../linkers/'),
