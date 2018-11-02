@@ -24,7 +24,7 @@ for persona in lineas:
   if serial_almacenado == str(serial_id):
     found =True
     nombre = datos_persona[1]
-    documento_almacenado = datos_persona[4]
+    documento_almacenado = datos_persona[3]
     break 
 
 file.close()
