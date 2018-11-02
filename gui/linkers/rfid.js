@@ -155,7 +155,6 @@ function rfid_scan(){
 
   let auxiliar = "";
   let asistio = "false";
-  let nombre = "";
   let doc_identidad = "";
   function checkForId(serial) {
     // create option object with info for the python script
