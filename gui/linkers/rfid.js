@@ -36,7 +36,13 @@ function rfid_register() {
     const docIdentidad = document.getElementById("docIdentidad").value;
     const ocupacion = document.getElementById("ocupación").value;
     const edad = document.getElementById("edad").value;
-    const sexo = document.getElementById("sexo").value;
+    let sexo;
+    if(document.getElementById("mujer").checked){
+      sexo = document.getElementById("mujer").value;
+    }
+    else{
+      sexo = document.getElementById("hombre").value;
+    }
     addNewPersonEntry(serialID, nombre, codigo, docIdentidad, ocupacion, edad, sexo);
   });
 
