@@ -27,15 +27,17 @@ class LogIn(Resource):
     user_password = args["password"]
     encrypted_password = cipher.encrypt(user_password)
 
+    # look for the user with that password
     usuario = session.query(Usuario).filter( and_(
                                                   Usuario.nombre == args["nombre"],
                                                   Usuario.password == encrypted_password
                                                   )).first()
 
     if usuario is None:
+      # this user was not found
       return {"message": "Incorrect password or username"}, 500
 
-    else:     
+    else:
       info_usuario = {
                       "nombre": usuario.nombre,
                       "password": usuario.password,

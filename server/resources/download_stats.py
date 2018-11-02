@@ -1,15 +1,25 @@
+"""All the logic for downloading statistics of a certain event is located here."""
+
+# Import dependencies from flask_restful, as well as the database models necessary and the session to connect to it
 from flask_restful import Resource
 from resources.database.db_session import session
 from resources.database.models import Asistente, Evento
 
+# This class will manage everything related to the registration process
 class DownloadStats(Resource):
+  """ Class used to manage all the logic for when an event's stats are downloaded """
+  # when a get request arrives, parse the arguments, create that event's model and add it to the database
+  # also returns a 200 HTTP status code indicating that the GET request was succesfull
   def get(self, nombre_evento):
     # looks for an event id in the table and returns the number if one, and only one, match is found
     id_evento = session.query(Evento.id_evento).filter(Evento.nombre.like(nombre_evento)).scalar()
     
+    # create a list to store all of the assistants
     info_asistentes = []
+    # look for all the assistants in the db
     asistentes_evento = session.query(Asistente).filter(Asistente.id_evento == id_evento).all()
     
+    # add everyone to the list as a dict (json)
     for asistente in asistentes_evento:
       asistentes_auxiliar = {
                               "doc_identidad": asistente.doc_identidad,
