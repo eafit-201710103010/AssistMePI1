@@ -164,10 +164,13 @@ function updateTableEvents(){
        let cell2 = row.insertCell(1);
        let cell3 = row.insertCell(2);
        let cell4 = row.insertCell(3);
+
+       let nombreEvento = results[i];
+
        cell1.innerHTML = results[i];
        cell2.innerHTML = results[i+1];
        cell3.innerHTML = results[i+2];
-       cell4.innerHTML = '<p id="verEstadisticas" class="pill-white btn"><a style="color: black" href="../visualizarEstadisticas/estadisticas.html">Ver Estadísticas</a></p>'
+       cell4.innerHTML = '<p id="verEstadisticas" class="pill-white btn"><a id="'+ nombreEvento +'" style="color: black" href="../visualizarEstadisticas/estadisticas.html" onclick="storeId(this.id);">Ver Estadísticas</a></p>'
     }
   });
 }

@@ -44,7 +44,10 @@
             </div>
 
             <section id="estadisticas" class="col-xs-12 col-md-8 col-sm-9">
-                <h3>Evento: Gerenciar </h3>
+                <h3 id="nombreEvento"></h3>
+                <script>
+                    document.getElementById("nombreEvento").innerHTML = "Evento: " + localStorage["evento"];
+                </script>
                 <h3>Personas Inscritas: 636 </h3>
                 <h3>Asistentes: 628 </h3>
                 <br>
@@ -67,8 +70,7 @@
                             </div>
                             <script>
                                 asistencia();
-                                
-                        </script>
+                            </script>
                         </div>
                         <h2>Ver</h2>
                         <input id="verEstadistica" type="radio" name="verEstadistica" onclick="asistencia();" checked> Asistencia <br><br>

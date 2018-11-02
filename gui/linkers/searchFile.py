@@ -29,6 +29,9 @@ for persona in lineas:
 
 file.close()
 
+file = open(asistentes,"a")
+file.close()
+
 file = open(asistentes,"r")
 
 asistio = False
