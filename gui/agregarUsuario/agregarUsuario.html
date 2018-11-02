@@ -1,0 +1,73 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <title>Usuarios</title>
+    <script type="text/javascript" src="../linkers/user.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="AgregarUsuario.css">
+</head>
+<body>
+    <div class="container-fluid" >
+        <div class="row" >
+            <div id="perfil" class="col-xs-12  col-md-3  col-sm-2 " style="height:765px">
+                <div class="col-md-3 col-md-pull-1 col-sm-3 col-sm-pull-1 col-xs-3 col-xs-pull-1">
+                    <img id="logo" src="../Logo1.png" style="height:100px;width:150px">
+                </div>
+                <div class="row">
+                    <div id="fotoPerfil" class="col-md-pull-10">
+                        <img src="https://image.flaticon.com/icons/png/512/121/121693.png" style="float:left; height:100px; width:100px"/>
+                        <div class="content-heading"><h4>Elizabeth <br>Suescun </h4>
+                            <p>Profesora del departamento de sistemas.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="misEventos-btn">
+                    <a href="../Eventos/eventos.html">Mis Eventos</a>
+                </div>
+                <div class="estadisticas-btn">
+                    <a href="../Estadisticas_Home/estadisticas.html">Estadísticas</a>
+                </div>
+                <div class="usuarios-btn">
+                    <a href="#">Usuarios</a>
+                </div>
+                <div id="botonesPerfil" class="row">
+                    <div class="atras-btn">
+                            <a href="../Usuarios/usuarios.html">Atras</a>
+                        </div>
+                    <div class="cerrarSesion-btn">
+                        <a href="../home.html">Cerrar Sesión</a>
+                    </div>
+                </div>
+            </div>
+            <section id="FormularioUsuario" class="col-xs-12 col-md-8 col-sm-9">
+                <form class="container" style="height:705px; width: 300px;">
+                    Nombre<br>
+                    <input id="nombreUsuario" class="form-control" type="text" name="nombreUsuario" placeholder="Nombre Usuario">
+                    <br>
+                    Contraseña<br>
+                    <input id="password" class="form-control" type="password" name="password" placeholder="Contraseña">
+                    <br>
+                    Permisos<br>
+                    <select id="permisos" class="form-control">
+                        <option value="" selected disabled hidden>Seleccione un tipo de permiso</option>
+                        <option value="Admin">Admin</option>
+                        <option value="View">View</option>
+                        <option value="Register">Register</option>
+                        <option value="View and Register">View and Register</option>
+                    </select>
+                    <br><br><br><br>
+                    <div class="agregarUsuario-btn pull-right" onclick="agregar();">
+                            <a href="#">Agregar Usuario</a>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+    <script>
+        function agregar(){
+            addUser();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+body{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 300;
+}
+
+header nav{
+    display: flex;
+    justify-content: flex-end;
+}
+
+div > h1{
+    font-size: 1.8rem;
+}
+
+header .row{
+    display: flex;
+    align-items: center;
+}
+
+.col-sm-4 p{
+    margin: 70px 70px 70px;
+    min-width: 100px;
+    padding: 1px;
+    
+}
+
+#info{
+    margin: 25px 20px 20px;
+    min-width: 90px;
+    padding: 1px;
+    margin-left: 800px;
+    margin-bottom: 450px;
+}
+
+
+.backgroundImage{
+    display: flex;
+    align-items: center;
+    height: 89vh;
+    background-image: url("img1.JPG");
+    background-size: cover;
+    background-position: center;
+}
+
+.backgroundImage h2 {
+    background-color: #FFFFFF;
+    display: inline-block;
+    color: rgb(5, 5, 92);
+    font-weight: bold;
+    padding: 10px 35px;
+    border-radius: 20px;
+    margin-left: 100%;
+  }
+  
+  .backgroundImage h3 {
+    color: #FFFFFF;
+    font-weight: bold;
+  }
+  
+#login{
+    margin-right: 60px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    width: 80%;
+}
+
+input{
+    margin-left: 0;
+    margin-bottom: 0px;
+    color: black;
+}
+
+#ingresar{
+    margin-left: 30%;  
+}
+
+#ingresar-btn a{
+    background-color: #FFFFFF;
+    color: rgb(5, 5, 92);
+    font-weight: bold;
+    padding: 10px 35px;
+    border-radius: 20px;
+}
+
+#ingresar-btn a:active{
+    position: relative;
+    top: 3px;
+}
+
+
+  

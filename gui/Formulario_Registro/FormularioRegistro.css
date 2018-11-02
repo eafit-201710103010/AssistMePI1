@@ -27,14 +27,9 @@ body{
     line-height: 60px;
     padding: 10px 32%;
     border-radius: 2px;
-    color: #030507;
-    text-decoration: none;
-    background-color: #8c8aa1;
-}
-
-.misEventos-btn a:hover{
-    background-color: rgb(5, 5, 92);
     color: white;
+    text-decoration: none;
+    background-color: rgb(5, 5, 92);
 }
 
 .estadisticas-btn a{
@@ -126,6 +121,10 @@ form .row{
 
 #ocupacion{
     color: black;
+}
+
+input[type="number"]::-webkit-inner-spin-button { 
+    display: none;
 }
 
 input[type="radio"] {

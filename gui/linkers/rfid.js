@@ -61,11 +61,55 @@ function rfid_register() {
   function response(){
     if(auxiliar === "registro_exitoso") {
       alert("Persona Registrada Exitosamente");
+      window.location.href = "../Eventos/eventos.html";
     }else{
       alert("ERROR en el registro");
     }
   }
 
+}
+
+function register(){
+  
+  let { PythonShell } = require("python-shell");
+  const path = require("path");
+
+  const evento  = localStorage["evento"];
+  const serial = ""
+  const nombre = document.getElementById("nombre").value;
+  const codigo = document.getElementById("codigo").value;
+  const docIdentidad = document.getElementById("docIdentidad").value;
+  const ocupacion = document.getElementById("ocupación").value;
+  const edad = document.getElementById("edad").value;
+  let sexo;
+  if(document.getElementById("mujer").checked){
+    sexo = document.getElementById("mujer").value;
+  }
+  else{
+    sexo = document.getElementById("hombre").value;
+  }
+  
+  const options = {
+    mode: 'text',
+    scriptPath : path.join(__dirname,'../linkers'),
+    args: [evento,serial,nombre,codigo,docIdentidad,ocupacion,edad,sexo]
+  };
+
+  let auxiliar = "";
+  PythonShell.run("writeFile.py", options, function (err, results){
+    if(err) throw err;
+    auxiliar = String(results[0]);
+    response();
+  });
+
+  function response(){
+    if(auxiliar === "registro_exitoso") {
+      alert("Persona Registrada Exitosamente");
+      window.location.href = "../Eventos/eventos.html";
+    }else{
+      alert("ERROR en el registro");
+    }
+  }
 }
 
 /** Function used to look people up in the "Database" using the rfid scanner */
@@ -75,6 +119,7 @@ function rfid_scan(){
   let { PythonShell } = require("python-shell");
   const path = require("path");
 
+  
   // create option object with info for the python script
   // in this case, it specifies where the script is, the specific python version that we wantto use and 
   // the port that we want to use to connect to the RPi
@@ -102,13 +147,18 @@ function rfid_scan(){
   });
 
   let auxiliar = "";
+  let asistio = "false";
+  let nombre = "";
+  let doc_identidad = "";
   function checkForId(serial) {
     // create option object with info for the python script
-    // in this case, it specifies where the script is and the arguments that it uses
+    // in this case, it specifies where the script is and the arguments that it uses.
+    const evento = localStorage["evento"];
+
     const options2 = {
       mode: 'text',
       scriptPath : path.join(__dirname,'../linkers/'),
-      args: [serial]
+      args: [serial,evento]
     } 
     
     // call the python script used look for a person in the "Database"
@@ -116,16 +166,22 @@ function rfid_scan(){
     PythonShell.run("searchFile.py", options2, function (err, results) {
       if(err) throw err;
       auxiliar = String(results[0]);
-      nombre = String(results[1]);
+      asistio = String(results[1])
+      nombre = String(results[2]);
+      doc_identidad = String(results[3]);
       response();
     });
   }
 
   function response(){
-    if(auxiliar === "true") {
-      return ingreso(true,nombre);
-    }else{
-      return ingreso(false,nombre);
+    if(auxiliar === "true" && asistio === "false") {
+      return ingreso(true,false,nombre,doc_identidad);
+    }
+    else if(auxiliar === "true" && asistio === "true"){
+      return ingreso(true,true,nombre,doc_identidad);
+    }
+    else{
+      return ingreso(false,false,nombre,doc_identidad);
     }
   }
 
@@ -138,6 +194,7 @@ function rfid_manual(){
   const path = require("path");
 
    // get number entered in the interface
+  var evento = localStorage["evento"];
   var id_ingresado = document.getElementById("documento").value;
 
   // create option object with info for the python script
@@ -145,15 +202,19 @@ function rfid_manual(){
   const options2 = {
     mode: 'text',
     scriptPath : path.join(__dirname,'../linkers/'),
-    args: [id_ingresado]
+    args: [id_ingresado,evento]
   };
 
   let auxiliar = "";
+  let asistio = "false";
+  let nombre = "";
+  let doc_identidad = "";
   PythonShell.run("searchFileManual.py", options2, function (err, results) {
     if(err) throw err;
     auxiliar = String(results[0]);
-    nombre = String(results[1]);
-    console.log("nombre: "+nombre);
+    asistio = String(results[1]);
+    nombre = String(results[2]);
+    doc_identidad = String(results[3]);
     response();
   });
 
@@ -161,13 +222,39 @@ function rfid_manual(){
 
   // if the person is indeed in the "Database", return true, else return not
   function response(){
-      if(auxiliar === "true") {
-        return ingreso(true,nombre);
-      }else{
-        return ingreso(false,nombre);
-      }
+    if(auxiliar === "true" && asistio === "false") {
+      return ingreso(true,false,nombre,doc_identidad);
     }
+    else if(auxiliar === "true" && asistio === "true"){
+      return ingreso(true,true,nombre,doc_identidad);
+    }
+    else{
+      return ingreso(false,false,nombre,doc_identidad);
+    }
+  }
   
+}
+
+function assistance(nombre,doc_identidad){
+  // import python-shell and path modules
+  let { PythonShell } = require("python-shell");
+  const path = require("path");
+
+   // get number entered in the interface
+  var evento = localStorage["evento"];
+
+  // create option object with info for the python script
+  // in this case, it specifies where the script is and the arguments that it uses
+  const options = {
+    mode: 'text',
+    scriptPath : path.join(__dirname,'../linkers/'),
+    args: [evento,nombre,doc_identidad]
+  };
+
+
+  PythonShell.run("assistance.py", options, function (err) {
+    if(err) throw err;
+  });
 }
 
 function rfid_terminate() {
@@ -190,4 +277,6 @@ function rfid_terminate() {
   PythonShell.run("terminatePi.py", options, function (err, results) {
     if(err) throw err;
   });
+
+  window.location.href = "../Eventos/eventos.html"
 }

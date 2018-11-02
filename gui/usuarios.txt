@@ -1,0 +1,5 @@
+Feliputo,monto123_amorcito,Register
+Melisa Perez,hola123,View
+Lucas Gomez,LucasG123,View and Register
+Miguel Restrepo,MR987654321,Admin
+Isabela Muriel,hola123,Admin
