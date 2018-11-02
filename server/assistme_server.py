@@ -19,6 +19,7 @@ from resources.remove_event import RemoveEvent
 from resources.user_log_in import LogIn
 from resources.upload_event import UploadEvent
 from resources.download_stats import DownloadStats
+from resources.get_events import GetEvents
 
 # Create the app and define it as a rest api.
 app = Flask(__name__)
@@ -30,6 +31,7 @@ api = Api(app)
 api.add_resource(LogIn, "/log_in") # nombre, password    HTTP --> GET
 api.add_resource(Register, "/register") # serial, nombre, codigo, doc_identidad, ocupacion, edad, sexo, nombre_evento  HTTP --> POST
 api.add_resource(AddEvent, "/add_event") # nombre, lugar, fecha  HTTP --> POST
+api.add_resource(GetEvents, "/get_events") # HTTP --> GET
 api.add_resource(ManageUsers, "/manage_users") # nombre, password, permiso  HTTP --> GET, POST, DELETE
 api.add_resource(RemoveEvent, "/remove_event") # nombre  HTTP --> DELETE
 api.add_resource(UploadEvent, "/upload_event/<string:doc_identidad>") # HTTP --> POST
