@@ -23,7 +23,7 @@ class Asistente(Base):
   serial = Column(String(20))
   nombre = Column(String(20))
   codigo = Column(String(20))
-  ocupacion = Column(String(20))
+  ocupacion = Column(String(80))
   edad = Column(Integer)
   sexo = Column(String(6)) # hombre o mujer
   asistio = Column(Boolean)

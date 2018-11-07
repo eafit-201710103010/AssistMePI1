@@ -37,7 +37,7 @@ function addUser(){
 
   // get number entered in the interface
   var nombre = document.getElementById("nombreUsuario").value;
-  var password =  document.getElementById("password").value;
+  var password = document.getElementById("password").value;
   var permisos = document.getElementById("permisos").value;
 
   // create option object with info for the python script
@@ -45,7 +45,7 @@ function addUser(){
   const options = {
       mode: 'text',
       scriptPath: path.join(__dirname,'../linkers/'),
-      args: [nombre,password,permisos]
+      args: [nombre,permisos]
   };
 
   let auxiliar = "";
@@ -57,16 +57,25 @@ function addUser(){
 
   // call the python script used look for a person in the "Database"
 
-// if the person is indeed in the "Database", return true, else return not
-function response(){
-  if(auxiliar === "usuario agregado"){
-    alert("Usuario añadido exitosamente")
-    window.location.href = "../Usuarios/usuarios.html"
+  // if the person is indeed in the "Database", return true, else return not
+  function response(){
+    if(auxiliar === "usuario agregado"){
+      const xhttp = new XMLHttpRequest();
+      xhttp.open("POST", `http://localhost:5000/manage_users?nombre=${nombre}&password=${password}&permiso=${permisos}`, false);
+      xhttp.send();
+      const statusCode = xhttp.status;
+      if(statusCode == 201){
+        alert("Usuario añadido exitosamente")
+        window.location.href = "../Usuarios/usuarios.html"
+      }
+      else{
+        alert("ERROR en la adición del usuario de parte del servidor")
+      }
+    }
+    else{
+      alert("ERROR en la adición del usuario de parte del cliente")
+    }
   }
-  else{
-      alert("ERROR en la adición del usuario")
-  }
-}
 }
 
 function confirmacion(usuario){
@@ -103,11 +112,20 @@ function deleteUser(usuario){
   // if the person is indeed in the "Database", return true, else return not
   function response(){
     if(auxiliar === "usuario eliminado"){
-      alert("Usuario eliminado exitosamente")
-      location.reload()
+      const xhttp = new XMLHttpRequest();
+      xhttp.open("DELETE", `http://localhost:5000/manage_users?nombre=${nombreUsuario}`, false);
+      xhttp.send();
+      const statusCode = xhttp.status;
+      if(statusCode == 204){
+        alert("Usuario eliminado exitosamente")
+        location.reload()
+      }
+      else{
+        alert("ERROR en la eliminación del usuario de parte del servidor")
+      }
     }
     else{
-        alert("ERROR en la eliminación del usuario")
+      alert("ERROR en la eliminación del usuario de parte del cliente")
     }
   }
 }

@@ -91,10 +91,20 @@ function createEvent(){
   // if the person is indeed in the "Database", return true, else return not
   function response(){
     if(auxiliar === "evento creado"){
-      alert("Evento creado exitosamente")
+      const xhttp = new XMLHttpRequest();
+      xhttp.open("POST", `http://localhost:5000/add_event?nombre=${nombre}&lugar=${lugar}&fecha=${fecha}`, false);
+      xhttp.send();
+      const statusCode = xhttp.status;
+      if(statusCode == 201){
+        alert("Evento creado exitosamente")
+        window.location.href = "../Eventos/eventos.html";
+      }
+      else{
+        alert("ERROR en la creación del evento de parte del servidor")
+      }
     }
     else{
-        alert("ERROR en la creación del evento")
+        alert("ERROR en la creación del evento de parte del cliente")
     }
   }
 
@@ -213,15 +223,73 @@ function eliminarEvento(evento){
   // if the person is indeed in the "Database", return true, else return not
   function response(){
     if(auxiliar === "evento eliminado"){
-      alert("Evento eliminado exitosamente")
-      location.reload()
+      const xhttp = new XMLHttpRequest();
+      xhttp.open("DELETE", `http://localhost:5000/remove_event?nombre=${nombreEvento}`, false);
+      xhttp.send();
+      const statusCode = xhttp.status;
+      if(statusCode == 204){
+        alert("Evento eliminado exitosamente")
+        location.reload()
+      }
+      else{
+        alert("ERROR en la eliminación del evento de parte del servidor")
+      }
     }
     else{
-        alert("ERROR en la eliminación del evento")
+        alert("ERROR en la eliminación del evento de parte del cliente")
     }
   }
 }
 
 function descargar(evento){
   console.log("Descargando evento: " + evento);
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("GET", `http://localhost:5000/download_event/${evento}`, false);
+  xhttp.send();
+  const asistentesEvento = JSON.parse(xhttp.responseText);
+
+  lon = Object.keys(asistentesEvento).length;
+  if(lon > 0){
+    let listaDoc_identidad = [];
+    let listaSerial = [];
+    let listaNombre = [];
+    let listaCodigo = [];
+    for(persona = 0; persona < lon; persona++){
+      listaDoc_identidad.push(asistentesEvento[persona]["doc_identidad"]);
+      listaSerial.push(asistentesEvento[persona]["serial"]);
+      listaNombre.push(asistentesEvento[persona]["nombre"]);
+      listaCodigo.push(asistentesEvento[persona]["codigo"]);
+    }
+    // import python-shell and path modules
+    let { PythonShell } = require("python-shell");
+    const path = require("path");
+
+    // create option object with info for the python script
+    // in this case, it specifies where the script is and the arguments that it uses
+    const options = {
+      mode: 'text',
+      scriptPath : path.join(__dirname,'../linkers/'),
+      args: [listaSerial,listaNombre,listaCodigo,listaDoc_identidad,evento]
+    };
+
+    let auxiliar = "";
+    PythonShell.run("downloadEvents.py", options, function (err, results) {
+      if(err) throw err;
+      auxiliar = String(results[0]);
+      response();
+    });
+    
+    function response(){
+      if(auxiliar === "Asistentes descargados exitosamente"){
+        alert("Asistentes descargados exitosamente");
+        checkButtons();
+      }
+      else{
+        alert("Ocurrió un error en la descarga");
+      }
+    }
+  }
+  else{
+    alert("No hay asistentes registrados para este evento");
+  }
 }

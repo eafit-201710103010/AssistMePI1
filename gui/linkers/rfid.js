@@ -78,9 +78,6 @@ function rfid_register() {
 
 function register(){
   
-  let { PythonShell } = require("python-shell");
-  const path = require("path");
-
   const evento  = localStorage["evento"];
   const serial = ""
   const nombre = document.getElementById("nombre").value;
@@ -95,27 +92,18 @@ function register(){
   else{
     sexo = document.getElementById("hombre").value;
   }
-  
-  const options = {
-    mode: 'text',
-    scriptPath : path.join(__dirname,'../linkers'),
-    args: [evento,serial,nombre,codigo,docIdentidad,ocupacion,edad,sexo]
-  };
 
-  let auxiliar = "";
-  PythonShell.run("writeFile.py", options, function (err, results){
-    if(err) throw err;
-    auxiliar = String(results[0]);
-    response();
-  });
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("POST", `http://localhost:5000/register?serial=${serial}&nombre=${nombre}&codigo=${codigo}&doc_identidad=${docIdentidad}&ocupacion=${ocupacion}&edad=${edad}&sexo=${sexo}&nombre_evento=${evento}`, false);
+  xhttp.send();
+  const statusCode = xhttp.status;
 
-  function response(){
-    if(auxiliar === "registro_exitoso") {
-      alert("Persona Registrada Exitosamente");
-      window.location.href = "../Eventos/eventos.html";
-    }else{
-      alert("ERROR en el registro");
-    }
+  if(statusCode == 201){
+    alert("Persona Registrada Exitosamente");
+    window.location.href = "../Eventos/eventos.html";
+  }
+  else{
+    alert("ERROR en el registro");
   }
 }
 
