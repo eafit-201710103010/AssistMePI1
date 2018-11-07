@@ -19,8 +19,11 @@
                 <div class="row">
                     <div id="fotoPerfil" class="col-md-pull-10">
                         <img src="https://image.flaticon.com/icons/png/512/121/121693.png" style="float:left; height:100px; width:100px"/>
-                        <div class="content-heading"><h4>Elizabeth <br>Suescun </h4>
-                            <p>Profesora del departamento de sistemas.</p>
+                        <br>
+                        <div class="content-heading"><h3 id="username"></h3>
+                            <script>
+                                document.getElementById("username").innerHTML = "Usuario: " +  localStorage["usuario"]    
+                            </script>
                         </div>
                     </div>
                 </div>

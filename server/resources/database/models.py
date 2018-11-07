@@ -15,7 +15,7 @@ Base = declarative_base()
 class Asistente(Base):
   """ Referencia a tabla 'Asistentes'.
       PK: doc_identidad
-      FK: id:evento 
+      FK: id_evento 
   """
   __tablename__ = 'Asistentes'
 
@@ -28,7 +28,7 @@ class Asistente(Base):
   sexo = Column(String(6)) # hombre o mujer
   asistio = Column(Boolean)
   
-  id_evento = Column(Integer, ForeignKey('Eventos.id_evento'), primary_key=True)
+  id_evento = Column(BigInteger, ForeignKey('Eventos.id_evento'), primary_key=True)
 
   def __repr__(self):
     return """
