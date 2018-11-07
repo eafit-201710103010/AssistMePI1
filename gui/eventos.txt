@@ -1,5 +1,2 @@
-Gerenciar,Auditorio fundadores,2018-04-21
-Conamerc,Auditorio fundadores,2019-09-20
-Asamblea de carrera - Ing. de sistemas,Argos,2018-09-06
-Epico,Auditorio fundadores,2018-10-19
-Aniversario de nuesta amistas,18-307,2019-03-22
+Epico,Fundadores,18-01-00
+Gerenciar,Fundadores,18-01-99

@@ -14,7 +14,7 @@ function updateUserTable(){
   PythonShell.run("userTable.py", options, function (err, results) {
     if(err) throw err;
     let usuarios = document.getElementById('tablaUsuarios');
-    for(i=0; i<results.length; i+=4){
+    for(i=0; i<results.length; i+=3){
        let rowLength = usuarios.rows.length;
        let row = usuarios.insertRow(rowLength);
        let cell1 = row.insertCell(0);
@@ -24,7 +24,7 @@ function updateUserTable(){
        let usuario = results[i];
 
        cell1.innerHTML = results[i];
-       cell2.innerHTML = results[i+2];
+       cell2.innerHTML = results[i+1];
        cell3.innerHTML = '<p class="btn"><i class="glyphicon glyphicon-trash" id="'+ usuario +'" style="font-size:15px;color:black" onclick="confirmacion(this.id);"></i></p>'
     }
   });
