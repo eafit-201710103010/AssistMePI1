@@ -18,7 +18,7 @@ lista_codigos = codigos.split(",")
 lon = len(lista_documentos)
 
 for evento in range(lon):
-  file.write(lista_seriales[evento] + "," + lista_nombres[evento] + "," + lista_codigos[evento] + "," + lista_documentos[evento])
+  file.write(lista_seriales[evento] + "," + lista_nombres[evento] + "," + lista_codigos[evento] + "," + lista_documentos[evento] + ",")
   file.write("\n")
 
 print("Asistentes descargados exitosamente")

@@ -45,31 +45,20 @@ function rfid_register() {
     addNewPersonEntry(serialID, nombre, codigo, docIdentidad, ocupacion, edad, sexo);
   });
 
-  let auxiliar = "";
   function addNewPersonEntry(serial, nombre, codigo, docIdentidad, ocupacion, edad, sexo) {
     // create option object with info for the python script
     // in this case, it specifies where the script is and the arguments that it uses
     const evento  = localStorage["evento"];
-    const options2 = {
-      mode: 'text',
-      scriptPath : path.join(__dirname,'../linkers/'),
-      args: [evento, serial, nombre, codigo, docIdentidad, ocupacion, edad, sexo]
-    } 
-    
-    // call the python script used look for a person in the "Database"
-    
-    PythonShell.run("writeFile.py", options2, function (err, results) {
-      if(err) throw err;
-      auxiliar = String(results[0]);
-      response();
-    });
-  }
-
-  function response(){
-    if(auxiliar === "registro_exitoso") {
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", `http://localhost:5000/register?serial=${serial}&nombre=${nombre}&codigo=${codigo}&doc_identidad=${docIdentidad}&ocupacion=${ocupacion}&edad=${edad}&sexo=${sexo}&nombre_evento=${evento}`, false);
+    xhttp.send();
+    const statusCode = xhttp.status;
+  
+    if(statusCode == 201){
       alert("Persona Registrada Exitosamente");
       window.location.href = "../Eventos/eventos.html";
-    }else{
+    }
+    else{
       alert("ERROR en el registro");
     }
   }
@@ -262,7 +251,7 @@ function rfid_terminate() {
   const options = {
     mode: 'text',
     pythonPath: '/usr/bin/python', // TODO: check for windows
-    scriptPath: path.join(__dirname, '/linkers/'),
+    scriptPath: path.join(__dirname, '../linkers/'),
     args: [portNum]
   }
 
@@ -272,5 +261,42 @@ function rfid_terminate() {
     if(err) throw err;
   });
 
-  window.location.href = "../Eventos/eventos.html"
+  uploadAssistants();
+}
+
+function uploadAssistants(){
+  const evento = localStorage["evento"];
+  
+  // import python-shell and path modules
+  let { PythonShell } = require("python-shell");
+  const path = require("path");
+
+  // create option object with info for the python script
+  // in this case, it specifies where the script is, the specific python version that we wantto use and 
+  // the port that we want to use to connect to the RPi
+  const options = {
+    mode: 'text',
+    scriptPath: path.join(__dirname, '../linkers/'),
+    args: [evento]
+  }
+
+  // call the python script used to get the id inside a card and store the number it returns in the serialID variable
+  // change the port with every call to avoid used socket error
+  let auxiliar = "";
+  PythonShell.run("upload_assistants.py", options, function (err, results) {
+    if(err) throw err;
+    auxiliar = results[0];
+    response();
+  });
+
+  function response(){
+    if(auxiliar === "asistentes guardados"){
+      alert("Información de los asistentes almacenada");
+      window.location.href = "../Eventos/eventos.html";
+    }
+    else{
+      alert("Error subiendo la información de los asistentes");
+      window.location.href = "../Eventos/eventos.html";
+    }
+  }
 }

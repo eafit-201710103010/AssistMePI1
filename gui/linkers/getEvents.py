@@ -4,22 +4,29 @@ nombres = sys.argv[1]
 lugares = sys.argv[2]
 fechas = sys.argv[3]
 
-file = open("eventos.txt","r+")
-file.truncate(0)
-file.close()
+if nombres is not "":
 
-file = open("eventos.txt","a")
+  file = open("eventos.txt","r+")
+  file.truncate(0)
+  file.close()
 
-lista_nombres = nombres.split(",")
-lista_lugares = lugares.split(",")
-lista_fechas = fechas.split(",")
+  file = open("eventos.txt","a")
 
-lon = len(lista_nombres)
+  lista_nombres = nombres.split(",")
+  lista_lugares = lugares.split(",")
+  lista_fechas = fechas.split(",")
 
-for evento in range(lon):
-  file.write(lista_nombres[evento]+","+lista_lugares[evento]+","+lista_fechas[evento])
-  file.write("\n")
+  lon = len(lista_nombres)
 
-print("Eventos añadidos exitosamente")
+  for evento in range(lon):
+    file.write(lista_nombres[evento]+","+lista_lugares[evento]+","+lista_fechas[evento])
+    file.write("\n")
+    archivo_registro = "Asistentes_"+lista_nombres[evento]+".txt"
+    with open(archivo_registro,"a") as f:
+      pass
+    archivo_asistentes = lista_nombres[evento]+"_asistentes.txt"
+    with open(archivo_asistentes,"a") as f:
+      pass
+  print("Eventos añadidos exitosamente")
 
-file.close()
+  file.close()

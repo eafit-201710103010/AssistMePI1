@@ -34,9 +34,9 @@ api.add_resource(AddEvent, "/add_event") # nombre, lugar, fecha  HTTP --> POST
 api.add_resource(GetEvents, "/get_events") # HTTP --> GET
 api.add_resource(ManageUsers, "/manage_users") # nombre, password, permiso  HTTP --> GET, POST, DELETE
 api.add_resource(RemoveEvent, "/remove_event") # nombre  HTTP --> DELETE
-api.add_resource(UploadEvent, "/upload_event/<string:doc_identidad>") # HTTP --> POST
 api.add_resource(DownloadEvent, "/download_event/<string:nombre_evento>") # HTTP --> GET
 api.add_resource(DownloadStats, "/download_stats/<string:nombre_evento>") # HTTP --> GET
+api.add_resource(UploadEvent, "/upload_event/<string:nombre_evento>/<string:doc_identidad>") # HTTP --> POST
 
 
 # Main --> run the server

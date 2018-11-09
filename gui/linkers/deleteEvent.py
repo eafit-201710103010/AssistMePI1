@@ -2,7 +2,9 @@ import sys
 import os
 
 nombreEvento = sys.argv[1]
-fileName = "Asistentes_"+nombreEvento+".txt"
+archivo_registro = "Asistentes_"+nombreEvento+".txt"
+archivo_asistentes = nombreEvento+"_asistentes.txt"
+
 
 file = open("eventos.txt","r")
 
@@ -27,4 +29,5 @@ print("evento eliminado")
 file.close()
 
 
-os.remove(fileName)
+os.remove(archivo_registro)
+os.remove(archivo_asistentes)

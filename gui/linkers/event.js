@@ -61,6 +61,69 @@ function hideButton(rowNumber){
   btn1.href = "../Formulario_Registro/formularioRegistro.html"
 }
 
+function checkButtonStats(){
+  let eventos = document.getElementById('tablaEventos');
+  let rowLength = eventos.rows.length;
+  for(i=1; i < rowLength; i++){
+
+      let { PythonShell } = require("python-shell");
+      const path = require("path");
+
+      // get number entered in the interface
+      let nombreEvento = eventos.rows[i].cells[0].innerHTML;
+      let nombreArchivo = "Estadisticas_"+nombreEvento+".txt";
+
+      // create option object with info for the python script
+      // in this case, it specifies where the script is and the arguments that it uses
+      const options = {
+      mode: 'text',
+      scriptPath : path.join(__dirname,'../linkers/'),
+      args: [nombreArchivo]
+      };
+
+      let auxiliar = "";
+      PythonShell.run("checkStats.py", options, function (err, results) {
+      if(err) throw err;
+      auxiliar = String(results[0]);
+      response(nombreEvento);
+      });
+
+      // call the python script used look for a person in the "Database"
+
+      // if the person is indeed in the "Database", return true, else return not
+      function response(evento){
+          let nombreEventoTabla = "";
+          let j = 0;
+          while(evento !== nombreEventoTabla){
+              nombreEventoTabla = eventos.rows[j].cells[0].innerHTML;
+              j++;
+          }
+          if(auxiliar === "Vacio"){
+              hideButtonStats(j-1);
+          }
+          else{
+              showButtonStats(j-1);
+          }
+      }
+  }
+}
+
+function showButtonStats(rowNumber){
+  let tabla = document.getElementById('tablaEventos');
+  let btn = tabla.rows.item(rowNumber).cells[3].childNodes[0].childNodes[0];
+  btn.innerHTML = "Ver Estadísticas";
+  btn.href = "../visualizarEstadisticas/estadisticas.html"
+  btn.onclick = "#"
+}
+
+function hideButtonStats(rowNumber){
+  let tabla = document.getElementById('tablaEventos');
+  let btn = tabla.rows.item(rowNumber).cells[3].childNodes[0].childNodes[0];
+  btn.innerHTML = "Descargar Estadísticas";
+  btn.href = "#"
+  btn.onclick = "descargarEstadisticas(this.id);";
+}
+
 function createEvent(){
     // import python-shell and path modules
     let { PythonShell } = require("python-shell");
@@ -126,26 +189,28 @@ function updateTable(){
    PythonShell.run("eventTable.py", options, function (err, results) {
      if(err) throw err;
      let eventos = document.getElementById('tablaEventos');
-     for(i=0; i<results.length; i+=4){
-        let rowLength = eventos.rows.length;
-        let row = eventos.insertRow(rowLength);
-        let cell1 = row.insertCell(0);
-        let cell2 = row.insertCell(1);
-        let cell3 = row.insertCell(2);
-        let cell4 = row.insertCell(3);
-        let cell5 = row.insertCell(4);
-        let cell6 = row.insertCell(5);
+     if(results != null) {
+      for(i=0; i<results.length; i+=4){
+          let rowLength = eventos.rows.length;
+          let row = eventos.insertRow(rowLength);
+          let cell1 = row.insertCell(0);
+          let cell2 = row.insertCell(1);
+          let cell3 = row.insertCell(2);
+          let cell4 = row.insertCell(3);
+          let cell5 = row.insertCell(4);
+          let cell6 = row.insertCell(5);
 
-        let nombreEvento = results[i];
+          let nombreEvento = results[i];
 
-        cell1.innerHTML = results[i];
-        cell2.innerHTML = results[i+1];
-        cell3.innerHTML = results[i+2];
-        cell4.innerHTML = '<p class="pill-white btn"><a id="'+ nombreEvento +'" style="color: black" href="../Formulario_Registro/formularioRegistro.html" onclick="storeId(this.id);">Inscribir</a></p>'
-        cell5.innerHTML = '<p class="pill-white btn"><a id="'+ nombreEvento +'" style="color: black" href="#" onclick="descargar(this.id);">Descargar</a></p>'
-        cell6.innerHTML = '<p class="btn"><i class="glyphicon glyphicon-trash" id="'+ nombreEvento +'" style="font-size:15px;color:black" onclick="confirmacion(this.id);"></i></p>'
+          cell1.innerHTML = results[i];
+          cell2.innerHTML = results[i+1];
+          cell3.innerHTML = results[i+2];
+          cell4.innerHTML = '<p class="pill-white btn"><a id="'+ nombreEvento +'" style="color: black" href="../Formulario_Registro/formularioRegistro.html" onclick="storeId(this.id);">Inscribir</a></p>'
+          cell5.innerHTML = '<p class="pill-white btn"><a id="'+ nombreEvento +'" style="color: black" href="#" onclick="descargar(this.id);">Descargar</a></p>'
+          cell6.innerHTML = '<p class="btn"><i class="glyphicon glyphicon-trash" id="'+ nombreEvento +'" style="font-size:15px;color:black" onclick="confirmacion(this.id);"></i></p>'
+      }
+      checkButtons();
      }
-     checkButtons();
    });
   
 }
@@ -180,7 +245,8 @@ function updateTableEvents(){
        cell1.innerHTML = results[i];
        cell2.innerHTML = results[i+1];
        cell3.innerHTML = results[i+2];
-       cell4.innerHTML = '<p id="verEstadisticas" class="pill-white btn"><a id="'+ nombreEvento +'" style="color: black" href="../visualizarEstadisticas/estadisticas.html" onclick="storeId(this.id);">Ver Estadísticas</a></p>'
+       cell4.innerHTML = '<p id="verEstadisticas" class="pill-white btn"><a id="'+ nombreEvento +'" style="color: black" href="#" onclick="descargarEstadisticas(this.id); ">Descargar Estadísticas</a></p>'
+      //  cell4.innerHTML = '<p id="verEstadisticas" class="pill-white btn"><a id="'+ nombreEvento +'" style="color: black" href="../visualizarEstadisticas/estadisticas.html" onclick="storeId(this.id);">Ver Estadísticas</a></p>'
     }
   });
 }
@@ -283,6 +349,67 @@ function descargar(evento){
       if(auxiliar === "Asistentes descargados exitosamente"){
         alert("Asistentes descargados exitosamente");
         checkButtons();
+      }
+      else{
+        alert("Ocurrió un error en la descarga");
+      }
+    }
+  }
+  else{
+    alert("No hay asistentes registrados para este evento");
+  }
+}
+
+function descargarEstadisticas(evento){
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("GET", `http://localhost:5000/download_stats/${evento}`, false);
+  xhttp.send();
+  const estadisticasEvento = JSON.parse(xhttp.responseText);
+
+  lon = Object.keys(estadisticasEvento).length;
+  if(lon > 0){
+    let listaDoc_identidad = [];
+    let listaSerial = [];
+    let listaNombre = [];
+    let listaCodigo = [];
+    let listaOcupacion = [];
+    let listaEdad = [];
+    let listaSexo = [];
+    let listaAsistio = [];
+
+    for(persona = 0; persona < lon; persona++){
+      listaDoc_identidad.push(estadisticasEvento[persona]["doc_identidad"]);
+      listaSerial.push(estadisticasEvento[persona]["serial"]);
+      listaNombre.push(estadisticasEvento[persona]["nombre"]);
+      listaCodigo.push(estadisticasEvento[persona]["codigo"]);
+      listaOcupacion.push(estadisticasEvento[persona]["ocupacion"]);
+      listaEdad.push(estadisticasEvento[persona]["edad"]);
+      listaSexo.push(estadisticasEvento[persona]["sexo"]);
+      listaAsistio.push(estadisticasEvento[persona]["asistio"]);
+    }
+    // import python-shell and path modules
+    let { PythonShell } = require("python-shell");
+    const path = require("path");
+
+    // create option object with info for the python script
+    // in this case, it specifies where the script is and the arguments that it uses
+    const options = {
+      mode: 'text',
+      scriptPath : path.join(__dirname,'../linkers/'),
+      args: [listaSerial,listaNombre,listaCodigo,listaDoc_identidad,listaOcupacion,listaEdad,listaSexo,listaAsistio,evento]
+    };
+
+    let auxiliar = "";
+    PythonShell.run("downloadStats.py", options, function (err, results) {
+      if(err) throw err;
+      auxiliar = String(results[0]);
+      response();
+    });
+    
+    function response(){
+      if(auxiliar === "estadisticas descargadas exitosamente"){
+        alert("Estadisticas descargadas exitosamente");
+        checkButtonStats();
       }
       else{
         alert("Ocurrió un error en la descarga");
