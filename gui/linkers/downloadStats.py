@@ -26,7 +26,7 @@ lista_asistentes = asistentes.split(",")
 lon = len(lista_documentos)
 
 for evento in range(lon):
-  file.write(lista_seriales[evento] + "," + lista_nombres[evento] + "," + lista_codigos[evento] + "," + lista_documentos[evento] + "," + lista_ocupaciones[evento] + "," + lista_edades[evento] + "," + lista_sexos[evento] + lista_asistentes[evento] + ",")
+  file.write(lista_seriales[evento] + "," + lista_nombres[evento] + "," + lista_codigos[evento] + "," + lista_documentos[evento] + "," + lista_ocupaciones[evento] + "," + lista_edades[evento] + "," + lista_sexos[evento] + "," + lista_asistentes[evento] + ",")
   file.write("\n")
 
 print("estadisticas descargadas exitosamente")

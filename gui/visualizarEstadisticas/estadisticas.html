@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Estadísticas</title>
-    <script type="text/javascript" src="aux1.js"></script>
+    <script type="text/javascript" src="../linkers/stats.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="Estadisticas.css">
@@ -31,7 +31,7 @@
                     <a href="../Eventos/eventos.html">Mis Eventos</a>
                 </div>
                 <div class="estadisticas-btn">
-                    <a href="#">Estadísticas</a>
+                    <a href="../Estadisticas_Home/estadisticas.html">Estadísticas</a>
                 </div>
                 <div class="usuarios-btn">
                     <a href="../Usuarios/usuarios.html">Usuarios</a>
@@ -47,41 +47,42 @@
             </div>
 
             <section id="estadisticas" class="col-xs-12 col-md-8 col-sm-9">
-                <h3 id="nombreEvento"></h3>
-                <script>
-                    document.getElementById("nombreEvento").innerHTML = "Evento: " + localStorage["evento"];
-                </script>
-                <h3>Personas Inscritas: 636 </h3>
-                <h3>Asistentes: 628 </h3>
-                <br>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div id="chartContainer">
-                                <div id="chart1">
-                                    <canvas id="myChart1" width="50px" height="50px"></canvas>
+                <br><br><br>
+                    <div id="charts">
+                    <h3 id="nombreEvento"></h3>
+                    <script>
+                        document.getElementById("nombreEvento").innerHTML = "Evento: " + localStorage["evento"];
+                    </script>
+                    <br>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div id="chartContainer">
+                                    <div id="chart1">
+                                        <canvas id="myChart1" width="50px" height="50px"></canvas>
+                                    </div>
+                                    <div id="chart2">
+                                        <canvas id="myChart2" width="50px" height="50px"></canvas>
+                                    </div>
+                                    <div id="chart3">
+                                        <canvas id="myChart3" width="50px" height="50px"></canvas>
+                                    </div>
+                                    <div id="chart4">
+                                        <canvas id="myChart4" width="50px" height="50px"></canvas>
+                                    </div>
+                                    
                                 </div>
-                                <div id="chart2">
-                                    <canvas id="myChart2" width="50px" height="50px"></canvas>
-                                </div>
-                                <div id="chart3">
-                                    <canvas id="myChart3" width="50px" height="50px"></canvas>
-                                </div>
-                                <div id="chart4">
-                                    <canvas id="myChart4" width="50px" height="50px"></canvas>
-                                </div>
-                                
+                                <script>
+                                    calcularAsistencia();
+                                </script>
                             </div>
-                            <script>
-                                asistencia();
-                            </script>
-                        </div>
-                        <h2>Ver</h2>
-                        <input id="verEstadistica" type="radio" name="verEstadistica" onclick="asistencia();" checked> Asistencia <br><br>
-                        <input id="verEstadistica" type="radio" name="verEstadistica" onclick="edad();"> Edad <br><br>
-                        <input id="verEstadistica" type="radio" name="verEstadistica" onclick="ocupacion();"> Ocupacion <br><br>
-                        <input id="verEstadistica" type="radio" name="verEstadistica" onclick="sexo();"> Sexo <br><br>
-                       
+                            <h2>Ver</h2>
+                            <input id="verEstadistica" type="radio" name="verEstadistica" onclick="calcularAsistencia();" checked> Asistencia <br><br>
+                            <input id="verEstadistica" type="radio" name="verEstadistica" onclick="calcularEdad();"> Edad <br><br>
+                            <input id="verEstadistica" type="radio" name="verEstadistica" onclick="calcularOcupacion();"> Ocupacion <br><br>
+                            <input id="verEstadistica" type="radio" name="verEstadistica" onclick="calcularSexo();"> Sexo <br><br>
+                        
 
+                    </div>
                 </div> 
             </section>
         </div>

@@ -4,6 +4,7 @@ import os
 nombreEvento = sys.argv[1]
 archivo_registro = "Asistentes_"+nombreEvento+".txt"
 archivo_asistentes = nombreEvento+"_asistentes.txt"
+archivo_estadisticas = "Estadisticas_"+nombreEvento+".txt"
 
 
 file = open("eventos.txt","r")
@@ -31,3 +32,4 @@ file.close()
 
 os.remove(archivo_registro)
 os.remove(archivo_asistentes)
+os.remove(archivo_estadisticas)

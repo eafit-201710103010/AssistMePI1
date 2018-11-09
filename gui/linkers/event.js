@@ -98,11 +98,13 @@ function checkButtonStats(){
               nombreEventoTabla = eventos.rows[j].cells[0].innerHTML;
               j++;
           }
-          if(auxiliar === "Vacio"){
-              hideButtonStats(j-1);
+          if(auxiliar === "No vacio"){
+            console.log("No vacio")
+            showButtonStats(j-1);
           }
           else{
-              showButtonStats(j-1);
+            console.log("vacio")
+            hideButtonStats(j-1);
           }
       }
   }
@@ -110,18 +112,19 @@ function checkButtonStats(){
 
 function showButtonStats(rowNumber){
   let tabla = document.getElementById('tablaEventos');
-  let btn = tabla.rows.item(rowNumber).cells[3].childNodes[0].childNodes[0];
-  btn.innerHTML = "Ver Estadísticas";
-  btn.href = "../visualizarEstadisticas/estadisticas.html"
-  btn.onclick = "#"
+  let btnDescarga = tabla.rows.item(rowNumber).cells[3];
+  let btnVer = tabla.rows.item(rowNumber).cells[4];
+  console.log(btnDescarga);
+  btnDescarga.style.display = "none";
+  btnVer.style.display = "";
 }
 
 function hideButtonStats(rowNumber){
   let tabla = document.getElementById('tablaEventos');
-  let btn = tabla.rows.item(rowNumber).cells[3].childNodes[0].childNodes[0];
-  btn.innerHTML = "Descargar Estadísticas";
-  btn.href = "#"
-  btn.onclick = "descargarEstadisticas(this.id);";
+  let btnDescarga = tabla.rows.item(rowNumber).cells[3];
+  let btnVer = tabla.rows.item(rowNumber).cells[4];
+  btnDescarga.style.display = "";
+  btnVer.style.display = "none";
 }
 
 function createEvent(){
@@ -239,6 +242,7 @@ function updateTableEvents(){
        let cell2 = row.insertCell(1);
        let cell3 = row.insertCell(2);
        let cell4 = row.insertCell(3);
+       let cell5 = row.insertCell(4);
 
        let nombreEvento = results[i];
 
@@ -246,12 +250,14 @@ function updateTableEvents(){
        cell2.innerHTML = results[i+1];
        cell3.innerHTML = results[i+2];
        cell4.innerHTML = '<p id="verEstadisticas" class="pill-white btn"><a id="'+ nombreEvento +'" style="color: black" href="#" onclick="descargarEstadisticas(this.id); ">Descargar Estadísticas</a></p>'
-      //  cell4.innerHTML = '<p id="verEstadisticas" class="pill-white btn"><a id="'+ nombreEvento +'" style="color: black" href="../visualizarEstadisticas/estadisticas.html" onclick="storeId(this.id);">Ver Estadísticas</a></p>'
+       cell5.innerHTML = '<p id="verEstadisticas" class="pill-white btn"><a id="'+ nombreEvento +'" style="color: black" href="../visualizarEstadisticas/estadisticas.html" onclick="storeId(this.id); ">Visualizar Estadísticas</a></p>'
     }
+    checkButtonStats();
   });
 }
 
 function storeId(id){
+  console.log("descarga"+id)
   localStorage["evento"] = id;
 }
 
