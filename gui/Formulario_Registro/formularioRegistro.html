@@ -127,9 +127,7 @@
         function carne(){   
             // If the conditions where accepted, read the id and register the person to the event
             if(document.getElementById("acceptance").checked){         
-                document.getElementById("finalizar").style.display = "none";
                 rfid_register();
-                document.getElementById("boton").style.display = "none"
             }
             else{
                 alert("Es necesario aceptar los terminos y condiciones para poder registrarse por este medio")

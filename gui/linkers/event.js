@@ -164,7 +164,6 @@ function hideButtonStats(rowNumber){
 
 /** Create a new event and store it the the database */
 function createEvent(){ 
-
     // import python-shell and path modules
     let { PythonShell } = require("python-shell");
     const path = require("path");
@@ -173,45 +172,50 @@ function createEvent(){
     var nombre = document.getElementById("nombreEvento").value;
     var lugar = document.getElementById("lugarEvento").value;
     var fecha = document.getElementById("fechaEvento").value;
-  
-    // create option object with info for the python script
-    // in this case, it specifies where the script is and the arguments that it uses
-    const options = {
-      mode: 'text',
-      scriptPath : path.join(__dirname,'../linkers/'),
-      args: [nombre,lugar,fecha]
-    };
-  
-    // Call the python script used to add a new event and store it in a local text file
-    // The variable "auxiliar" stores the response from the pyhton script
-    let auxiliar = "";
-    PythonShell.run("createEvent.py", options, function (err, results) {
-      if(err) throw err;
-      auxiliar = String(results[0]);
-      response();
-    });
 
-  // If the event was successfully added to the text file, connect to the server and store the event in the database, else show the client an error alert
-  function response(){
-    if(auxiliar === "evento creado"){
-      const xhttp = new XMLHttpRequest();
-      xhttp.open("POST", `http://localhost:5000/add_event?nombre=${nombre}&lugar=${lugar}&fecha=${fecha}`, false);
-      xhttp.send();
-      // Status code stores the response from the server, if it's "201" the event was successfully added, otherwise there was an error
-      const statusCode = xhttp.status;
-      if(statusCode == 201){
-        alert("Evento creado exitosamente")
-        window.location.href = "../Eventos/eventos.html";
-      }
-      else{
-        alert("ERROR en la creación del evento de parte del servidor")
-      }
+    // Check if all the information needed was entered
+    if(nombre == "" || lugar == "" || fecha == ""){
+      alert("Por favor ingrese todos los datos del evento.")
     }
     else{
-        alert("ERROR en la creación del evento de parte del cliente")
+      // create option object with info for the python script
+      // in this case, it specifies where the script is and the arguments that it uses
+      const options = {
+        mode: 'text',
+        scriptPath : path.join(__dirname,'../linkers/'),
+        args: [nombre,lugar,fecha]
+      };
+    
+      // Call the python script used to add a new event and store it in a local text file
+      // The variable "auxiliar" stores the response from the pyhton script
+      let auxiliar = "";
+      PythonShell.run("createEvent.py", options, function (err, results) {
+        if(err) throw err;
+        auxiliar = String(results[0]);
+        response();
+      });
+
+    // If the event was successfully added to the text file, connect to the server and store the event in the database, else show the client an error alert
+    function response(){
+      if(auxiliar === "evento creado"){
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("POST", `http://localhost:5000/add_event?nombre=${nombre}&lugar=${lugar}&fecha=${fecha}`, false);
+        xhttp.send();
+        // Status code stores the response from the server, if it's "201" the event was successfully added, otherwise there was an error
+        const statusCode = xhttp.status;
+        if(statusCode == 201){
+          alert("Evento creado exitosamente")
+          window.location.href = "../Eventos/eventos.html";
+        }
+        else{
+          alert("ERROR en la creación del evento de parte del servidor")
+        }
+      }
+      else{
+          alert("ERROR en la creación del evento de parte del cliente")
+      }
     }
   }
-
 }
 
 /** Update event table, creates the table and adds the events stored in the database */

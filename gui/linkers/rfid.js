@@ -9,41 +9,50 @@ let portNum = 12345;
 
 /** Function used to register people using the rfid scanner */
 function rfid_register() {
-
-  // import python-shell and path modules
-  let { PythonShell } = require("python-shell");
-  const path = require("path");
-
-  // create option object with info for the python script
-  // in this case, it specifies where the script is, the specific python version that we wantto use and 
-  // the port that we want to use to connect to the RPi
-  const options = {
-    mode: 'text',
-    pythonPath: '/usr/bin/python', // TODO: check for windows
-    scriptPath: path.join(__dirname, '../linkers/'),
-    args: [portNum]
+  // Data entered in the interface
+  const nombre = document.getElementById("nombre").value;
+  const codigo = document.getElementById("codigo").value;
+  const docIdentidad = document.getElementById("docIdentidad").value;
+  const ocupacion = document.getElementById("ocupación").value;
+  const edad = document.getElementById("edad").value;
+  let sexo;
+  if(document.getElementById("mujer").checked){ // Check if "mujer" is checked
+    sexo = document.getElementById("mujer").value;
+  }
+  else if(document.getElementById("hombre").checked){ // Check if "hombre" is checked
+    sexo = document.getElementById("hombre").value;
   }
 
-  // call the python script used to get the id inside a card and store the number it returns in the serialID variable
-  // change the port with every call to avoid used socket error
-  let serialID = "";
-  PythonShell.run("connectToPi.py", options, function (err, results) {
-    if(err) throw err;
-    serialID = String(results[0]);
-    const nombre = document.getElementById("nombre").value;
-    const codigo = document.getElementById("codigo").value;
-    const docIdentidad = document.getElementById("docIdentidad").value;
-    const ocupacion = document.getElementById("ocupación").value;
-    const edad = document.getElementById("edad").value;
-    let sexo;
-    if(document.getElementById("mujer").checked){
-      sexo = document.getElementById("mujer").value;
+  // Check if all the mandatory inputs were given
+  if(nombre == "" || codigo == "" || docIdentidad == "" || ocupacion == "" || edad == "" || sexo == ""){
+    alert("Por favor ingrese todos los datos en los campos oblicatorios. PD: Si desea inscribir el carné es necesario ingresar el código de estudiante");
+  }
+  else{
+    document.getElementById("finalizar").style.display = "none"; // Hide "finalizar" button
+    document.getElementById("boton").style.display = "none"; // Hide "leer carné" button
+    // import python-shell and path modules
+    let { PythonShell } = require("python-shell");
+    const path = require("path");
+
+    // create option object with info for the python script
+    // in this case, it specifies where the script is, the specific python version that we wantto use and 
+    // the port that we want to use to connect to the RPi
+    const options = {
+      mode: 'text',
+      pythonPath: '/usr/bin/python', // TODO: check for windows
+      scriptPath: path.join(__dirname, '../linkers/'),
+      args: [portNum]
     }
-    else{
-      sexo = document.getElementById("hombre").value;
-    }
-    addNewPersonEntry(serialID, nombre, codigo, docIdentidad, ocupacion, edad, sexo);
-  });
+
+    // call the python script used to get the id inside a card and store the number it returns in the serialID variable
+    // change the port with every call to avoid used socket error
+    let serialID = "";
+    PythonShell.run("connectToPi.py", options, function (err, results) {
+      if(err) throw err;
+      serialID = String(results[0]);
+      addNewPersonEntry(serialID, nombre, codigo, docIdentidad, ocupacion, edad, sexo);
+    });
+  }
 
   // Connect to the server and send the registered information
   function addNewPersonEntry(serial, nombre, codigo, docIdentidad, ocupacion, edad, sexo) {
@@ -76,30 +85,35 @@ function register(){
   const docIdentidad = document.getElementById("docIdentidad").value;
   const ocupacion = document.getElementById("ocupación").value;
   const edad = document.getElementById("edad").value;
-  let sexo;
-  if(document.getElementById("mujer").checked){
+  let sexo = "";
+  if(document.getElementById("mujer").checked){ // Check if "mujer" is checked
     sexo = document.getElementById("mujer").value;
   }
-  else{
+  else if(document.getElementById("hombre").checked){ // Check if "hombre" is checked
     sexo = document.getElementById("hombre").value;
   }
 
-  // Connect to server and send the data
-  const xhttp = new XMLHttpRequest();
-  xhttp.open("POST", `http://localhost:5000/register?serial=${serial}&nombre=${nombre}&codigo=${codigo}&doc_identidad=${docIdentidad}&ocupacion=${ocupacion}&edad=${edad}&sexo=${sexo}&nombre_evento=${evento}`, false);
-  xhttp.send();
-
-  // Status code stores the response from the server, if it's "201" the person was successfully registered, otherwise there was an error
-  const statusCode = xhttp.status;
-  if(statusCode == 201){
-    alert("Persona Registrada Exitosamente");
-    window.location.href = "../Eventos/eventos.html";
+  // Check if all the mandatory inputs were given
+  if(nombre == "" || docIdentidad == "" || ocupacion == "" || edad == "" || sexo == ""){
+    alert("Por favor ingrese todos los datos en los campos oblicatorios");
   }
   else{
-    alert("ERROR en el registro");
+    // Connect to server and send the data
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", `http://localhost:5000/register?serial=${serial}&nombre=${nombre}&codigo=${codigo}&doc_identidad=${docIdentidad}&ocupacion=${ocupacion}&edad=${edad}&sexo=${sexo}&nombre_evento=${evento}`, false);
+    xhttp.send();
+
+    // Status code stores the response from the server, if it's "201" the person was successfully registered, otherwise there was an error
+    const statusCode = xhttp.status;
+    if(statusCode == 201){
+      alert("Persona Registrada Exitosamente");
+      window.location.href = "../Eventos/eventos.html";
+    }
+    else{
+      alert("ERROR en el registro");
+    }
   }
 }
-
 /** Function used to look people up in the "Database" using the rfid scanner */
 function rfid_scan(){
 

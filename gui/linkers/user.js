@@ -53,41 +53,47 @@ function addUser(){
   var password = document.getElementById("password").value;
   var permisos = document.getElementById("permisos").value;
 
-  // create option object with info for the python script
-  // It specifies where the script is and the arguments that it uses
-  const options = {
-      mode: 'text',
-      scriptPath: path.join(__dirname,'../linkers/'),
-      args: [nombre,permisos]
-  };
+  // Check if all the information needed to create the user was entered
+  if(nombre == "" || password == "" || permisos == ""){
+    alert("Por favor ingrese todos los datos del usuario");
+  }
+  else{
+    // create option object with info for the python script
+    // It specifies where the script is and the arguments that it uses
+    const options = {
+        mode: 'text',
+        scriptPath: path.join(__dirname,'../linkers/'),
+        args: [nombre,permisos]
+    };
 
-  // Call the python script used to add a new user in a text file
-  // The variable "auxiliar" stores the response from the pyhton script
-  let auxiliar = "";
-  PythonShell.run("addUser.py", options, function (err, results) {
-      if(err) throw err;
-      auxiliar = String(results[0]);
-      response();
-  });
+    // Call the python script used to add a new user in a text file
+    // The variable "auxiliar" stores the response from the pyhton script
+    let auxiliar = "";
+    PythonShell.run("addUser.py", options, function (err, results) {
+        if(err) throw err;
+        auxiliar = String(results[0]);
+        response();
+    });
 
-  // If the user was successfully added to the text file, connect to the server and store the user in the database, else show the client an error alert
-  function response(){
-    if(auxiliar === "usuario agregado"){
-      const xhttp = new XMLHttpRequest();
-      xhttp.open("POST", `http://localhost:5000/manage_users?nombre=${nombre}&password=${password}&permiso=${permisos}`, false);
-      xhttp.send();
-      // Status code stores the response from the server, if it's "201" the user was successfully added, otherwise there was an error
-      const statusCode = xhttp.status;
-      if(statusCode == 201){
-        alert("Usuario añadido exitosamente")
-        window.location.href = "../Usuarios/usuarios.html"
+    // If the user was successfully added to the text file, connect to the server and store the user in the database, else show the client an error alert
+    function response(){
+      if(auxiliar === "usuario agregado"){
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("POST", `http://localhost:5000/manage_users?nombre=${nombre}&password=${password}&permiso=${permisos}`, false);
+        xhttp.send();
+        // Status code stores the response from the server, if it's "201" the user was successfully added, otherwise there was an error
+        const statusCode = xhttp.status;
+        if(statusCode == 201){
+          alert("Usuario añadido exitosamente")
+          window.location.href = "../Usuarios/usuarios.html"
+        }
+        else{
+          alert("ERROR en la adición del usuario de parte del servidor")
+        }
       }
       else{
-        alert("ERROR en la adición del usuario de parte del servidor")
+        alert("ERROR en la adición del usuario de parte del cliente")
       }
-    }
-    else{
-      alert("ERROR en la adición del usuario de parte del cliente")
     }
   }
 }
