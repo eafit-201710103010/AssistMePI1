@@ -41,4 +41,4 @@ api.add_resource(UploadEvent, "/upload_event/<string:nombre_evento>/<string:doc_
 
 # Main --> run the server
 if __name__ == '__main__':
-  app.run()
+  app.run(host='0.0.0.0')

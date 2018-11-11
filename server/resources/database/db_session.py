@@ -5,6 +5,6 @@ from sqlalchemy.orm import sessionmaker
 
 # Specify the database you whish to connect to HERE
 # format: 'mysql://<user>:<password@<database-location>/<databse-name>'
-engine = create_engine('mysql://root:bPaKoU37-!@localhost/assistMe_test')
+engine = create_engine('mysql://fcortesj@assistmedatabase:yxmYSG43@assistmedatabase.mysql.database.azure.com/assistMe')
 Session = sessionmaker(bind=engine)
 session = Session()
