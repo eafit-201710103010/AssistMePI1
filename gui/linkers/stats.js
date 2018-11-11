@@ -1,7 +1,16 @@
+/**
+ * Script used to calculate the statistics from the event based on its assistants 
+ * 
+ * Age, assistance, occupation and gender charts
+ */
+
+ /** Function used to get the age from each assistant and create the chart based on this information */
 function calcularEdad(){
+    // import python-shell and path modules
     let { PythonShell } = require("python-shell");
     const path = require("path");
 
+    // Get the name of the event
     const evento = localStorage["evento"];
 
     // create option object with info for the python script
@@ -12,27 +21,30 @@ function calcularEdad(){
         args: [evento]
     };
     
+    // Call the pyhton script used to get the age information from each assistant
     PythonShell.run("calcular_edad.py", options, function (err, results) {
         if(err) throw err;
         edad(results);
     });
 }
 
+/** Function used to display the chart with the information given */
 function edad(listaEdades){
-    document.getElementById("myChart1").style.display = 'none';
-    document.getElementById("myChart2").style.display = 'block';
-    document.getElementById("myChart3").style.display = 'none';
-    document.getElementById("myChart4").style.display = 'none';
+    document.getElementById("myChart1").style.display = 'none'; // hide assistance chart
+    document.getElementById("myChart2").style.display = 'block'; // show age chart
+    document.getElementById("myChart3").style.display = 'none'; // hide occupation chart
+    document.getElementById("myChart4").style.display = 'none'; // hide gender chart
   
     
     var ctx = document.getElementById("myChart2");
+    // Create the chart
     var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
         labels: ["-18", "18-25","25-35","35-45","45-55","55+"],
         datasets: [{
             label: 'Edad',
-            data: listaEdades,
+            data: listaEdades, // list of number of people aged younger than 18, 18 to 25, 25 to 35, 35 to 45, 45 to 55 and older than 55 years old
             backgroundColor: [
                 'rgba(255, 0, 0, 1)',
                 'rgba(0, 0, 245, 1)',
@@ -61,7 +73,7 @@ function edad(listaEdades){
                 }]
             },
             legend: {
-                display: false,
+                display: false, // Hide the label
                 labels: {
                     fontColor: "white"
                 }
@@ -70,10 +82,13 @@ function edad(listaEdades){
     });
 }
 
+/** Function used to get the assistance information and create the chart based on this */
 function calcularAsistencia(){
+    // import python-shell and path modules
     let { PythonShell } = require("python-shell");
     const path = require("path");
 
+    // Get the name of the event
     const evento = localStorage["evento"];
 
     // create option object with info for the python script
@@ -84,31 +99,29 @@ function calcularAsistencia(){
         args: [evento]
     };
     
+    // Call the python script used to get the assistance information
     PythonShell.run("calcular_asistencia.py", options, function (err, results) {
         if(err) throw err;
         asistencia(results);
-        let asistentes = parseInt(results[1]);
-        let inscritos = parseInt(results[0]) + parseInt(results[1]);
-        localStorage["asistentes"] = asistentes;
-        localStorage["inscritos"] = inscritos;
     });
 }
 
+/** Function used to display the chart with the information given */
 function asistencia(listaAsistencia){
-    document.getElementById("myChart1").style.display = 'block'
-    document.getElementById("myChart2").style.display = 'none';
-    document.getElementById("myChart3").style.display = 'none';
-    document.getElementById("myChart4").style.display = 'none';  
+    document.getElementById("myChart1").style.display = 'block' // show assistance chart
+    document.getElementById("myChart2").style.display = 'none'; // hide age chart
+    document.getElementById("myChart3").style.display = 'none'; // hide occupation chart
+    document.getElementById("myChart4").style.display = 'none';  // hide gender chart
     
-
     var ctx = document.getElementById("myChart1");
+    // Create the chart
     var myChart = new Chart(ctx, {
     type: 'pie',
     data: {
         labels: ["Ausentes", "Asistentes"],
         datasets: [{
             label: 'Número de asistentes',
-            data: listaAsistencia,
+            data: listaAsistencia, // list of number of absent people and assistants 
             backgroundColor: [
                 'rgba(255, 0, 0, 1)',
                 'rgba(0, 0, 245, 1)',
@@ -145,10 +158,13 @@ function asistencia(listaAsistencia){
 });
 }
 
+/** Function used to get the occupation from each assistant and create the chart based on this information */
 function calcularOcupacion(){
+    // import python-shell and path modules
     let { PythonShell } = require("python-shell");
     const path = require("path");
 
+    // Get the name of the event
     const evento = localStorage["evento"];
 
     // create option object with info for the python script
@@ -159,20 +175,23 @@ function calcularOcupacion(){
         args: [evento]
     };
     
+    // Call python script used to get the occupation from each assistant
     PythonShell.run("calcular_ocupacion.py", options, function (err, results) {
         if(err) throw err;
         ocupacion(results);
     });
 }
 
+/** Function used to create the chart with the information given */
 function ocupacion(listaOcupacion){
-    document.getElementById("myChart1").style.display = 'none';
-    document.getElementById("myChart2").style.display = 'none';
-    document.getElementById("myChart3").style.display = 'block';
-    document.getElementById("myChart4").style.display = 'none';
+    document.getElementById("myChart1").style.display = 'none'; // hide assistance chart
+    document.getElementById("myChart2").style.display = 'none'; // hide age chart
+    document.getElementById("myChart3").style.display = 'block'; // show occupation chart
+    document.getElementById("myChart4").style.display = 'none'; // hide gender chart
     
      
     var ctx = document.getElementById("myChart3");
+    // Create the chart
     var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
@@ -203,7 +222,7 @@ function ocupacion(listaOcupacion){
                 ],
         datasets: [{
             label: 'Ocupación',
-            data: listaOcupacion,
+            data: listaOcupacion, // List of number of people from each occupation
             backgroundColor: [
                 'rgba(255, 0, 0, 1)',
                 'rgba(0, 0, 245, 1)',
@@ -267,16 +286,19 @@ function ocupacion(listaOcupacion){
                 }]
             },
             legend: {
-                display: false
+                display: false // Hide labels
             }
         }
     });
 }
 
+/** Function used to get the gender from each assistant and create the chart based on this information */
 function calcularSexo(){
+    // import python-shell and path modules
     let { PythonShell } = require("python-shell");
     const path = require("path");
 
+    // Get the name of the event
     const evento = localStorage["evento"];
 
     // create option object with info for the python script
@@ -287,27 +309,30 @@ function calcularSexo(){
         args: [evento]
     };
     
+    // Call the pyhon script used to get the gender from each assistant
     PythonShell.run("calcular_sexo.py", options, function (err, results) {
         if(err) throw err;
         sexo(results);
     });
 }
 
+/** Function used to create the chart with the information given */
 function sexo(listaSexo){
-    document.getElementById("myChart1").style.display = 'none';
-    document.getElementById("myChart2").style.display = 'none';
-    document.getElementById("myChart3").style.display = 'none';
-    document.getElementById("myChart4").style.display = 'block';
+    document.getElementById("myChart1").style.display = 'none'; // hide assistance chart
+    document.getElementById("myChart2").style.display = 'none'; // hide age chart
+    document.getElementById("myChart3").style.display = 'none'; // hide occupation chart
+    document.getElementById("myChart4").style.display = 'block'; // show gender chart
      
 
     var ctx = document.getElementById("myChart4");
+    // Create the chart
     var myChart = new Chart(ctx, {
     type: 'pie',
     data: {
         labels: ["Hombre", "Mujer"],
         datasets: [{
             label: 'Sexo',
-            data: listaSexo,
+            data: listaSexo, // List with the number of men and women that assisted to the event
             backgroundColor: [
                 'rgba(0, 0, 255, 1)',
                 'rgba(251, 148, 173, 1)',

@@ -2,14 +2,19 @@
 Searches if the number entered belongs to the code or identity document of any person, if so, prints true, otherwise prints false
 """
 
+# Import dependencies to access to the data
 import sys
 
+# Get data sent from the client
 numero = sys.argv[1]
 evento = sys.argv[2]
 
+# File where the registered people is stored
 fileName = "Asistentes_"+evento+".txt"
+# File where the entered people is stored
 asistentes = evento+"_asistentes.txt"
 
+# Check if the person is in the database
 file = open(fileName,"r")
 
 found=False
@@ -29,9 +34,11 @@ for persona in lineas:
     
 file.close()
 
+# Creates the assistance file in case it doesn't exist
 file = open(asistentes,"a")
 file.close()
 
+# Check if the person has already entered the event
 file = open(asistentes,"r")
 
 asistio = False

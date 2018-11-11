@@ -1,9 +1,14 @@
+/**
+ * Script used to download all the users once the person is logged in
+ */
+
+// Connect to server and get all the users information
 const xhttp = new XMLHttpRequest();
   xhttp.open("GET", "http://localhost:5000/manage_users", false);
   xhttp.send();
   const usuarios = JSON.parse(xhttp.responseText);
-  console.log(usuarios);
   lon = Object.keys(usuarios).length;
+  // For each user gotten from the server add the username and its permission to lists
   let nombres = [];
   let permisos = []
   for(i = 0; i < lon; i++){
@@ -22,6 +27,7 @@ const xhttp = new XMLHttpRequest();
     args: [nombres,permisos]
   };
 
+  // Call the python script used to store all the users locally in a text file
   let auxiliar = "";
   PythonShell.run("getUsers.py", options, function (err, results) {
     if(err) throw err;

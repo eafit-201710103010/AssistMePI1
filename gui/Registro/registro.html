@@ -54,17 +54,20 @@
                 document.getElementById("ingresar").click();
             }
             });
-
+            
+            // Call function to look people up in the Database
             function startRegister(){
                 rfid_manual();
             }
             
+            // Check if the person is registered and has entered and updates the screen
             function ingreso(encontrado,asistio,nombre,doc_identidad){
                 puedeEntrar = encontrado;
                 registrado = asistio;
                 verificarPantalla(nombre,doc_identidad);
             }
-
+            
+            // Finish registration
             function check(){
                 terminar = true;
                 document.getElementById("imagen").src="Feliz.png";
@@ -79,7 +82,8 @@
                 document.getElementById("leerCedula").style.display ="none";
                 rfid_terminate();
             }
-
+            
+            // Call function used to look people up in the "Database" using the rfid scanner
             function carne(){
                 document.getElementById("mensaje2").innerHTML = "Acerque su documento al lector";
                 rfid_scan();

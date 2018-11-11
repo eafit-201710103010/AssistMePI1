@@ -115,6 +115,7 @@
     <script>
 
         function finalizar(){
+            // If the conditions where accepted, register the person to the event
             if(document.getElementById("acceptance").checked){
                 register();
             }
@@ -124,6 +125,7 @@
         }
 
         function carne(){   
+            // If the conditions where accepted, read the id and register the person to the event
             if(document.getElementById("acceptance").checked){         
                 document.getElementById("finalizar").style.display = "none";
                 rfid_register();

@@ -1,8 +1,13 @@
+""" Script used to calculate the number of people for each occupation """
+
+# Import dependencies to access to the data
 import sys
 
 nombre_evento = sys.argv[1]
 
+# File where the event statistics are stored
 nombre_archivo = "Estadisticas_"+nombre_evento+".txt"
+
 cont_Administracion_de_negocios = 0
 cont_Bioligia = 0
 cont_Ciencias_politicas = 0
@@ -27,8 +32,10 @@ cont_Musica = 0
 cont_Negocios_Internacionales = 0
 cont_Psicologia = 0
 
+# Open file and read it line by line
 with open(nombre_archivo, "r") as file:
   lineas = file.readlines()
+  # For each person in the file check its occupation and add one to each cont depending the persons occupation
   for persona in lineas:
     datos_pesona = persona.split(",")
     ocupacion = datos_pesona[4]
@@ -77,6 +84,7 @@ with open(nombre_archivo, "r") as file:
     elif ocupacion == "Psicologia":
       cont_Psicologia += 1
 
+# Send the number of people from each occupation
 print(cont_Administracion_de_negocios)
 print(cont_Bioligia)
 print(cont_Ciencias_politicas)

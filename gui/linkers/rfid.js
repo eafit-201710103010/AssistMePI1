@@ -45,15 +45,15 @@ function rfid_register() {
     addNewPersonEntry(serialID, nombre, codigo, docIdentidad, ocupacion, edad, sexo);
   });
 
+  // Connect to the server and send the registered information
   function addNewPersonEntry(serial, nombre, codigo, docIdentidad, ocupacion, edad, sexo) {
-    // create option object with info for the python script
-    // in this case, it specifies where the script is and the arguments that it uses
     const evento  = localStorage["evento"];
     const xhttp = new XMLHttpRequest();
     xhttp.open("POST", `http://localhost:5000/register?serial=${serial}&nombre=${nombre}&codigo=${codigo}&doc_identidad=${docIdentidad}&ocupacion=${ocupacion}&edad=${edad}&sexo=${sexo}&nombre_evento=${evento}`, false);
     xhttp.send();
+
+    // Status code stores the response from the server, if it's "201" the person was successfully registered, otherwise there was an error
     const statusCode = xhttp.status;
-  
     if(statusCode == 201){
       alert("Persona Registrada Exitosamente");
       window.location.href = "../Eventos/eventos.html";
@@ -65,9 +65,11 @@ function rfid_register() {
 
 }
 
+/** Function used to register people without the rfid scanner, in case they are not students */
 function register(){
-  
+  // Event where the person is being registered
   const evento  = localStorage["evento"];
+  // Data entered in the interface
   const serial = ""
   const nombre = document.getElementById("nombre").value;
   const codigo = document.getElementById("codigo").value;
@@ -82,11 +84,13 @@ function register(){
     sexo = document.getElementById("hombre").value;
   }
 
+  // Connect to server and send the data
   const xhttp = new XMLHttpRequest();
   xhttp.open("POST", `http://localhost:5000/register?serial=${serial}&nombre=${nombre}&codigo=${codigo}&doc_identidad=${docIdentidad}&ocupacion=${ocupacion}&edad=${edad}&sexo=${sexo}&nombre_evento=${evento}`, false);
   xhttp.send();
-  const statusCode = xhttp.status;
 
+  // Status code stores the response from the server, if it's "201" the person was successfully registered, otherwise there was an error
+  const statusCode = xhttp.status;
   if(statusCode == 201){
     alert("Persona Registrada Exitosamente");
     window.location.href = "../Eventos/eventos.html";
@@ -105,7 +109,7 @@ function rfid_scan(){
 
   
   // create option object with info for the python script
-  // in this case, it specifies where the script is, the specific python version that we wantto use and 
+  // in this case, it specifies where the script is, the specific python version that we want to use and 
   // the port that we want to use to connect to the RPi
   const options = {
     mode: 'text',
@@ -133,19 +137,18 @@ function rfid_scan(){
   let auxiliar = "";
   let asistio = "false";
   let doc_identidad = "";
+  // Check if the serial id is registered and haven't entered the event
   function checkForId(serial) {
-    // create option object with info for the python script
-    // in this case, it specifies where the script is and the arguments that it uses.
     const evento = localStorage["evento"];
 
+    // create option object with info for the python script
     const options2 = {
       mode: 'text',
       scriptPath : path.join(__dirname,'../linkers/'),
       args: [serial,evento]
     } 
     
-    // call the python script used look for a person in the "Database"
-    
+    // call the python script used look for a person in the "Database"    
     PythonShell.run("searchFile.py", options2, function (err, results) {
       if(err) throw err;
       auxiliar = String(results[0]);
@@ -156,6 +159,7 @@ function rfid_scan(){
     });
   }
 
+  // If the person is registered and hasn't enterd the event can enter, otherwise can't
   function response(){
     if(auxiliar === "true" && asistio === "false") {
       return ingreso(true,false,nombre,doc_identidad);
@@ -192,6 +196,7 @@ function rfid_manual(){
   let asistio = "false";
   let nombre = "";
   let doc_identidad = "";
+  // call the python script used look for a person in the "Database"
   PythonShell.run("searchFileManual.py", options2, function (err, results) {
     if(err) throw err;
     auxiliar = String(results[0]);
@@ -201,9 +206,7 @@ function rfid_manual(){
     response();
   });
 
-  // call the python script used look for a person in the "Database"
-
-  // if the person is indeed in the "Database", return true, else return not
+  // if the person is indeed in the "Database" and hasn't entered the event, the person can enter, otherwise can't
   function response(){
     if(auxiliar === "true" && asistio === "false") {
       return ingreso(true,false,nombre,doc_identidad);
@@ -218,12 +221,12 @@ function rfid_manual(){
   
 }
 
+/** Function used to store the people who enter the event */
 function assistance(nombre,doc_identidad){
   // import python-shell and path modules
   let { PythonShell } = require("python-shell");
   const path = require("path");
 
-   // get number entered in the interface
   var evento = localStorage["evento"];
 
   // create option object with info for the python script
@@ -234,12 +237,13 @@ function assistance(nombre,doc_identidad){
     args: [evento,nombre,doc_identidad]
   };
 
-
+  // Call the pyhton script used to store the event assistants 
   PythonShell.run("assistance.py", options, function (err) {
     if(err) throw err;
   });
 }
 
+/** Function to terminate the rfid scanner */
 function rfid_terminate() {
   // import python-shell and path modules
   let { PythonShell } = require("python-shell");
@@ -255,15 +259,15 @@ function rfid_terminate() {
     args: [portNum]
   }
 
-  // call the python script used to get the id inside a card and store the number it returns in the serialID variable
-  // change the port with every call to avoid used socket error
+  // Call the python script used to terminate the rfid scanner
   PythonShell.run("terminatePi.py", options, function (err, results) {
     if(err) throw err;
   });
-
+  // Send the assistants to the database
   uploadAssistants();
 }
 
+/** Function used to store the assistants in the database once the registration is finished */
 function uploadAssistants(){
   const evento = localStorage["evento"];
   
@@ -272,16 +276,13 @@ function uploadAssistants(){
   const path = require("path");
 
   // create option object with info for the python script
-  // in this case, it specifies where the script is, the specific python version that we wantto use and 
-  // the port that we want to use to connect to the RPi
   const options = {
     mode: 'text',
     scriptPath: path.join(__dirname, '../linkers/'),
     args: [evento]
   }
 
-  // call the python script used to get the id inside a card and store the number it returns in the serialID variable
-  // change the port with every call to avoid used socket error
+  // call the python script used to send the information to the database
   let auxiliar = "";
   PythonShell.run("upload_assistants.py", options, function (err, results) {
     if(err) throw err;
