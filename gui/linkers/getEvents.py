@@ -37,6 +37,11 @@ if nombres is not "":
     archivo_asistentes = lista_nombres[evento]+"_asistentes.txt"
     with open(archivo_asistentes,"a") as f:
       pass
+    # Create the file where the statistics will be locally stored
+    archivo_estadistcas = "Estadisticas_"+lista_nombres[evento]+".txt"
+    with open(archivo_estadistcas,"a") as f:
+      pass
+    
   print("Eventos añadidos exitosamente")
 
   file.close()
