@@ -125,11 +125,9 @@ function checkButtonStats(){
           // if the information hasn't been downloaded, calls function "hideButtonStats", otherwise, calls function "showButtonStats"
           // "j-1" represents the row number where "evento" is stored
           if(auxiliar === "No vacio"){
-            console.log("No vacio")
             showButtonStats(j-1);
           }
           else{
-            console.log("vacio")
             hideButtonStats(j-1);
           }
       }
