@@ -2,8 +2,10 @@
 
 # Import dependencies from flask_restful, as well as the database models necessary and the session to connect to it
 from flask_restful import Resource
-from resources.database.db_session import session
+from resources.database.db_session import session, reconnect_to_db
 from resources.database.models import Evento
+
+from sqlalchemy.exc import OperationalError
 
 # This class will manage everything related to the registration process
 class GetEvents(Resource):
@@ -12,7 +14,13 @@ class GetEvents(Resource):
   # also returns a 200 HTTP status code indicating that the GET request was succesfull
   def get(self):
     # looks for an event id in the table and returns the number if one, and only one, match is found
-    eventos = session.query(Evento).all()
+    try:
+      eventos = session.query(Evento).all()
+    
+    except OperationalError:
+      session.rollback()
+      reconnect_to_db()
+      GetEvents.get(self)
     
     # create a list to store all the events
     lista_eventos = []

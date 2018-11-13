@@ -3,8 +3,10 @@
 # Import dependencies from flask_restful, as well as the database models necessary and the session to connect to it
 from flask_restful import Resource, reqparse
 from sqlalchemy import and_
-from resources.database.db_session import session
+from resources.database.db_session import session, reconnect_to_db
 from resources.database.models import Asistente
+
+from sqlalchemy.exc import OperationalError
 
 def hash_event(name):
   """ Hashes the name of an event to generate a usable event id of type in (BigInteger on the database) """
@@ -30,7 +32,13 @@ class UploadEvent(Resource):
     # Calculate the event id
     id_evento = hash_event(nombre_evento)
     # look up the specific person you are looking for
-    persona = session.query(Asistente).filter( and_(Asistente.doc_identidad == doc_identidad, Asistente.id_evento == id_evento)).first()
+    try:
+      persona = session.query(Asistente).filter( and_(Asistente.doc_identidad == doc_identidad, Asistente.id_evento == id_evento)).first()
+
+    except OperationalError:
+      session.rollback()
+      reconnect_to_db()
+      UploadEvent.put(self, nombre_evento, doc_identidad)
 
     # update the specified value
     persona.asistio = True

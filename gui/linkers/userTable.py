@@ -9,6 +9,7 @@ lineas = file.readlines()
 # For each user in the file sends it's information to the javascript 
 for usuario in lineas:
     datos_usuario = usuario.split(",")
+    for dato in datos_usuario:
         print(dato)
 
 file.close()

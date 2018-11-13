@@ -2,12 +2,12 @@
 
 # Import dependencies from flask_restful, as well as the database models necessary and the session to connect to it
 from flask_restful import Resource, reqparse
-from resources.database.db_session import session
+from resources.database.db_session import session, reconnect_to_db
 from resources.database.models import Usuario
 # Also import the AESCipher from tools in order to encrypt and decrypt user passwords, as well as it's key
 from resources.tools.aes_encryption import AESCipher, secret_key
 # Import possible errors
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, OperationalError
 
 
 # Create the parser for the requests and add all the expected arguments
@@ -53,6 +53,11 @@ class ManageUsers(Resource):
       print("\nDATABASE INTEGRITY ERROR! Aborting Registration for:\n{}".format(usuario))
       session.rollback() # restart session to get rid of errors
     
+    except OperationalError:
+      session.rollback()
+      reconnect_to_db()
+      ManageUsers.post(self)
+    
     usuario_data = {
                     "nombre": usuario.nombre,
                     "password": usuario.password,
@@ -68,7 +73,14 @@ class ManageUsers(Resource):
   def get(self):
     # Process to get a list with all of the users  
     info_usuarios = []
-    lista_usuarios = session.query(Usuario).all()
+    
+    try:
+      lista_usuarios = session.query(Usuario).all()
+    
+    except OperationalError:
+      session.rollback()
+      reconnect_to_db()
+      ManageUsers.get(self)
     
     for usuario in lista_usuarios:
       usuario_auxiliar = {
@@ -89,7 +101,13 @@ class ManageUsers(Resource):
 
     # Delete user specified
     
-    session.query(Usuario).filter(Usuario.nombre == args["nombre"]).delete()
+    try:
+      session.query(Usuario).filter(Usuario.nombre == args["nombre"]).delete()
+
+    except OperationalError:
+      session.rollback()
+      reconnect_to_db()
+      ManageUsers.delete(self)
 
     session.commit()
 

@@ -3,9 +3,10 @@
 # Import dependencies from flask_restful, as well as the database models necessary and the session to connect to it
 from flask_restful import Resource, reqparse
 from resources.database.db_session import session
+from resources.database.db_session import reconnect_to_db
 from resources.database.models import Evento
 
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, OperationalError
 
 # Create the parser for the requests and add all the expected arguments
 add_event_parser = reqparse.RequestParser()
@@ -58,6 +59,11 @@ class AddEvent(Resource):
       error_found = True
       print("\nDATABASE INTEGRITY ERROR! Aborting insersion of:\n{}".format(evento))
       session.rollback()
+    
+    except OperationalError:
+      session.rollback()
+      reconnect_to_db()
+      AddEvent.post(self)
 
     evento_data = {
                    "id_evento": evento.id_evento,

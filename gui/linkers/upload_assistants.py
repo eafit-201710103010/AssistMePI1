@@ -19,7 +19,7 @@ lineas = file.readlines()
 for asistente in lineas:
   datos_asistente = asistente.split(",")
   doc_identidad = datos_asistente[0]
-  r = requests.put('http://localhost:5000/upload_event/{0}/{1}'.format(nombre_evento, doc_identidad))
+  r = requests.put('http://assistmeserver.herokuapp.com/upload_event/{0}/{1}'.format(nombre_evento, doc_identidad))
 
 print("asistentes guardados")
 

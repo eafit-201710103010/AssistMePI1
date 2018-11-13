@@ -4,7 +4,7 @@
 
 // Connect to server and get all the users information
 const xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "http://localhost:5000/manage_users", false);
+  xhttp.open("GET", "http://assistmeserver.herokuapp.com/manage_users", false);
   xhttp.send();
   const usuarios = JSON.parse(xhttp.responseText);
   lon = Object.keys(usuarios).length;

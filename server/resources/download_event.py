@@ -2,8 +2,10 @@
 
 # Import dependencies from flask_restful, as well as the database models necessary and the session to connect to it
 from flask_restful import Resource
-from resources.database.db_session import session
+from resources.database.db_session import session, reconnect_to_db
 from resources.database.models import Asistente, Evento
+
+from sqlalchemy.exc import OperationalError
 
 # This class will manage everything related to the registration process
 class DownloadEvent(Resource):
@@ -12,13 +14,25 @@ class DownloadEvent(Resource):
   # also returns a 200 HTTP status code indicating that the GET request was succesfull
   def get(self, nombre_evento):
     # looks for an event id in the table and returns the number if one, and only one, match is found
-    id_evento = session.query(Evento.id_evento).filter(Evento.nombre.like(nombre_evento)).scalar()
+    try:
+      id_evento = session.query(Evento.id_evento).filter(Evento.nombre.like(nombre_evento)).scalar()
     
+    except OperationalError:
+      session.rollback()
+      reconnect_to_db()
+      DownloadEvent.get(self, nombre_evento)
     # create a list to store all of the assistants
     info_asistentes = []
+
     # look for all the assistants in the db
-    asistentes_evento = session.query(Asistente).filter(Asistente.id_evento == id_evento).all()
+    try:
+      asistentes_evento = session.query(Asistente).filter(Asistente.id_evento == id_evento).all()
     
+    except OperationalError:
+      session.rollback()
+      reconnect_to_db()
+      DownloadEvent.get(self, nombre_evento)
+      
     # add everyone to the list as a dict (json)
     for asistente in asistentes_evento:
       asistentes_auxiliar = {

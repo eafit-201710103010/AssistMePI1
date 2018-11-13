@@ -58,7 +58,7 @@ function rfid_register() {
   function addNewPersonEntry(serial, nombre, codigo, docIdentidad, ocupacion, edad, sexo) {
     const evento  = localStorage["evento"];
     const xhttp = new XMLHttpRequest();
-    xhttp.open("POST", `http://localhost:5000/register?serial=${serial}&nombre=${nombre}&codigo=${codigo}&doc_identidad=${docIdentidad}&ocupacion=${ocupacion}&edad=${edad}&sexo=${sexo}&nombre_evento=${evento}`, false);
+    xhttp.open("POST", `http://assistmeserver.herokuapp.com/register?serial=${serial}&nombre=${nombre}&codigo=${codigo}&doc_identidad=${docIdentidad}&ocupacion=${ocupacion}&edad=${edad}&sexo=${sexo}&nombre_evento=${evento}`, false);
     xhttp.send();
 
     // Status code stores the response from the server, if it's "201" the person was successfully registered, otherwise there was an error
@@ -100,7 +100,7 @@ function register(){
   else{
     // Connect to server and send the data
     const xhttp = new XMLHttpRequest();
-    xhttp.open("POST", `http://localhost:5000/register?serial=${serial}&nombre=${nombre}&codigo=${codigo}&doc_identidad=${docIdentidad}&ocupacion=${ocupacion}&edad=${edad}&sexo=${sexo}&nombre_evento=${evento}`, false);
+    xhttp.open("POST", `http://assistmeserver.herokuapp.com/register?serial=${serial}&nombre=${nombre}&codigo=${codigo}&doc_identidad=${docIdentidad}&ocupacion=${ocupacion}&edad=${edad}&sexo=${sexo}&nombre_evento=${evento}`, false);
     xhttp.send();
 
     // Status code stores the response from the server, if it's "201" the person was successfully registered, otherwise there was an error

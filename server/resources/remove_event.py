@@ -2,10 +2,10 @@
 
 # Import dependencies from flask_restful, as well as the database models necessary and the session to connect to it
 from flask_restful import Resource, reqparse
-from resources.database.db_session import session
+from resources.database.db_session import session, reconnect_to_db
 from resources.database.models import Asistente, Evento
 
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, OperationalError
 
 # Create the parser for the requests and remove all the expected arguments
 rem_event_parser = reqparse.RequestParser()
@@ -38,8 +38,14 @@ class RemoveEvent(Resource):
     event_identifier = hash_event(args["nombre"])
 
     # search for the assistants first then delete the event itself
-    id_evento = session.query(Evento.id_evento).filter(Evento.nombre.like(args["nombre"])).scalar()
+    try:
+      id_evento = session.query(Evento.id_evento).filter(Evento.nombre.like(args["nombre"])).scalar()
     
+    except OperationalError:
+      session.rollback()
+      reconnect_to_db()
+      RemoveEvent.delete(self)
+
     session.query(Asistente).filter(Asistente.id_evento == id_evento).delete()
     session.query(Evento).filter(Evento.id_evento == event_identifier).delete()
 

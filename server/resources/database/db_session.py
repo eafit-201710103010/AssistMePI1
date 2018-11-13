@@ -8,3 +8,9 @@ from sqlalchemy.orm import sessionmaker
 engine = create_engine('mysql://fcortesj@assistmedatabase:yxmYSG43@assistmedatabase.mysql.database.azure.com/assistMe')
 Session = sessionmaker(bind=engine)
 session = Session()
+
+# reconnect to the db in case of a timeout
+def reconnect_to_db():
+  engine = create_engine('mysql://fcortesj@assistmedatabase:yxmYSG43@assistmedatabase.mysql.database.azure.com/assistMe')
+  Session = sessionmaker(bind=engine)
+  session = Session()

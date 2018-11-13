@@ -199,7 +199,7 @@ function createEvent(){
     function response(){
       if(auxiliar === "evento creado"){
         const xhttp = new XMLHttpRequest();
-        xhttp.open("POST", `http://localhost:5000/add_event?nombre=${nombre}&lugar=${lugar}&fecha=${fecha}`, false);
+        xhttp.open("POST", `http://assistmeserver.herokuapp.com/add_event?nombre=${nombre}&lugar=${lugar}&fecha=${fecha}`, false);
         xhttp.send();
         // Status code stores the response from the server, if it's "201" the event was successfully added, otherwise there was an error
         const statusCode = xhttp.status;
@@ -351,7 +351,7 @@ function eliminarEvento(evento){
   function response(){
     if(auxiliar === "evento eliminado"){
       const xhttp = new XMLHttpRequest();
-      xhttp.open("DELETE", `http://localhost:5000/remove_event?nombre=${nombreEvento}`, false);
+      xhttp.open("DELETE", `http://assistmeserver.herokuapp.com/remove_event?nombre=${nombreEvento}`, false);
       xhttp.send();
       // If the response from the server is "204" the event was successfully deleted, else there was an error
       const statusCode = xhttp.status;
@@ -373,7 +373,7 @@ function eliminarEvento(evento){
 /** Connect to the server and get information of the people registered for the event */
 function descargar(evento){
   const xhttp = new XMLHttpRequest();
-  xhttp.open("GET", `http://localhost:5000/download_event/${evento}`, false);
+  xhttp.open("GET", `http://assistmeserver.herokuapp.com/download_event/${evento}`, false);
   xhttp.send();
   const asistentesEvento = JSON.parse(xhttp.responseText);
 
@@ -430,7 +430,7 @@ function descargar(evento){
 /** Connect to the server and get information of the event assistance to create the statistics */
 function descargarEstadisticas(evento){
   const xhttp = new XMLHttpRequest();
-  xhttp.open("GET", `http://localhost:5000/download_stats/${evento}`, false);
+  xhttp.open("GET", `http://assistmeserver.herokuapp.com/download_stats/${evento}`, false);
   xhttp.send();
   const estadisticasEvento = JSON.parse(xhttp.responseText);
 

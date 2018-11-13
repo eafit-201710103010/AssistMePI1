@@ -2,10 +2,10 @@
 
 # Import dependencies from flask_restful, as well as the database models necessary and the session to connect to it
 from flask_restful import Resource, reqparse
-from resources.database.db_session import session
+from resources.database.db_session import session, reconnect_to_db
 from resources.database.models import Asistente, Evento
 # Import possible errors
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, OperationalError
 
 # Create the parser for the requests and add all the expected arguments
 register_parser = reqparse.RequestParser()
@@ -29,7 +29,13 @@ class Register(Resource):
     args = register_parser.parse_args()
 
     # look for the corresponding event id based on the event name
-    id_evento_persona = session.query(Evento.id_evento).filter(Evento.nombre == args["nombre_evento"]).scalar()
+    try:
+      id_evento_persona = session.query(Evento.id_evento).filter(Evento.nombre == args["nombre_evento"]).scalar()
+
+    except OperationalError:
+      session.rollback()
+      reconnect_to_db()
+      Register.post(self)
 
     # Create model object
     persona = Asistente(doc_identidad=args["doc_identidad"],
@@ -54,6 +60,11 @@ class Register(Resource):
       error_found = True
       print("\nDATABASE INTEGRITY ERROR! Aborting Registration for:\n{}".format(persona))
       session.rollback() # restart session to get rid of errors
+
+    except OperationalError:
+      session.rollback()
+      reconnect_to_db()
+      Register.post(self)
     
     persona_data = {
                     "doc_identidad": persona.doc_identidad,

@@ -14,7 +14,7 @@ function login(){
   }
   else{
     const xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `http://localhost:5000/log_in?nombre=${usuario}&password=${password}`, false);
+    xhttp.open("GET", `http://assistmeserver.herokuapp.com/log_in?nombre=${usuario}&password=${password}`, false);
     xhttp.send();
     if(xhttp.status == 500){  // If the response sent from the server is 500 the username or password is invalid
       alert("Usuario o contraseña incorrectos");
@@ -38,7 +38,7 @@ function login(){
 function getEvents(){
   // Connect to server and download events
   const xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "http://localhost:5000/get_events", false);
+  xhttp.open("GET", "http://assistmeserver.herokuapp.com/get_events", false);
   xhttp.send();
   const events = JSON.parse(xhttp.responseText);
   
@@ -77,7 +77,8 @@ function getEvents(){
     console.log(auxiliar);
   }
   // Wait one second so that all the events can be downloaded and then go to the profile page 
-  setTimeout(nextWindow, 1000);
+  //setTimeout(nextWindow, 1000);
+  nextWindow();
 }
 
 /** Go to the profile page */

@@ -3,10 +3,12 @@
 # Import dependencies from flask_restful, as well as the database models necessary and the session to connect to it
 from flask_restful import Resource, reqparse
 from sqlalchemy import and_
-from resources.database.db_session import session
+from resources.database.db_session import session, reconnect_to_db
 from resources.database.models import Usuario
 # Also import the AESCipher from tools in order to encrypt and decrypt user passwords, as well as it's key
 from resources.tools.aes_encryption import AESCipher, secret_key
+
+from sqlalchemy.exc import OperationalError
 
 # Create the parser for the requests and add all the expected arguments
 log_in_parser = reqparse.RequestParser()
@@ -28,10 +30,16 @@ class LogIn(Resource):
     encrypted_password = cipher.encrypt(user_password)
 
     # look for the user with that password
-    usuario = session.query(Usuario).filter( and_(
-                                                  Usuario.nombre == args["nombre"],
-                                                  Usuario.password == encrypted_password
-                                                  )).first()
+    try:
+      usuario = session.query(Usuario).filter( and_(
+                                                    Usuario.nombre == args["nombre"],
+                                                    Usuario.password == encrypted_password
+                                                    )).first()
+
+    except OperationalError:
+      session.rollback()
+      reconnect_to_db()
+      LogIn.get(self)
 
     if usuario is None:
       # this user was not found

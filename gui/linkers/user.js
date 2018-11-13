@@ -79,7 +79,7 @@ function addUser(){
     function response(){
       if(auxiliar === "usuario agregado"){
         const xhttp = new XMLHttpRequest();
-        xhttp.open("POST", `http://localhost:5000/manage_users?nombre=${nombre}&password=${password}&permiso=${permisos}`, false);
+        xhttp.open("POST", `http://assistmeserver.herokuapp.com/manage_users?nombre=${nombre}&password=${password}&permiso=${permisos}`, false);
         xhttp.send();
         // Status code stores the response from the server, if it's "201" the user was successfully added, otherwise there was an error
         const statusCode = xhttp.status;
@@ -136,7 +136,7 @@ function deleteUser(usuario){
   function response(){
     if(auxiliar === "usuario eliminado"){
       const xhttp = new XMLHttpRequest();
-      xhttp.open("DELETE", `http://localhost:5000/manage_users?nombre=${nombreUsuario}`, false);
+      xhttp.open("DELETE", `http://assistmeserver.herokuapp.com/manage_users?nombre=${nombreUsuario}`, false);
       xhttp.send();
       // If the response from the server is "204" the user was successfully deleted, else there was an error
       const statusCode = xhttp.status;
