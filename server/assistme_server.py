@@ -6,6 +6,8 @@ In this file you will find the main that makes the server run.
 It also works as an index where you can find all of the resources and endpoints of the server.
 """
 
+import os
+
 # Import dependecies from flask and flask-restful 
 from flask import Flask
 from flask_restful import Resource, Api
@@ -41,4 +43,4 @@ api.add_resource(UploadEvent, "/upload_event/<string:nombre_evento>/<string:doc_
 
 # Main --> run the server
 if __name__ == '__main__':
-  app.run(host='0.0.0.0')
+  app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 33507)))
