@@ -46,7 +46,7 @@ function getEvents(){
   // Add to a list of names, places and dates each event
   let nombres = [];
   let lugares = [];
-  let fechas = []
+  let fechas = [];
   for(i = 0; i < lon; i++){
     nombres.push(events[i]["nombre"]);
     lugares.push(events[i]["lugar"]);
